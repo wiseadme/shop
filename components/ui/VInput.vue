@@ -17,6 +17,7 @@
              :placeholder="placeholder"
              :disabled="disabled"
              :readonly="readonly"
+             autocomplete="off"
              @input="inputEmmitter"
              @focus="focusHandler"
              @blur="blurHandler"
@@ -212,9 +213,9 @@
       font-size: 16px;
       font-family: 'Roboto', sans-serif;
       background: transparent;
-      padding: 24px 12px 5px;
+      padding: 24px 12px 8px;
       &--cutLeft {
-        padding: 24px 12px 5px 35px;
+        padding: 24px 12px 8px 35px;
         width: 100%;
       }
       &--cutRight {

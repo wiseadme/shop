@@ -2,7 +2,7 @@
   <div class="login-page">
     <transition name="fadeIn" mode="out-in">
       <app-form
-        v-if="!isAuthenticated && !getUser"
+        v-if="!isLogin && !user"
         @alert="alert = true"
         @sended="alert = $event"
         ref="form"
@@ -21,9 +21,17 @@
     },
 
     data() {
-      return {
+      return {}
+    },
 
-      }
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        if (!vm.isLogin) {
+          next()
+        } else {
+          vm.$router.replace('/')
+        }
+      })
     },
 
     methods: {
@@ -33,17 +41,14 @@
     },
 
     computed: {
-      ...mapGetters({
-        isAuthenticated: 'AuthModule/isAuthenticated',
-        getUser: 'AuthModule/getUser',
-        getToken: 'AuthModule/getToken',
-        getResponse: 'AuthModule/getResponse'
+      ...mapState({
+        isLogin: state => state.AuthModule.token,
+        user: state => state.AuthModule.user
       })
+
     },
 
-    watch: {
-
-    }
+    watch: {}
   }
 </script>
 

@@ -3,13 +3,15 @@
     <template v-for="(it, i) in all">
       <div :class="['notify', it.type]" :data-id="it.id" :key="it.type + i" v-if="it.show">
         <div class="notify__icon">
-          <i :class="['notify__icon-font', 'material-icons']">
-            {{ it.type === 'success' ? 'check_circle' : it.type === 'warning' ? 'report_problem' : it.type === 'danger' ?
-            'error_outline': 'info'}}
+          <i :class="['material-icons', 'notify__icon-font', `notify__icon-${it.type}`]">
+            {{
+            it.type === 'success' ? 'check_circle' : it.type === 'warning' ? 'report_problem' : it.type === 'danger' ?
+            'error': 'info'
+            }}
           </i>
         </div>
         <div class="notify__message">
-          <span class="notify__message-text">{{ it.message }}</span>
+          <span :class="['notify__message-text', `notify__message-text--${it.type}`]">{{ it.message }}</span>
         </div>
       </div>
     </template>
@@ -27,14 +29,14 @@
     },
 
     mounted() {
-      events.$on('add', ( params ) => {
+      events.$on('add', (params) => {
         this.all.push(params)
         setTimeout(() => this.destroyNotify(params.id), params.duration)
       })
     },
 
     methods: {
-      destroyNotify( id ) {
+      destroyNotify(id) {
         let found = this.all.findIndex(it => it.id === id)
         this.all[found].show = false
         let flag = this.all.every(it => !it.show)
@@ -53,7 +55,8 @@
   $black: #272727;
   $green: #23a051;
   $blue: #5697ff;
-  $orange: #dda325;
+  $orange: #dd9400;
+  $darkBlue: #040424;
 
   .notify-wrap {
     position: fixed;
@@ -97,6 +100,7 @@
     margin: 10px 0;
     width: 270px;
     height: 90px;
+    background: $darkBlue;
     border-radius: 3px;
     box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.3);
 
@@ -114,41 +118,63 @@
         font-size: 2em;
         line-height: 10px;
       }
+
+      &-warning {
+        color: $orange;
+      }
+
+      &-info {
+        color: $blue;
+      }
+
+      &-success {
+        color: $green;
+      }
+
+      &-danger {
+        color: $red;
+      }
     }
 
     &__message {
       width: 80%;
 
       &-text {
-        color: $black;
-        font-size: 12px;
-        font-family: 'Exo2-Regular', sans-serif;
+        @include font($white, 12px);
+
+        &--warning {
+          color: $orange;
+        }
+
+        &--info {
+          color: $blue;
+        }
+
+        &--success {
+          color: $green;
+        }
+
+        &--danger {
+          color: $red;
+        }
       }
     }
   }
 
   .warning {
-    background: $white;
-    border: 2px solid $orange;
-    color: $orange;
+    border: 8px solid $orange;
   }
 
   .info {
-    background: $white;
-    border: 2px solid $blue;
-    color: $blue;
+    border: 8px solid $blue;
   }
 
   .success {
-    background: $white;
-    border: 2px solid $green;
-    color: $green;
+    border: 8px solid $green;
   }
 
   .danger {
-    background: $white;
-    border: 2px solid $red;
-    color: $red;
+    border: 8px solid $red;
   }
 
   .fadeIn-enter, .fadeIn-leave-to {
@@ -163,6 +189,4 @@
   .fadeIn-move, .move {
     transition: transform .3s ease-in-out;
   }
-
-
 </style>

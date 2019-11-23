@@ -1,5 +1,5 @@
-@mixin fontSize ($color, $fontSize) { //@include fontSize(#fa5a5a, 1.2em, 700);
-  font-family: 'Exo2-Regular', sans-serif;
+@mixin font($color, $fontSize) { //@include fontSize(#fa5a5a, 1.2em, 700);
+  font-family: 'Exo-Regular', sans-serif;
   font-size: $fontSize;
   color: $color;
 }

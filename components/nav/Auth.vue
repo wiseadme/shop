@@ -1,44 +1,70 @@
 <template>
   <div class='auth-block'>
-    <span class='auth-block__icon'></span>
-    <router-link @click.native="checkLoginStatus" to='/auth/login' class='auth-block__login'>Войти</router-link>
-    <router-link @click.native="checkLoginStatus" to='/auth/registraciya' class='auth-block__reg'>Регистрация</router-link>
+    <div class="auth-block__inner">
+      <span class='auth-block__icon'></span>
+      <router-link
+        to='/auth/login'
+        class='auth-block__login'
+      >
+        {{!isLogin ? 'Войти' : 'Выйти'}}
+      </router-link>
+      <router-link
+        v-if="!isLogin"
+        to='/auth/registraciya'
+        class='auth-block__reg'
+      >
+        Регистрация
+      </router-link>
+    </div>
   </div>
 </template>
 <script>
-export default {
-  methods: {
-    checkLoginStatus(){
-      if (this.isLogin) {
-        this.$router.replace('/')
-      }
+  export default {
+    computed: {
+      ...mapState({
+        isLogin: state => state.AuthModule.token
+      })
     }
-  },
-
-  computed:{
-    ...mapState({
-      isLogin: state => state.AuthModule.logedIn
-    })
   }
-}
 </script>
-<style lang='css'>
-  .auth-block{
-    display: flex;
-    justify-content: space-around;
-    font-size: .8em;
-    width: auto;
-    /* border: 1px solid red; */
-  }
-  .auth-block__icon{
-    width: 15px;
-    height: 15px;
-    background-image: url('../../assets/img/login.svg');
-    background-size: cover;
-  }
-  .auth-block__login, .auth-block__reg{
-    color: #040424;
-    text-decoration: none;
-    margin-left:5px;
+<style lang='scss'>
+  .auth-block {
+    min-width: 190px;
+    background: $darkBlue;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: $boxShadow;
+
+    &__inner {
+      width: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    &__icon {
+      width: 15px;
+      height: 15px;
+      background-image: url('../../assets/img/login.svg');
+      background-size: cover;
+    }
+
+    &__login, &__reg {
+      @include font($white, .8em);
+      text-decoration: none;
+      line-height: 1.6em;
+      margin: 0 10px;
+      position: relative;
+    }
+
+    &__login:after{
+      content: '';
+      display: block;
+      position: absolute;
+      height: 70%;
+      width: 2px;
+      background: $white;
+      right: -12px;
+      top: 15%;
+    }
   }
 </style>

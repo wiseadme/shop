@@ -9,7 +9,7 @@ export default {
         throw (`Notification params not valid`)
       }
       if (!params.duration) {
-        params.duration = 3000
+        params.duration = 5000
       }
       params.id = Math.ceil(Math.random() * 99999 * 2e4)
       params.show = true

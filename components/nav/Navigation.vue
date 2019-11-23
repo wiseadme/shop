@@ -16,59 +16,52 @@
   </nav>
 </template>
 <script>
-export default {
-  name: 'Navigation',
-  props: {
-    menuItems: {
-      type: Array,
-      required: true
-    }
-  },
-  data () {
-    return {
+  export default {
+    name: 'Navigation',
+    props: {
+      menuItems: {
+        type: Array,
+        required: true
+      }
+    },
+    data() {
+      return {}
+    },
 
-    }
-  },
-
-  methods: {
-
+    methods: {}
   }
-}
 </script>
-<style lang='css'>
-.nav-block {
-  width: 100%;
-  max-width: 700px;
-  height: 100%;
-}
-.nav-list-move {
-  opacity: 0;
-  transition: all 0.3s;
-}
-.nav-block__menu {
-  width: auto;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  /* border: 1px solid rgb(8, 192, 69); */
+<style lang='scss'>
+  .nav-block {
+    width: 100%;
+    height: 100%;
+  }
 
-}
-.nav-block__link {
-  color: rgb(167, 160, 160);
-  text-decoration: none;
-  line-height: 52px;
-  padding: 0 10px 0 10px;
-  /* border: 1px solid red; */
-}
+  .nav-list-move {
+    opacity: 0;
+    transition: all 0.3s;
+  }
 
-.nav-block__link-text{
-  padding: 10px 20px;
-  font-size: .8em;
-  /* border: 1px solid red; */
-}
+  .nav-block__menu {
+    width: auto;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 
-.nav-block__link-active {
-  color: rgb(255, 255, 255);
-}
+  .nav-block__link {
+    @include font(rgb(167, 160, 160), .8em);
+    text-decoration: none;
+    line-height: 52px;
+    padding: 0 10px 0 10px;
+  }
+
+  .nav-block__link-text {
+    padding: 10px 20px;
+  }
+
+  .nav-block__link-active {
+    color: $white;
+  }
 </style>

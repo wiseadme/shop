@@ -17,8 +17,7 @@
 <style lang="scss">
 
   .address {
-    color: #040424;
-    font-size: .8em;
+    @include font($darkBlue, .8em);
 
     &__metro {
       display: flex;

@@ -60,14 +60,6 @@ export default {
 </script>
 
 <style lang='scss'>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  outline: none;
-  border: none;
-}
-
 .header {
   width: 100%;
   height: 120px;
@@ -89,6 +81,8 @@ export default {
   width: 100%;
   height: 60px;
   background-color: $darkBlue;
+  border-radius: 5px;
+  box-shadow: $boxShadow;
 }
 
 .inner-wrap {

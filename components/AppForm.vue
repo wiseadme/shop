@@ -100,6 +100,7 @@
         login: `AuthModule/${action.LOGIN_USER}`,
         create: `AuthModule/${action.CREATE_USER}`
       }),
+
       changeForm() {
         this.isRegistration = !this.isRegistration
         this.isLogin = !this.isLogin
@@ -115,19 +116,17 @@
       },
 
       loginUser(param) {
-        this.login(param).then(user => {
-          console.log(user)
+        this.login(param).then(() => {
           this.$notify({
             type: this.messages.loginSuccess.type,
             message: this.messages.loginSuccess.message
           })
-          setTimeout(() => this.$router.push('/'), 500)
+          setTimeout(() => this.$router.replace('/'), 1000)
         })
           .catch(err => {
-            console.log(err)
             this.$notify({
               type: this.messages.loginFail.type,
-              message: { err }
+              message: err.response.status + ' ' + err.response.data.message
             })
           })
       },
@@ -139,14 +138,14 @@
             message: user
           }))
           .catch(err => this.$notify({
-            type: 'danger',
+            type: 'error',
             message: err
           }))
       }
     },
     computed: {
-      ...mapGetters({
-        getToken: 'AuthModule/getToken'
+      ...mapState({
+        token: state => state.AuthModule.token
       })
     }
   }
@@ -173,20 +172,17 @@
 
     &-head {
       width: 100%;
-      height: 50px;
+      height: auto;
       background: $darkBlue;
 
       &__text {
         width: 100%;
         text-align: center;
         padding: 15px 0;
-        font-size: 1.1em;
-        font-family: 'Play', sans-serif;
-        color: #ffffff;
         line-height: 18px;
+        @include font($white, 1.2em);
       }
     }
-
   }
 
   .input-wrap {

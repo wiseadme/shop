@@ -19,10 +19,9 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
   .contact-block{
     display: flex;
-    /* border: 1px solid red; */
   }
   .icon-wrap{
     width: 20px;
@@ -32,18 +31,19 @@ export default {
 
   .icon{
     display: block;
-    margin: 0 auto;
     background-image: url("../../assets/img/phone.svg");
     background-size: cover;
     width: 20px;
     height: 20px;
-    margin-top: 4px;
+    margin: 4px auto 0;
   }
 
   .phones-wrap{
     color: #040424;
   }
   .phone{
+    @include font($darkBlue, .8em);
+    line-height: 1.6em;
     padding: 4px 0;
 
   }
