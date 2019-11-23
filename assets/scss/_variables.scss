@@ -1,0 +1,25 @@
+$bcgWhite: #f4f4f4;
+$white: #fefefe;
+$red: #ff3851;
+$black: #272727;
+$green: #23a051;
+$blue: #5697ff;
+$orange: #dda325;
+$darkBlue: #040424;
+
+  //border
+$border: 1px solid red;
+
+  //fonts
+$exo: 'Exo2-Regular', sans-serif;
+
+  //sizes
+$col: 100% / 12;
+$colFix: 1300px / 12;
+
+$headerHeight: 60px;
+$asideWidth: 150px;
+
+@media screen and(max-width: 1500px) {
+  $col: 100% / 6
+}

@@ -1,0 +1,56 @@
+@import './reset';
+@import './global';
+@import './settings';
+@import './animations';
+
+body {
+  -webkit-font-smoothing: antialiased
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+}
+h1{
+  font-size: 4em;
+}
+.container {
+  width: 100%;
+  max-width: 1440px;
+  height: 100vh;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.route-wrap {
+  height: calc(100vh - 140px);
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.page {
+  width: 100%;
+  overflow: auto;
+}
+
+::-webkit-scrollbar-button {
+  width: 3px;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #040424;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #387de4;
+}
+
+::-webkit-resizer {
+  width: 3px;
+  height: 0;
+}
+::-webkit-scrollbar {
+  width: 3px;
+}
