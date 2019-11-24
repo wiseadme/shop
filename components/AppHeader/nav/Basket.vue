@@ -1,9 +1,9 @@
 <template>
-  <router-link to="/basket" class="basket-block">
+  <nuxt-link to="/basket" class="basket-block">
     <i class="material-icons basket-block__icon">shopping_basket</i>
     <div ref="inBasket" class="basket-block__items">{{basketValue}}</div>
     <span class="basket-block__desc">Корзина</span>
-  </router-link>
+  </nuxt-link>
 </template>
 <script>
 
@@ -30,6 +30,7 @@
 
   .basket-block__icon {
     color: $blue;
+    font-size: 20px;
   }
 
   .basket-block__items {

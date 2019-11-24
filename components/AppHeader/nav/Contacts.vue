@@ -23,7 +23,6 @@ export default {
   .contact-block{
     display: flex;
     align-items: center;
-    height: 40px;
   }
   .icon-wrap{
     margin: 0 5px;
@@ -31,6 +30,7 @@ export default {
 
   .icon{
     color: $blue;
+    font-size: 20px;
   }
 
   .phones-wrap{

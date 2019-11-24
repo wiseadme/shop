@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1>Hello Mello</h1>
+
   </header>
 </template>
 
@@ -8,6 +8,6 @@
   .header{
     width: 100%;
     height: 60px;
-    background: $darkBlue;
+    background: $black;
   }
 </style>

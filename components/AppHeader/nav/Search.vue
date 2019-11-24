@@ -32,7 +32,7 @@ export default {
     height: 40px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
-    background-image: url("../../assets/img/search.svg");
+    background-image: url("../../../assets/img/search.svg");
     background-size: 50%;
     background-repeat: no-repeat;
     background-position: center center;

@@ -27,7 +27,7 @@
         width: 15px;
         height: 15px;
         margin-right: 5px;
-        background-image: url("../../assets/img/metro.svg");
+        background-image: url("../../../assets/img/metro.svg");
         background-size: cover;
       }
     }

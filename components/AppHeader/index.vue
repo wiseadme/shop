@@ -36,7 +36,7 @@
   import AppSearch from './nav/Search.vue'
   import AppAddress from './nav/Address.vue'
   import AppAuth from './nav/Auth.vue'
-  import menuItems from '../schemes/menu.json'
+  import menuItems from '../../schemes/menu.json'
 
   export default {
     name: 'AppHeader',
@@ -109,10 +109,15 @@
   .contact-wrap {
     display: block;
     width: auto;
+    padding: 0 12px;
   }
 
   .address-wrap {
     display: block;
+  }
+
+  .auth-wrap{
+    min-width: 190px;
   }
 
   .nav-wrap {

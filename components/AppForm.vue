@@ -148,6 +148,7 @@
           }))
       }
     },
+
     computed: {
       ...mapState({
         token: state => state.AuthModule.token
@@ -166,7 +167,7 @@
     margin: auto;
     border-radius: 5px;
     background: $white;
-    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, .5);
+    box-shadow: $boxShadow;
     overflow: hidden;
 
     &-block {
@@ -178,14 +179,14 @@
     &-head {
       width: 100%;
       height: auto;
-      background: $darkBlue;
+      background: $white;
 
       &__text {
         width: 100%;
         text-align: center;
         padding: 15px 0;
         line-height: 18px;
-        @include fontPlay($white, 1.2em);
+        @include fontPlay($blue, 1.5em);
       }
     }
   }

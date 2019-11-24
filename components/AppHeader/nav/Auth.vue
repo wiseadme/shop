@@ -10,7 +10,7 @@
         {{user ? user : ''}}
       </router-link>
       <router-link
-        to='/auth/user'
+        to='/auth'
         class='auth-block__login'
         @click.native.prevent="checkBeforeOut"
       >
@@ -54,7 +54,7 @@
 </script>
 <style lang='scss'>
   .auth-block {
-    min-width: 190px;
+    width: 100%;
 
     &__inner {
       width: auto;
@@ -64,7 +64,7 @@
     }
 
     &__icon {
-      font-size: 5px;
+      font-size: 20px;
       color: $blue
     }
 
