@@ -34,6 +34,8 @@
             v-model="userPassword"
             :required="true"
             pre-icon="more_horiz"
+            remind="Забыли пароль?"
+            remind-to="/auth/restore"
             label="пароль"
             type="password"
             ref="password"
@@ -56,14 +58,17 @@
           ref="send"
           :data-api="!isRegistration ? '/auth/login' : '/auth/registration'"
           :buttonText="!isRegistration ? 'войти' : 'отправить'"
-          :buttonType="'success'"
+          btn-class="v-button-custom"
+          buttonType="info"
           @click="sendUserParams"
         />
-        <v-button
-          :buttonText="!isRegistration ? 'регистрация' : 'назад'"
-          :buttonType="!isRegistration ? 'info' : 'warning'"
-          @click="changeForm"
-        />
+        <nuxt-link
+          to=""
+          @click.native.prevent="changeForm"
+          class="btn-block__auth-link"
+        >
+          {{!isRegistration ? 'Нет аккаунта? Зарегистрироваться' : 'Есть аккаунт? Войти'}}
+        </nuxt-link>
       </div>
     </form>
   </no-ssr>
@@ -133,13 +138,13 @@
 
       createUser(param) {
         this.create(param)
-          .then(user => this.$notify({
+          .then(res => this.$notify({
             type: 'success',
-            message: user
+            message: res.message
           }))
           .catch(err => this.$notify({
-            type: 'error',
-            message: err
+            type: 'danger',
+            message: err.response.status + ' ' + err.response.data.message
           }))
       }
     },
@@ -180,7 +185,7 @@
         text-align: center;
         padding: 15px 0;
         line-height: 18px;
-        @include font($white, 1.2em);
+        @include fontPlay($white, 1.2em);
       }
     }
   }
@@ -191,9 +196,25 @@
 
   .btn-block {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     width: 90%;
     position: relative;
-    margin: 20px 0 20px 0;
+    margin: 10px 0;
+
+    &__auth-link {
+      text-decoration: none;
+      margin: 20px 0;
+      @include fontExo($blueLight, .8em);
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .v-button-custom {
+    width: 100%;
   }
 </style>

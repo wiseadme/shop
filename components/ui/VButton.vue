@@ -26,6 +26,7 @@
     width: auto;
     min-width: 120px;
     height: 38px;
+    min-height: 38px;
     font-size: 0.8em;
     text-transform: uppercase;
     color: #ffffff;

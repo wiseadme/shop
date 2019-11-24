@@ -15,7 +15,6 @@
   import AppForm from '@/components/AppForm'
 
   export default {
-    layout: 'admin',
     components: {
       AppForm,
     },
@@ -45,10 +44,13 @@
         isLogin: state => state.AuthModule.token,
         user: state => state.AuthModule.user
       })
-
     },
 
-    watch: {}
+    watch: {
+      "$route"(to) {
+        console.log(to)
+      }
+    }
   }
 </script>
 

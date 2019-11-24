@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <app-header/>
+  <div class="admin">
+    <AdminHeader/>
     <Notify/>
     <div class="route-wrap">
       <nuxt/>
@@ -9,12 +9,12 @@
 </template>
 
 <script>
-  import AppHeader from '@/components/AppHeader'
+  import AdminHeader from '@/components/AdminLayout/AdminHeader'
   import Notify from '@/services/Notifications/Notify'
 
   export default {
     components: {
-      AppHeader,
+      AdminHeader,
       Notify
     },
 

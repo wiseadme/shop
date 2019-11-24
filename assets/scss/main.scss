@@ -1,5 +1,7 @@
 @import './reset';
-@import './global';
+@import './variables';
+@import './fonts';
+@import './mixins';
 @import './settings';
 @import './animations';
 
@@ -7,26 +9,24 @@ body {
   -webkit-font-smoothing: antialiased
 }
 
-//body::-webkit-scrollbar {
-//  width: 0;
-//}
 h1{
   font-size: 4em;
 }
-.container {
+.page-wrap {
   width: 100%;
-  max-width: 1440px;
   height: 100vh;
-  padding: 0 20px;
   margin: 0 auto;
   overflow: hidden;
 }
 
-.route-wrap {
+.container {
   height: calc(100vh - 140px);
   width: 100%;
+  max-width: 1600px;
+  padding: 0 20px;
   overflow: hidden;
   position: relative;
+  margin: 0 auto;
 }
 
 .page {
@@ -40,11 +40,11 @@ h1{
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #040424;
+  background-color: $darkBlue;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #387de4;
+  background-color: $blue;
 }
 
 ::-webkit-resizer {

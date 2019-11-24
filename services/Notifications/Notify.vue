@@ -140,7 +140,7 @@
       width: 80%;
 
       &-text {
-        @include font($white, 12px);
+        @include fontPlay($white, 12px);
 
         &--warning {
           color: $orange;

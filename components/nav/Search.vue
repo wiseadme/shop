@@ -15,7 +15,7 @@ export default {
   }
 }
 </script>
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .search{
   position: absolute;
   width: 100%;
@@ -36,7 +36,7 @@ export default {
     background-size: 50%;
     background-repeat: no-repeat;
     background-position: center center;
-    background-color: #387de4;
+    background-color: $blue;
     cursor: pointer;
   }
 
@@ -45,11 +45,11 @@ export default {
   }
 
   .search__input{
-    width: 300px;
+    width: 100%;
     min-width: 150px;
     height: 40px;
     padding: 0 5px;
-    border: 1px solid #dfdbdb;
+    border: 1px solid $blue;
     border-right: none;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;

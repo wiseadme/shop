@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Play-Regular';
+  src: url('Play-Regular.eot');
+  src: url('Play-Regular.eot?#iefix') format('embedded-opentype'),
+       url('Play-Regular.svg#Play-Regular') format('svg'),
+       url('Play-Regular.ttf') format('truetype'),
+       url('Play-Regular.woff') format('woff'),
+       url('Play-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+

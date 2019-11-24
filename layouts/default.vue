@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <div class="container">
+    <div class="page-wrap">
       <app-header/>
-      <div class="route-wrap">
+      <Notify/>
+      <div class="container">
         <transition mode="out-in" name="fadeIn">
           <nuxt/>
         </transition>
@@ -13,11 +14,12 @@
 
 <script>
   import AppHeader from '@/components/AppHeader'
-  import * as api from '@/api'
+  import Notify from '@/services/Notifications/Notify'
 
   export default {
     components: {
       AppHeader,
+      Notify
     },
     data() {
       return {

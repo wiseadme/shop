@@ -1,6 +1,6 @@
 <template>
   <router-link to="/basket" class="basket-block">
-    <span class="basket-block__img"></span>
+    <i class="material-icons basket-block__icon">shopping_basket</i>
     <div ref="inBasket" class="basket-block__items">{{basketValue}}</div>
     <span class="basket-block__desc">Корзина</span>
   </router-link>
@@ -25,15 +25,11 @@
     align-items: center;
     text-decoration: none;
     line-height: 1.6em;
-    @include font($darkBlue, .8em);
+    @include fontPlay($darkBlue, .8em);
   }
 
-  .basket-block__img {
-    display: block;
-    width: 15px;
-    height: 15px;
-    background-image: url("../../assets/img/shopping-basket.svg");
-    background-size: cover;
+  .basket-block__icon {
+    color: $blue;
   }
 
   .basket-block__items {

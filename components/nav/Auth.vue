@@ -1,70 +1,79 @@
 <template>
   <div class='auth-block'>
     <div class="auth-block__inner">
-      <span class='auth-block__icon'></span>
+      <i class='material-icons auth-block__icon'>{{!isLogin ? 'person' : 'verified_user'}}</i>
       <router-link
-        to='/auth/login'
-        class='auth-block__login'
-      >
-        {{!isLogin ? 'Войти' : 'Выйти'}}
-      </router-link>
-      <router-link
-        v-if="!isLogin"
-        to='/auth/registraciya'
+        v-if="isLogin"
+        to='/profile'
         class='auth-block__reg'
       >
-        Регистрация
+        {{user ? user : ''}}
+      </router-link>
+      <router-link
+        to='/auth/user'
+        class='auth-block__login'
+        @click.native.prevent="checkBeforeOut"
+      >
+        {{!isLogin ? 'Войти' : 'Выйти'}}
       </router-link>
     </div>
   </div>
 </template>
+
 <script>
   export default {
     computed: {
       ...mapState({
-        isLogin: state => state.AuthModule.token
-      })
+        isLogin: state => state.AuthModule.token,
+      }),
+
+      user() {
+        if (process.browser) {
+          const user = JSON.parse(localStorage.getItem('user'))
+          if (user) return user.login
+        }
+      }
+    },
+
+    methods: {
+      ...mapActions({
+        logOut: `AuthModule/${action.LOG_OUT_USER}`
+      }),
+
+      checkBeforeOut() {
+        if (this.isLogin) this.logOut()
+      }
+    },
+
+    watch: {
+      '$route'(to) {
+        console.log(to)
+      }
     }
   }
 </script>
 <style lang='scss'>
   .auth-block {
     min-width: 190px;
-    background: $darkBlue;
-    padding: 5px;
-    border-radius: 5px;
-    box-shadow: $boxShadow;
 
     &__inner {
       width: auto;
       display: flex;
       justify-content: center;
+      align-items: center;
     }
 
     &__icon {
-      width: 15px;
-      height: 15px;
-      background-image: url('../../assets/img/login.svg');
-      background-size: cover;
+      font-size: 5px;
+      color: $blue
     }
 
     &__login, &__reg {
-      @include font($white, .8em);
+      @include fontPlay($darkBlue, .8em);
       text-decoration: none;
       line-height: 1.6em;
       margin: 0 10px;
       position: relative;
-    }
-
-    &__login:after{
-      content: '';
-      display: block;
-      position: absolute;
-      height: 70%;
-      width: 2px;
-      background: $white;
-      right: -12px;
-      top: 15%;
     }
   }
 </style>
