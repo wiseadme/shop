@@ -100,8 +100,8 @@
     margin: 10px 0;
     width: 270px;
     height: 90px;
-    background: $darkBlue;
-    border-radius: 3px;
+    border: 4px solid rgba(0, 0, 0, 0.2);
+    border-radius: 7px;
     box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.3);
 
     &__icon {
@@ -117,22 +117,7 @@
         transform: translate(-50%, - 50%);
         font-size: 2em;
         line-height: 10px;
-      }
-
-      &-warning {
-        color: $orange;
-      }
-
-      &-info {
-        color: $blue;
-      }
-
-      &-success {
-        color: $green;
-      }
-
-      &-danger {
-        color: $red;
+        color: $white;
       }
     }
 
@@ -141,40 +126,24 @@
 
       &-text {
         @include fontPlay($white, 12px);
-
-        &--warning {
-          color: $orange;
-        }
-
-        &--info {
-          color: $blue;
-        }
-
-        &--success {
-          color: $green;
-        }
-
-        &--danger {
-          color: $red;
-        }
       }
     }
   }
 
   .warning {
-    border: 8px solid $orange;
+    background: $orange;
   }
 
   .info {
-    border: 8px solid $blue;
+    background: $blue;
   }
 
   .success {
-    border: 8px solid $green;
+    background: $green;
   }
 
   .danger {
-    border: 8px solid $red;
+    background: $red;
   }
 
   .fadeIn-enter, .fadeIn-leave-to {

@@ -1,5 +1,5 @@
 export default function ({ store, redirect }) {
-  if (!store.getters['AuthModule/isAuthenticated']) {
+  if (!store.state.AuthModule.isAuthenticated) {
     redirect('/auth/auth?message=login')
   }
 }

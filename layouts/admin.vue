@@ -1,10 +1,12 @@
 <template>
-  <div class="admin">
-    <AdminHeader/>
-    <AdminAside/>
-    <Notify/>
-    <div class="admin-routes">
-      <nuxt/>
+  <div id="app">
+    <div class="page-wrap">
+      <AdminHeader v-if="isAdmin"/>
+      <AdminAside v-if="isAdmin"/>
+      <Notify/>
+      <div class="admin-routes">
+        <nuxt/>
+      </div>
     </div>
   </div>
 </template>
@@ -27,19 +29,19 @@
 
     computed: {
       ...mapState({
-        isAuthenticated: state => state.AuthModule.token
+        isAdmin: state => state.AuthModule.isAdmin
       })
     }
   }
 </script>
 
 <style lang="scss">
-  .admin-routes{
+  .admin-routes {
     position: absolute;
     left: $adminAside;
     top: $adminHeader;
     height: calc(100vh - 60px);
-    width: calc(100% - 150px);
+    width: calc(100% - 200px);
     overflow-x: hidden;
     overflow-y: auto;
   }

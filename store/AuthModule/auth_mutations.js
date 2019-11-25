@@ -2,7 +2,7 @@ import * as mutation from '../MutationsType'
 
 const mutations = {
   [mutation.CHANGE_LOGIN_STATE](state) {
-    state.logedIn = !state.logedIn
+    state.isAuthenticated = !state.isAuthenticated
   },
 
   [mutation.SET_TOKEN](state, token) {

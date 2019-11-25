@@ -115,7 +115,11 @@
 
       sendUserParams() {
         const param = {
-          data: { login: this.userLogin, email: this.userEmail, password: this.userPassword }
+          data: {
+            login: this.userLogin,
+            email: this.userEmail,
+            password: this.userPassword
+          }
         }
         this.isLogin ? this.loginUser(param) : this.createUser(param)
       },

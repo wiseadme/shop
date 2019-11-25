@@ -1,5 +1,6 @@
 const state = () => ({
-  logedIn: false,
+  isAuthenticated: false,
+  isAdmin: false,
   user: null,
   token: null,
   response: null

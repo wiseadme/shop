@@ -6,7 +6,7 @@ const resolve = (pathString) => {
 
 module.exports = {
   head: {
-    title: 'Frontend - блог разработчика',
+    title: 'Магазин книг по программированию',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -22,7 +22,7 @@ module.exports = {
   plugins: [
     { src: '~/plugins/index.js', ssr: false },
   ],
-  middleware: ['authcontrol'],
+  middleware: ['auth-control'],
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/style-resources'

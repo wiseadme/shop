@@ -1,7 +1,17 @@
 [
   {
-    "icon": "add_shopping_cart",
-    "name": "Создать группу товаров",
+    "icon": "create_new_folder",
+    "name": "Группы товаров",
+    "link": "/admin/group"
+  },
+  {
+    "icon": "monetization_on",
+    "name": "Продажи",
+    "link": "/admin/group"
+  },
+  {
+    "icon": "store",
+    "name": "Склад",
     "link": "/admin/group"
   }
 ]
