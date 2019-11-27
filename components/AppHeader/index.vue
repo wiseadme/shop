@@ -1,25 +1,27 @@
 <template>
   <header class='header'>
-    <div class='wrap'>
-      <div class='inner-wrap'>
-        <div class='header-middle'>
-          <div class='contact-wrap'>
+    <div class='header__inner'>
+      <div class='header__top'>
+        <div class="inner-top">
+          <div class='header__contact'>
             <app-contacts/>
           </div>
-          <div class='address-wrap'>
+          <div class='header__address'>
             <app-address/>
           </div>
-          <div class='search-wrap'>
+          <div class='header__search'>
             <app-search/>
           </div>
-          <div class='basket-wrap'>
+          <div class='header__basket'>
             <app-basket/>
           </div>
-          <div class='auth-wrap'>
+          <div class='header__auth'>
             <app-auth/>
           </div>
         </div>
-        <div class='header-bottom'>
+      </div>
+      <div class='header__bottom'>
+        <div class="inner-bottom">
           <div class='nav-wrap'>
             <app-navigation :menu-items="menuItems"/>
           </div>
@@ -59,70 +61,83 @@
   }
 </script>
 
+
+
 <style lang='scss'>
   .header {
     width: 100%;
     height: 120px;
     margin-bottom: 20px;
+
+    &__inner {
+      width: 100%;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__top {
+      display: flex;
+      justify-content: center;
+      background: $white;
+    }
+
+    &__bottom {
+      display: flex;
+      justify-content: center;
+      background: $black;
+    }
+
+    &__basket {
+      width: 120px;
+    }
+
+    &__search {
+      position: relative;
+      display: block;
+      width: 350px;
+      height: 40px;
+      overflow: hidden;
+      /* border: 1px solid red; */
+    }
+
+    &__contact {
+      display: block;
+      width: auto;
+      padding: 0 12px;
+    }
+
+    &__address {
+      display: block;
+    }
+
+    &__auth {
+      min-width: 200px;
+    }
+
+    &__nav {
+      display: block;
+      margin: 0 auto;
+      /* border: 1px solid rgb(192, 8, 8); */
+    }
   }
 
-  .header-middle {
+  .inner-top{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    max-width: 1660px;
     height: 60px;
-    background: $white;
   }
 
-  .header-bottom {
+  .inner-bottom{
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    max-width: 1660px;
     height: 60px;
-    background: $black;
 
-  }
-
-  .inner-wrap {
-    width: 100%;
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-  }
-
-  .basket-wrap {
-    width: 120px;
-  }
-
-  .search-wrap {
-    position: relative;
-    display: block;
-    width: 350px;
-    height: 40px;
-    overflow: hidden;
-    /* border: 1px solid red; */
-  }
-
-  .contact-wrap {
-    display: block;
-    width: auto;
-    padding: 0 12px;
-  }
-
-  .address-wrap {
-    display: block;
-  }
-
-  .auth-wrap{
-    min-width: 190px;
-  }
-
-  .nav-wrap {
-    display: block;
-    margin: 0 auto;
-    /* border: 1px solid rgb(192, 8, 8); */
   }
 </style>

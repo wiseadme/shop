@@ -3590,7 +3590,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 						_colorExp.lastIndex = 0; //otherwise the test() on the RegExp could move the lastIndex and taint future results.
 
 					} else {
-						bnums = bv.match(_numExp); //gets each group of numbers in the beginning value string and drops them into an array
+						bnums = bv.match(_numExp); //gets each categories of numbers in the beginning value string and drops them into an array
 
 						//if no number is found, treat it as a non-tweening value and just append the string to the current xs.
 						if (!bnums) {
@@ -3598,7 +3598,7 @@ var _gsScope = (typeof(module) !== "undefined" && module.exports && typeof(globa
 
 						//loop through all the numbers that are found and construct the extra values on the pt.
 						} else {
-							enums = ev.match(_relNumExp); //get each group of numbers in the end value string and drop them into an array. We allow relative values too, like +=50 or -=.5
+							enums = ev.match(_relNumExp); //get each categories of numbers in the end value string and drop them into an array. We allow relative values too, like +=50 or -=.5
 							if (!enums || enums.length !== bnums.length) {
 								//DEBUG: _log("mismatched formatting detected on " + p + " (" + b + " vs " + e + ")");
 								return pt;

@@ -1,17 +1,27 @@
 [
   {
     "icon": "create_new_folder",
-    "name": "Группы товаров",
-    "link": "/admin/group"
+    "name": "Категории товаров",
+    "children": [
+      {
+        "name": "Создать категорию товаров",
+        "link": "admin/categories/create"
+      },
+      {
+        "name": "Список категорий",
+        "link": "admin/categories/list"
+      }
+    ],
+    "show": false
   },
   {
     "icon": "monetization_on",
     "name": "Продажи",
-    "link": "/admin/group"
+    "show": false
   },
   {
     "icon": "store",
     "name": "Склад",
-    "link": "/admin/group"
+    "show": false
   }
 ]

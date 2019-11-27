@@ -5,13 +5,13 @@
       <router-link
         v-if="isLogin"
         to='/profile'
-        class='auth-block__reg'
+        class='auth-block__login'
       >
         {{user ? user : ''}}
       </router-link>
       <router-link
         to='/auth'
-        class='auth-block__login'
+        class='auth-block__action'
         @click.native.prevent="checkBeforeOut"
       >
         {{!isLogin ? 'Войти' : 'Выйти'}}
@@ -25,12 +25,13 @@
     computed: {
       ...mapState({
         isLogin: state => state.AuthModule.token,
+        isUser: state => state.AuthModule.user
       }),
 
       user() {
         if (process.browser) {
           const user = JSON.parse(localStorage.getItem('user'))
-          if (user) return user.login
+          return this.isUser ? this.isUser.login : user ? user.login : ''
         }
       }
     },
@@ -43,12 +44,6 @@
       checkBeforeOut() {
         if (this.isLogin) this.logOut()
       }
-    },
-
-    watch: {
-      '$route'(to) {
-        console.log(to)
-      }
     }
   }
 </script>
@@ -59,7 +54,7 @@
     &__inner {
       width: auto;
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
     }
 
@@ -68,7 +63,7 @@
       color: $blue
     }
 
-    &__login, &__reg {
+    &__login, &__action {
       @include fontPlay($darkBlue, .8em);
       text-decoration: none;
       line-height: 1.6em;

@@ -5,7 +5,9 @@
       <AdminAside v-if="isAdmin"/>
       <Notify/>
       <div class="admin-routes">
-        <nuxt/>
+        <transition name="fadeIn">
+          <nuxt/>
+        </transition>
       </div>
     </div>
   </div>

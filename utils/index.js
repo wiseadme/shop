@@ -9,12 +9,12 @@ export function isJWTValid(token) {
   return (new Date().getTime() / 1000) < expires
 }
 
-export function setOrRemoveFromLS(user) {
-  if (user && process.browser) {
-    window.localStorage.setItem('user', JSON.stringify(user))
+export function setOrRemoveFromLS(name, value) {
+  if (value && process.browser) {
+    window.localStorage.setItem(name, JSON.stringify(value))
   } else {
     if (process.browser) {
-      window.localStorage.removeItem('user')
+      window.localStorage.removeItem(name)
     }
   }
 }
