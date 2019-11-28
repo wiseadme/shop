@@ -11,15 +11,17 @@
         <i class="nav__item-icon material-icons">{{it.icon}}</i>
         <span class="nav__item-name">{{it.name}}</span>
         <transition name="scaleXIn">
-          <template v-if="it.children">
-            <div v-show="it.show" class="tooltip">
+          <template v-if="it.child">
+            <div v-if="it.show" class="tooltip">
               <span class="tooltip__head">{{it.name}}</span>
               <nuxt-link
-                v-for="t in it.children"
+                v-for="t in it.child"
                 :key="t.name"
+                exact
                 :to="t.link"
                 :data-link="t.link"
                 class="tooltip__item"
+                @click.native="it.show = false"
               >
                 <span class="tooltip__name">{{t.name}}</span>
               </nuxt-link>

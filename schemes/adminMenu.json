@@ -2,14 +2,14 @@
   {
     "icon": "create_new_folder",
     "name": "Категории товаров",
-    "children": [
+    "child": [
       {
         "name": "Создать категорию товаров",
-        "link": "admin/categories/create"
+        "link": "/admin/categories/create"
       },
       {
         "name": "Список категорий",
-        "link": "admin/categories/list"
+        "link": "/admin/categories/list"
       }
     ],
     "show": false

@@ -17,7 +17,7 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/img/favicon-32x32.png' }
     ],
   },
-  loading: false,
+  loading: true,
   css: ['~/assets/scss/main.scss'],
   plugins: [
     { src: '~/plugins/index.js', ssr: false },

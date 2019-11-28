@@ -1,6 +1,6 @@
 <template>
   <nuxt-link to="/basket" class="basket-block">
-    <i class="material-icons basket-block__icon">shopping_basket</i>
+    <i class="material-icons basket-block__icon">shopping_cart</i>
     <div ref="inBasket" class="basket-block__items">{{basketValue}}</div>
     <span class="basket-block__desc">Корзина</span>
   </nuxt-link>

@@ -1,7 +1,8 @@
 [
   {
     "link": "/",
-    "name": "аксессуары"
+    "name": "каталог",
+    "icon": "view_carousel"
   },
   {
     "link": "/admin",

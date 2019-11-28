@@ -10,6 +10,7 @@
         :to='item.link'
         :key='item.name + i'
       >
+        <i class="material-icons nav-block__icon">{{item.icon}}</i>
         <span class="nav-block__link-text">{{item.name}}</span>
       </nuxt-link>
     </div>
@@ -51,15 +52,22 @@
   }
 
   .nav-block__link {
+    display: flex;
+    min-width: 120px;
+    align-items: center;
+    justify-content: center;
     @include fontPlay($white, .8em);
     font-weight: 500;
     text-decoration: none;
-    line-height: 52px;
-    padding: 0 10px 0 10px;
+    padding: 17px 0;
+  }
+
+  .nav-block__icon{
+    font-size: 15px;
+    margin: 0 10px;
   }
 
   .nav-block__link-text {
-    padding: 10px 20px;
     text-transform: uppercase;
   }
 

@@ -1,0 +1,21 @@
+[
+  {
+    "code": "number",
+    "name": "№",
+    "sortable": false,
+    "filter": false,
+    "small": true
+  },
+  {
+    "code": "categoryName",
+    "name": "Наименование категории",
+    "sortable": true,
+    "filter": true
+  },
+  {
+    "code": "categoryValue",
+    "name": "Кол-во товаров в категории",
+    "sortable": true,
+    "filter": true
+  }
+]
