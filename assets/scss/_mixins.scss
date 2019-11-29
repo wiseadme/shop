@@ -14,6 +14,12 @@
   padding: $padd;
 }
 
+@mixin flexAlign($justify) {
+  display: flex;
+  align-items: center;
+  justify-content: $justify;
+}
+
 @mixin hover($hover, $focus) {
   color: $hover;
   &:hover {

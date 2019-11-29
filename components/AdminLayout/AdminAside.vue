@@ -74,7 +74,7 @@
       }
 
       &-icon {
-        color: $green;
+        color: $blueLight;
         font-size: 20px;
         margin: 0 10px;
       }
@@ -101,7 +101,7 @@
     &__head {
       @include fontPlay($white, .8em);
       display: block;
-      background: $green;
+      background: $blueLight;
       width: 250px;
       padding: 17px 20px;
     }

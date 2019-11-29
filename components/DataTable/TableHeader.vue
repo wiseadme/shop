@@ -16,9 +16,6 @@
       cols: {
         type: Array,
       },
-      rows: {
-        type: Array
-      }
     }
   }
 </script>
@@ -28,12 +25,12 @@
     width: 100%;
     height: 52px;
     display: flex;
-    background: $green;
+    background: #7F828B;
 
     &__item {
       border-right: 1px solid $white;
       padding: 5px;
-      width: 150px;
+      width: 175px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -43,5 +40,9 @@
         text-align: center;
       }
     }
+  }
+
+  .small-item{
+    width: 50px;
   }
 </style>

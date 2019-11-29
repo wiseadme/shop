@@ -4,12 +4,8 @@
     "name": "Категории товаров",
     "child": [
       {
-        "name": "Создать категорию товаров",
-        "link": "/admin/categories/create"
-      },
-      {
         "name": "Список категорий",
-        "link": "/admin/categories/list"
+        "link": "/admin/categories"
       }
     ],
     "show": false
