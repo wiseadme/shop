@@ -17,23 +17,24 @@
 
     methods: {
       createVNodes(nodesArray, render) {
-        const vNodes = []
+        let vNodes = null
         nodesArray.forEach(it => {
-          vNodes.push(render('h1', { slot: 'header' }, it.head.value))
-          if (it.inputs.length) {
-            it.inputs.forEach(it => {
-              vNodes.push(render(VInput, {
-                slot: 'body',
-                props: {
-                  label: it.label,
-                  placeholder: it.placeholder,
-                },
-                on: {}
-              }))
+          vNodes = this.vNodeFromObject(it, render)
+        })
+        return vNodes
+      },
+
+      vNodeFromObject(obj, render) {
+        const nodes = []
+        Object.keys(obj).forEach(v => {
+          if (obj[v]) {
+            obj[v].forEach(inp => {
+              const {element, slot, attrs, on, props, value } = inp
+              nodes.push(render(element, {slot, attrs, on, props}, value) )
             })
           }
         })
-        return vNodes
+        return nodes
       }
     },
 

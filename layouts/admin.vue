@@ -19,9 +19,9 @@
   import AdminAside from '@/components/AdminLayout/AdminAside'
   import Notify from '@/services/Notifications/Notify'
   import VModal from '@/components/ui/VModal'
-  import VInput from '../components/ui/VInput'
-  import VButton from '../components/ui/VButton'
-  import ModalRender from '../components/ui/ModalRender'
+  import VInput from '@/components/ui/VInput'
+  import VButton from '@/components/ui/VButton'
+  import ModalRender from '@/components/ui/ModalRender'
 
   export default {
     components: {
@@ -40,30 +40,43 @@
         create: true,
         modals: [
           {
-            head: {
-              element: 'h1',
-              slot: 'header',
-              value: 'Создать категорию'
-            },
+            head: [
+              {
+                element: 'h1',
+                slot: 'header',
+                value: 'Создать категорию'
+              }
+            ],
             inputs: [
               {
                 element: VInput,
                 slot: 'body',
-                class: {
-                  foo: true,
-                  bar: false
-                },
                 props: {
                   label: 'Имя категории',
                   placeholder: 'Например "книги"'
                 },
-                on: {
-                  // click: this.clickHandler
+                attrs: {
+                  className: 'hello'
                 },
+                on: { click: '' },
               }
             ],
-
-            buttons: []
+            buttons: [
+              {
+                element: VButton,
+                slot: 'footer',
+                props: {
+                  'button-type': 'info', 'button-text': 'создать'
+                }
+              },
+              {
+                element: VButton,
+                slot: 'footer',
+                props: {
+                  'button-type': 'warning', 'button-text': 'отменить'
+                }
+              }
+            ]
           }
         ]
       }
