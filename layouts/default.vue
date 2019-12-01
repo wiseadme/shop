@@ -15,11 +15,13 @@
 <script>
   import AppHeader from '@/components/AppHeader'
   import Notify from '@/services/Notifications/Notify'
+  import VModal from '@/components/ui/VModal'
 
   export default {
     components: {
       AppHeader,
-      Notify
+      Notify,
+      VModal
     },
     data() {
       return {
@@ -35,8 +37,6 @@
 
 
 <style lang="scss">
-  @import '@/assets/scss/main.scss';
-
   .fadeIn-enter,
   .fadeIn-leave-to {
     opacity: 0;

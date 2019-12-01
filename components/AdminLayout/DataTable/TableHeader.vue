@@ -25,7 +25,7 @@
     width: 100%;
     height: 52px;
     display: flex;
-    background: #7F828B;
+    background: $grey;
 
     &__item {
       border-right: 1px solid $white;

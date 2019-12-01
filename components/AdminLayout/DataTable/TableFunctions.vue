@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
     <div class="panel__funcs">
-      <span v-for="f in funcs" :key="f.icon" class="panel__funcs-item" @click="emitFuncEvent(f.event)">
+      <span v-for="f in functions" :key="f.icon" class="panel__funcs-item" @click="emitFuncEvent(f.event)">
         <i class="material-icons panel__funcs-icon">{{f.icon}}</i>
       </span>
     </div>
@@ -12,12 +12,12 @@
   export default {
     data() {
       return {
-        funcs: [
-          {icon: 'add', event: 'add'},
-          {icon: 'create', event: 'create'},
-          {icon: 'insert_drive_file', event: 'download'},
-          {icon: 'save', event: 'save'},
-          {icon: 'delete_forever', event: 'delete'}
+        functions: [
+          { icon: 'add', event: 'add' },
+          { icon: 'create', event: 'create' },
+          { icon: 'insert_drive_file', event: 'download' },
+          { icon: 'save', event: 'save' },
+          { icon: 'delete_forever', event: 'delete' }
         ]
       }
     },
@@ -40,7 +40,7 @@
       @include flexAlign(center);
     }
 
-    &__funcs-item{
+    &__funcs-item {
       @include flexAlign(center);
       width: 40px;
       height: 40px;
@@ -49,11 +49,20 @@
       box-shadow: $boxShadow;
       cursor: pointer;
       margin: 0 5px;
+      transition: all .2s linear;
+
+      &:hover {
+        background: $white;
+        .panel__funcs-icon {
+          color: $blue;
+        }
+      }
     }
 
     &__funcs-icon {
       color: $white;
       font-size: 25px;
+      transition: color .2s linear;
     }
   }
 </style>

@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
+
 const resolve = (pathString) => {
   return path.resolve(__dirname, pathString)
 }
