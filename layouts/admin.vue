@@ -4,7 +4,7 @@
       <AdminHeader v-if="isAdmin"/>
       <AdminAside v-if="isAdmin"/>
       <Notify/>
-      <ModalRender :modals="modals"/>
+      <ModalRender v-if="showModal" :modals="modals"/>
       <div class="admin-routes">
         <transition name="fadeIn">
           <nuxt/>
@@ -36,7 +36,7 @@
 
     data() {
       return {
-        showModal: false,
+        showModal: true,
         create: true,
         modals: [
           {
@@ -67,6 +67,9 @@
                 slot: 'footer',
                 props: {
                   'button-type': 'info', 'button-text': 'создать'
+                },
+                nativeOn: {
+                  click: this.toggleModal
                 }
               },
               {
@@ -79,6 +82,17 @@
             ]
           }
         ]
+      }
+    },
+
+    mounted() {
+
+    },
+
+    methods: {
+      toggleModal() {
+        console.log('fuuuuuuuuuuuuck')
+        this.showModal = !this.showModal
       }
     },
 

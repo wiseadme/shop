@@ -29,8 +29,8 @@
         Object.keys(obj).forEach(v => {
           if (obj[v]) {
             obj[v].forEach(inp => {
-              const {element, slot, attrs, on, props, value } = inp
-              nodes.push(render(element, {slot, attrs, on, props}, value) )
+              const { element, slot, attrs, on, nativeOn, props, value } = inp
+              nodes.push(render(element, { slot, attrs, nativeOn, on, props }, value))
             })
           }
         })
