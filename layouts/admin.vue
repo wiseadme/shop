@@ -5,7 +5,7 @@
       <AdminAside v-if="isAdmin"/>
       <Notify/>
       <transition name="fadeIn">
-        <v-modal-render v-if="showModal" :modals="activeModal"/>
+        <v-modal-render v-if="showModal" :activeModal="activeModal"/>
       </transition>
       <div class="admin-routes">
         <transition name="fadeIn">
@@ -21,7 +21,7 @@
   import AdminAside from '@/components/AdminLayout/AdminAside'
   import Notify from '@/services/Notifications/Notify'
   import VModalRender from '@/components/ui/VModalRender'
-  import CategoryModals from '../components/Modals/category.js'
+  import CategoryModals from '../components/mixins/Modals/category.js'
   import { modalEvents } from '../services/Modal'
 
   export default {
@@ -44,7 +44,7 @@
     mounted() {
       modalEvents.$on('showModal', ({ section, modalType }) => {
         this.activeModal = this[section][modalType]
-        this.showModal = true
+        setTimeout(() => this.showModal = true, 0)
       })
     },
 

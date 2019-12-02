@@ -3,7 +3,7 @@
 }
 
 .fadeIn-enter-active, .fadeIn-leave-active{
-  transition: opacity .2s ease-in-out;
+  transition: opacity .2s linear;
 }
 
 .scaleXIn-enter, .scaleXIn-leave-to {

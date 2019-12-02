@@ -11,33 +11,47 @@
       VModal
     },
     props: {
-      modals: {
+      activeModal: {
         type: Object,
       }
     },
 
     methods: {
-      createVNodes(nodeObject, render) {
-        return this.vNodeFromObject(nodeObject, render)
-      },
-
-      vNodeFromObject(obj, render) {
+      vNodeFromObject(nodeObject, render) {
         const nodes = []
-        Object.keys(obj).forEach(it => {
-          if (obj[it]) {
-            obj[it].forEach(v => {
-              const { element, slot, attrs, on, nativeOn, props, value } = v
-              nodes.push(render(element, { slot, attrs, nativeOn, on, props }, value))
-            })
+        Object.keys(nodeObject).forEach(it => {
+          if (nodeObject[it]) {
+            nodeObject[it].forEach(it => nodes.push(this.createElement(it, render)))
           }
         })
         return nodes
+      },
+
+      extractAndCreate(obj, render) {
+        const { element, slot, attrs, on, nativeOn, props, children } = obj
+        return render(element, { slot, attrs, nativeOn, on, props }, this.createElement(children, render))
+      },
+
+      createElement(el, render) {
+        const elements = []
+        if (el && typeof el !== 'string') {
+          if (!Array.isArray(el)) {
+            elements.push(this.extractAndCreate(el, render))
+          }
+          if (Array.isArray(el)) {
+            el.forEach(it => {
+              elements.push(this.extractAndCreate(it, render))
+            })
+          }
+          return elements
+        }
+        return el
       }
     },
 
     render(h) {
       return h('div', { class: 'modal-wrap' }, [
-        h(VModal, (() => this.createVNodes(this.modals, h))())
+        h(VModal, (() => this.vNodeFromObject(this.activeModal, h))())
       ])
     }
   }
@@ -71,6 +85,10 @@
     &__body {
       background: $white;
       padding: 15px;
+
+      &-block {
+        margin: 10px 0;
+      }
     }
 
     &__footer {

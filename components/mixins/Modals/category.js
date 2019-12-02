@@ -10,22 +10,50 @@ export default {
             {
               element: 'h1',
               slot: 'header',
-              value: 'Создать категорию'
+              children: 'Создать категорию'
             }
           ],
           inputs: [
             {
-              element: VInput,
+              element: 'div',
               slot: 'body',
-              props: {
-                label: 'Имя категории',
-                placeholder: 'Например "книги"'
-              },
-              attrs: {
-                className: 'hello'
-              },
-              on: { click: '' },
-            }
+              attrs: { class: 'modal__body-block'},
+              children: [
+                {
+                  element: VInput,
+                  slot: 'body',
+                  props: {
+                    label: 'Имя категории',
+                    placeholder: 'Например "книги"'
+                  },
+                  attrs: {
+
+                  },
+                  on: { click: '' },
+                  children: []
+                },
+              ]
+            },
+            {
+              element: 'div',
+              slot: 'body',
+              attrs: { class: 'modal__body-block'},
+              children: [
+                {
+                  element: VInput,
+                  slot: 'body',
+                  props: {
+                    label: 'Имя категории',
+                    placeholder: 'Например "книги"'
+                  },
+                  attrs: {
+
+                  },
+                  on: { click: '' },
+                  children: []
+                },
+              ]
+            },
           ],
           buttons: [
             {
@@ -54,7 +82,7 @@ export default {
             {
               element: 'h1',
               slot: 'header',
-              value: 'Обновить категорию'
+              children: 'Обновить категорию'
             }
           ],
           inputs: [
