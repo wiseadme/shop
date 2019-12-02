@@ -4,6 +4,7 @@
   import VModal from './VModal'
 
   export default {
+    name: 'VModalRender',
     components: {
       VInput,
       VButton,
@@ -11,25 +12,21 @@
     },
     props: {
       modals: {
-        type: Array,
+        type: Object,
       }
     },
 
     methods: {
-      createVNodes(nodesArray, render) {
-        let vNodes = null
-        nodesArray.forEach(it => {
-          vNodes = this.vNodeFromObject(it, render)
-        })
-        return vNodes
+      createVNodes(nodeObject, render) {
+        return this.vNodeFromObject(nodeObject, render)
       },
 
       vNodeFromObject(obj, render) {
         const nodes = []
-        Object.keys(obj).forEach(v => {
-          if (obj[v]) {
-            obj[v].forEach(inp => {
-              const { element, slot, attrs, on, nativeOn, props, value } = inp
+        Object.keys(obj).forEach(it => {
+          if (obj[it]) {
+            obj[it].forEach(v => {
+              const { element, slot, attrs, on, nativeOn, props, value } = v
               nodes.push(render(element, { slot, attrs, nativeOn, on, props }, value))
             })
           }
@@ -42,7 +39,6 @@
       return h('div', { class: 'modal-wrap' }, [
         h(VModal, (() => this.createVNodes(this.modals, h))())
       ])
-
     }
   }
 </script>

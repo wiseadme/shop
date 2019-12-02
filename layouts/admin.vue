@@ -4,7 +4,7 @@
       <AdminHeader v-if="isAdmin"/>
       <AdminAside v-if="isAdmin"/>
       <Notify/>
-      <ModalRender v-if="showModal" :modals="modals"/>
+      <v-modal-render v-if="showModal" :modals="activeModal"/>
       <div class="admin-routes">
         <transition name="fadeIn">
           <nuxt/>
@@ -18,82 +18,32 @@
   import AdminHeader from '@/components/AdminLayout/AdminHeader'
   import AdminAside from '@/components/AdminLayout/AdminAside'
   import Notify from '@/services/Notifications/Notify'
-  import VModal from '@/components/ui/VModal'
-  import VInput from '@/components/ui/VInput'
-  import VButton from '@/components/ui/VButton'
-  import ModalRender from '@/components/ui/ModalRender'
+  import VModalRender from '@/components/ui/VModalRender'
+  import CategoryModals from '../components/Modals/category.js'
+  import { modalEvents } from '../services/Modal'
 
   export default {
     components: {
       AdminHeader,
       AdminAside,
       Notify,
-      VModal,
-      VInput,
-      VButton,
-      ModalRender
+      VModalRender
     },
+
+    mixins: [CategoryModals],
 
     data() {
       return {
-        showModal: true,
-        create: true,
-        modals: [
-          {
-            head: [
-              {
-                element: 'h1',
-                slot: 'header',
-                value: 'Создать категорию'
-              }
-            ],
-            inputs: [
-              {
-                element: VInput,
-                slot: 'body',
-                props: {
-                  label: 'Имя категории',
-                  placeholder: 'Например "книги"'
-                },
-                attrs: {
-                  className: 'hello'
-                },
-                on: { click: '' },
-              }
-            ],
-            buttons: [
-              {
-                element: VButton,
-                slot: 'footer',
-                props: {
-                  'button-type': 'info', 'button-text': 'создать'
-                },
-                nativeOn: {
-                  click: this.toggleModal
-                }
-              },
-              {
-                element: VButton,
-                slot: 'footer',
-                props: {
-                  'button-type': 'warning', 'button-text': 'отменить'
-                }
-              }
-            ]
-          }
-        ]
+        showModal: false,
+        activeModal: null
       }
     },
 
     mounted() {
-
-    },
-
-    methods: {
-      toggleModal() {
-        console.log('fuuuuuuuuuuuuck')
-        this.showModal = !this.showModal
-      }
+      modalEvents.$on('showModal', ({ section, modalType }) => {
+        this.activeModal = this[section][modalType]
+        this.showModal = true
+      })
     },
 
     computed: {

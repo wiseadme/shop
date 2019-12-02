@@ -7,21 +7,6 @@
       @save="save"
       @delete="deleteCategory"
     />
-    <v-modal v-if="create">
-      <h1 slot="header">Создать категорию</h1>
-      <form slot="body" class="form">
-        <div class="form-block">
-          <v-input label="Название категории" placeholder="Например игрушки"/>
-        </div>
-        <div class="form-block">
-          <v-input label="Название категории" placeholder="Например игрушки"/>
-        </div>
-      </form>
-      <div slot="footer" class="btn-block">
-        <v-button button-type="info" button-text="создать"/>
-        <v-button @click="create = false" button-type="warning" button-text="очистить"/>
-      </div>
-    </v-modal>
     <data-table/>
   </div>
 </template>
@@ -29,14 +14,12 @@
 <script>
   import DataTable from '@/components/AdminLayout/DataTable'
   import ToolBar from '@/components/AdminLayout/ToolBar'
-  import VModal from '@/components/ui/VModal'
 
   export default {
     layout: 'admin',
     components: {
       DataTable,
       ToolBar,
-      VModal
     },
     data() {
       return {
@@ -45,13 +28,17 @@
       }
     },
 
+    mounted() {
+
+    },
+
     methods: {
       createCategory() {
-        this.create = !this.create
+        this.$modal('category', 'create')
       },
 
       editCategory() {
-        console.log('edit')
+        this.$modal('category', 'update')
       },
 
       downloadFile() {
@@ -75,7 +62,7 @@
     height: 100%;
   }
 
-  .btn-block{
+  .btn-block {
     display: flex;
     justify-content: space-between;
   }

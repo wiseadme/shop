@@ -1,15 +1,15 @@
 <template>
   <div class="page-wrap">
-    <SliderCarousel/>
+    <app-slider/>
   </div>
 </template>
 
 <script>
-  import SliderCarousel from '@/components/SliderCarousel'
+  import AppSlider from '@/components/AppSlider'
 
   export default {
     components: {
-      SliderCarousel
+      AppSlider
     },
 
     layout: 'default',
