@@ -4,7 +4,9 @@
       <AdminHeader v-if="isAdmin"/>
       <AdminAside v-if="isAdmin"/>
       <Notify/>
-      <v-modal-render v-if="showModal" :modals="activeModal"/>
+      <transition name="fadeIn">
+        <v-modal-render v-if="showModal" :modals="activeModal"/>
+      </transition>
       <div class="admin-routes">
         <transition name="fadeIn">
           <nuxt/>
