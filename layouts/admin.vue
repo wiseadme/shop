@@ -91,6 +91,7 @@
 
     methods: {
       toggleModal() {
+        console.log('fuuuuuuuuuuuuck')
         this.showModal = !this.showModal
       }
     },
