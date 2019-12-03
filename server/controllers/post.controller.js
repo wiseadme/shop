@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const errorHandler = require('../utils/errorHandler')
 const keys = require('../keys')
-const Post = require('../models/post')
+const Post = require('../models/Post')
 
 async function create(req, res) {
   const postObject = req.body

@@ -15,3 +15,6 @@ const api = axios.create({
 
 export const login = user => api.post('/api/auth/login', user)
 export const createUser = newUser => api.post('/api/auth/registration', newUser)
+
+//category
+export const createCategory = category => api.post('/api/category/create', category)

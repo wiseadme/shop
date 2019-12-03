@@ -12,7 +12,7 @@ const actions = {
       setOrRemoveFromLS('user', data)
       dispatch(action.SET_USER, data)
       commit(mutation.SET_RESPONSE, data)
-      return Promise.resolve(data)
+      return data
     } catch (err) {
       errorHandler(err)
       commit(mutation.SET_RESPONSE, err.response.data)
@@ -39,7 +39,7 @@ const actions = {
     try {
       let { data } = await api.createUser(user.data)
       commit(mutation.SET_RESPONSE, data)
-      return Promise.resolve(data)
+      return data
     } catch (err) {
       errorHandler(err)
       commit(mutation.SET_RESPONSE, err.response.data)

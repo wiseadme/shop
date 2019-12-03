@@ -19,10 +19,21 @@ export function setOrRemoveFromLS(name, value) {
   }
 }
 
+function debounce(f, ms) {
+  let isComedown = false
+  return function () {
+    if (isComedown) return
+    f.apply(this, arguments)
+    isComedown = true
+    setTimeout(() => isComedown = false, ms)
+  }
+
+}
+
 export function getCookie(name) {
   if (process.browser) {
     let matches = document.cookie.match(new RegExp(
-      "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      '(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)'
     ))
     return matches ? decodeURIComponent(matches[1]) : undefined
   }
@@ -36,5 +47,7 @@ export function errorHandler(err) {
 export default {
   isJWTValid,
   setOrRemoveFromLS,
-  errorHandler
+  errorHandler,
+  debounce,
+  getCookie
 }

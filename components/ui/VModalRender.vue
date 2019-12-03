@@ -1,13 +1,9 @@
 <script>
-  import VInput from './VInput'
-  import VButton from './VButton'
   import VModal from './VModal'
 
   export default {
     name: 'VModalRender',
     components: {
-      VInput,
-      VButton,
       VModal
     },
     props: {
@@ -37,8 +33,7 @@
         if (el && typeof el !== 'string') {
           if (!Array.isArray(el)) {
             elements.push(this.extractAndCreate(el, render))
-          }
-          if (Array.isArray(el)) {
+          } else {
             el.forEach(it => {
               elements.push(this.extractAndCreate(it, render))
             })
@@ -87,7 +82,7 @@
       padding: 15px;
 
       &-block {
-        margin: 10px 0;
+        margin: 20px 0;
       }
     }
 

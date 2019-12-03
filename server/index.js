@@ -23,6 +23,7 @@ async function start() {
   app.use('/api/post', router.postRoute)
   app.use('/api/image', router.imageRoute)
   app.use('/api/comment', router.commentsRoute)
+  app.use('/api/category', router.categoryRoute)
   app.use(nuxt.render)
 
   app.listen(keys.PORT, () => consola.success('server is started on ' + keys.PORT))

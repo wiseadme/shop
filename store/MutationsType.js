@@ -7,7 +7,4 @@ export const CLEAR_ERROR = 'CLEAR_ERROR'
 export const SET_RESPONSE = 'SET_RESPONSE'
 
 //data module mutations
-export const ADD_POST = 'ADD_POST'
-export const SET_ALL_POSTS = 'SET_ALL_POSTS'
-export const SET_POST = 'SET_POST'
-export const SET_CONTENT = 'SET_CONTENT'
+export const SET_CATEGORY = 'SET_CATEGORY'

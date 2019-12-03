@@ -1,6 +1,6 @@
 const pspjwt = require('passport-jwt')
 const keys = require('../keys')
-const User = require('../models/user')
+const User = require('../models/User')
 
 const JwtStrategy = pspjwt.Strategy
 const ExtractJwt = pspjwt.ExtractJwt
@@ -13,7 +13,6 @@ const options = {
 module.exports = passport => {
   passport.use(
     new JwtStrategy(options, async (payload, done) => {
-      // console.log(payload)
       try {
         const user = await User.findById(payload.userId).select('email id')
         if (user) {

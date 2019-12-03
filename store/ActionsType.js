@@ -8,6 +8,4 @@ export const REMOVE_USER = 'REMOVE_USER'
 export const AUTO_LOGIN = 'AUTO_LOGIN'
 
 //data module actions
-export const SEND_POST = 'SEND_POST'
-export const FETCH_POSTS = 'FETCH_POSTS'
-export const FETCH_POST_BY_ID = 'FETCH_POST_BY_ID'
+export const SAVE_CATEGORY = 'SAVE_CATEGORY'

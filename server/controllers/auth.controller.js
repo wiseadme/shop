@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const User = require('../models/user')
+const User = require('../models/User')
 const errorHandler = require('../utils/errorHandler')
 const keys = require('../keys')
 

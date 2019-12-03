@@ -32,24 +32,32 @@
     z-index: 999;
   }
 
-  .modal{
+  .modal {
     width: 500px;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: $boxShadow;
-    &__header{
+
+    &__header {
       @include fontPlay($white, 1.2em);
       text-align: center;
       padding: 15px;
       background: $blue;
     }
-    &__body{
+
+    &__body {
       background: $white;
       padding: 15px;
     }
-    &__footer{
+
+    &__footer {
       padding: 15px;
       background: $white;
+    }
+
+    &__buttons-block {
+      display: flex;
+      justify-content: space-between;
     }
   }
 </style>

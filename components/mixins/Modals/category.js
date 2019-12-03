@@ -1,9 +1,11 @@
 import VInput from '@/components/ui/VInput'
 import VButton from '@/components/ui/VButton'
+// import * as action from '@/store/ActionsType'
 
 export default {
   data() {
     return {
+      categoryName: '',
       category: {
         create: {
           head: [
@@ -17,7 +19,7 @@ export default {
             {
               element: 'div',
               slot: 'body',
-              attrs: { class: 'modal__body-block'},
+              attrs: { class: 'modal__body-block' },
               children: [
                 {
                   element: VInput,
@@ -26,10 +28,10 @@ export default {
                     label: 'Имя категории',
                     placeholder: 'Например "книги"'
                   },
-                  attrs: {
-
+                  attrs: {},
+                  on: {
+                    input: this.inputHandler
                   },
-                  on: { click: '' },
                   children: []
                 },
               ]
@@ -37,19 +39,19 @@ export default {
             {
               element: 'div',
               slot: 'body',
-              attrs: { class: 'modal__body-block'},
+              attrs: { class: 'modal__body-block' },
               children: [
                 {
                   element: VInput,
                   slot: 'body',
                   props: {
-                    label: 'Имя категории',
-                    placeholder: 'Например "книги"'
+                    label: 'Единицы измерения',
+                    placeholder: 'Например "штук"'
                   },
-                  attrs: {
-
+                  attrs: {},
+                  on: {
+                    click: ''
                   },
-                  on: { click: '' },
                   children: []
                 },
               ]
@@ -57,23 +59,33 @@ export default {
           ],
           buttons: [
             {
-              element: VButton,
+              element: 'div',
               slot: 'footer',
-              props: {
-                'button-type': 'info',
-                'button-text': 'создать'
+              attrs: {
+                class: 'modal__buttons-block'
               },
-              nativeOn: {
-                click: this.toggleModal
-              }
-            },
-            {
-              element: VButton,
-              slot: 'footer',
-              props: {
-                'button-type': 'warning',
-                'button-text': 'отменить'
-              }
+              children: [
+                {
+                  element: VButton,
+                  props: {
+                    'button-type': 'info',
+                    'button-text': 'создать'
+                  },
+                  nativeOn: {
+                    click: this.sendCategory
+                  }
+                },
+                {
+                  element: VButton,
+                  props: {
+                    'button-type': 'warning',
+                    'button-text': 'отменить'
+                  },
+                  nativeOn: {
+                    click: this.toggleModal
+                  }
+                }
+              ]
             }
           ]
         },
@@ -101,23 +113,30 @@ export default {
           ],
           buttons: [
             {
-              element: VButton,
+              element: 'div',
               slot: 'footer',
-              props: {
-                'button-type': 'info',
-                'button-text': 'создать'
+              attrs: {
+                class: 'modal__buttons-block'
               },
-              nativeOn: {
-                click: this.toggleModal
-              }
-            },
-            {
-              element: VButton,
-              slot: 'footer',
-              props: {
-                'button-type': 'warning',
-                'button-text': 'отменить'
-              }
+              children: [
+                {
+                  element: VButton,
+                  props: {
+                    'button-type': 'info',
+                    'button-text': 'создать'
+                  },
+                  nativeOn: {
+                    click: this.toggleModal
+                  }
+                },
+                {
+                  element: VButton,
+                  props: {
+                    'button-type': 'warning',
+                    'button-text': 'отменить'
+                  }
+                }
+              ]
             }
           ]
         }
@@ -126,8 +145,29 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      saveCategory: `AdminModule/${action.SAVE_CATEGORY}`
+    }),
+
     toggleModal() {
       this.showModal = !this.showModal
+    },
+
+    sendCategory() {
+      const body = {
+        name: this.categoryName,
+        code: 'categoryName'
+      }
+      this.saveCategory(body).then(res => {
+        this.$notify({
+          type: 'success',
+          message: res.message
+        })
+      })
+    },
+
+    inputHandler(ev) {
+      this.categoryName = ev
     }
   }
 }
