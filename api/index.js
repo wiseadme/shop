@@ -18,3 +18,4 @@ export const createUser = newUser => api.post('/api/auth/registration', newUser)
 
 //category
 export const createCategory = category => api.post('/api/category/create', category)
+export const fetchAllCategories = () => api.get('/api/category/all')

@@ -9,3 +9,4 @@ export const AUTO_LOGIN = 'AUTO_LOGIN'
 
 //data module actions
 export const SAVE_CATEGORY = 'SAVE_CATEGORY'
+export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'

@@ -1,17 +1,25 @@
 <template>
   <div class="table">
-    <TableHeader :cols="categoryCols"/>
+    <TableHeader
+      :cols="cols"
+    />
+    <TableBody
+      :rows="rows"
+      :cols="cols"
+    />
   </div>
 </template>
 
 <script>
   import TableHeader from './TableHeader'
-  import categoryCols from '@/schemes/categoryCols.json'
+  import TableBody from './TableBody'
+
 
   export default {
     name: 'DataTable',
     components: {
       TableHeader,
+      TableBody
     },
     props: {
       cols: {
@@ -24,7 +32,7 @@
 
     data() {
       return {
-        categoryCols
+
       }
     }
   }

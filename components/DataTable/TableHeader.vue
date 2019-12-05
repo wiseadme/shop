@@ -3,7 +3,7 @@
     <div
       v-for="col in cols"
       :key="col.code"
-      :class="['table-header__item',{'small-item': col.small}]"
+      :class="['table-header__item', {'small-item': col.small}]"
     >
       <span class="table-header__item-name">{{col.name}}</span>
     </div>

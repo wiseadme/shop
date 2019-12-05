@@ -7,13 +7,16 @@
       @save="save"
       @delete="deleteCategory"
     />
-    <data-table/>
+    <div class="table-wrap">
+      <data-table v-if="categoryRows" :rows="categoryRows" :cols="categoryCols"/>
+    </div>
   </div>
 </template>
 
 <script>
-  import DataTable from '@/components/AdminLayout/DataTable'
+  import DataTable from '@/components/DataTable'
   import ToolBar from '@/components/AdminLayout/ToolBar'
+  import categoryCols from '@/schemes/categoryCols.json'
 
   export default {
     layout: 'admin',
@@ -24,15 +27,20 @@
     data() {
       return {
         categoryName: '',
-        create: false
+        categoryRows: null,
+        create: false,
+        categoryCols
       }
     },
 
-    mounted() {
-
+    created() {
+      this.fetchAllCategories().then(({ data: { categories } }) => this.categoryRows = categories)
     },
 
     methods: {
+      ...mapActions({
+        fetchAllCategories: `AdminModule/${action.GET_ALL_CATEGORIES}`
+      }),
       createCategory() {
         this.$modal('category', 'create')
       },

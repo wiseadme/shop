@@ -12,6 +12,10 @@ const actions = {
     } catch (err) {
       errorHandler(err)
     }
+  },
+
+  async [action.GET_ALL_CATEGORIES]({}) {
+    return await api.fetchAllCategories()
   }
 }
 

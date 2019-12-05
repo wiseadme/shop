@@ -13,7 +13,6 @@ const mutations = {
 const actions = {
   async nuxtServerInit({ dispatch }) {
     await dispatch('AuthModule/AUTO_LOGIN')
-    // await dispatch('DataModule/FETCH_POSTS')
   }
 }
 

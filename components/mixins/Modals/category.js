@@ -72,7 +72,7 @@ export default {
                     'button-text': 'создать'
                   },
                   nativeOn: {
-                    click: this.sendCategory
+                    click: this.saveNewCategory
                   }
                 },
                 {
@@ -153,7 +153,7 @@ export default {
       this.showModal = !this.showModal
     },
 
-    sendCategory() {
+    saveNewCategory() {
       const body = {
         name: this.categoryName,
         code: 'categoryName'
