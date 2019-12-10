@@ -1,5 +1,4 @@
 const state = () => ({
-  categories: [],
   allCategories: null
 })
 

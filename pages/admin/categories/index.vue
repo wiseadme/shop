@@ -17,6 +17,7 @@
   import DataTable from '@/components/DataTable'
   import ToolBar from '@/components/AdminLayout/ToolBar'
   import categoryCols from '@/schemes/categoryCols.json'
+  import { login } from '../../../api'
 
   export default {
     layout: 'admin',
@@ -38,10 +39,10 @@
       if (this.allCategories) {
         this.categoryRows = this.allCategories
       } else {
-        await this.fetchAllCategories().then(categories => this.categoryRows = categories)
+        await this.fetchAllCategories()
+          .then(categories => this.categoryRows = categories)
+          .catch(err => console.log(err))
       }
-      setTimeout(() => console.log(this.categoryRows, 'rows'), 0)
-
     },
 
     methods: {
