@@ -8,3 +8,4 @@ export const SET_RESPONSE = 'SET_RESPONSE'
 
 //data module mutations
 export const SET_CATEGORY = 'SET_CATEGORY'
+export const SET_ALL_CATEGORIES = 'SET_ALL_CATEGORIES'

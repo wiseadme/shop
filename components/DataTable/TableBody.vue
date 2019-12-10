@@ -18,7 +18,7 @@
     },
 
     created() {
-      console.log(this.rows, this.cols)
+      // console.log(this.rows, this.cols)
     }
   }
 </script>

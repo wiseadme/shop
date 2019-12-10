@@ -14,8 +14,11 @@ const actions = {
     }
   },
 
-  async [action.GET_ALL_CATEGORIES]({}) {
-    return await api.fetchAllCategories()
+  async [action.GET_ALL_CATEGORIES]({ commit }) {
+    const { data: { categories } } = await api.fetchAllCategories()
+    console.log(categories)
+    commit(mutation.SET_ALL_CATEGORIES, categories)
+    return categories
   }
 }
 

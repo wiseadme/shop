@@ -2,13 +2,9 @@ const state = () => {
 
 }
 
-const getters = {
+const getters = {}
 
-}
-
-const mutations = {
-
-}
+const mutations = {}
 
 const actions = {
   async nuxtServerInit({ dispatch }) {

@@ -42,13 +42,6 @@
 
   export default {
     name: 'AppHeader',
-    data() {
-      return {
-        menuItems
-      }
-    },
-
-    methods: {},
 
     components: {
       AppNavigation,
@@ -57,10 +50,25 @@
       AppSearch,
       AppAddress,
       AppAuth
+    },
+
+    data() {
+      return {
+        menuItems
+      }
+    },
+
+    created() {
+
+    },
+
+    computed: {
+      ...mapState({
+        categories: state => state.AdminModule.allCategories
+      })
     }
   }
 </script>
-
 
 
 <style lang='scss'>
@@ -122,7 +130,7 @@
     }
   }
 
-  .inner-top{
+  .inner-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -131,7 +139,7 @@
     height: 60px;
   }
 
-  .inner-bottom{
+  .inner-bottom {
     display: flex;
     justify-content: center;
     align-items: center;

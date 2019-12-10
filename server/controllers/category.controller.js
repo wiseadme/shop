@@ -25,14 +25,11 @@ async function readCategory(req, res) {
 }
 
 async function allCategories(req, res) {
-  let categories = await Category.find({})
-  if (categories) {
+  try {
+    let categories = await Category.find({})
     res.status(200).json({ categories })
-  } else {
-    res.status(500).json({
-      ok: false,
-      message: 'Произошла ошибка, попробуйте позже'
-    })
+  } catch (err) {
+    errorHandler(err)
   }
 }
 

@@ -1,5 +1,6 @@
 const state = () => ({
-  categories: []
+  categories: [],
+  allCategories: null
 })
 
 export default state

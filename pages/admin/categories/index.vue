@@ -24,6 +24,7 @@
       DataTable,
       ToolBar,
     },
+
     data() {
       return {
         categoryName: '',
@@ -33,14 +34,21 @@
       }
     },
 
-    created() {
-      this.fetchAllCategories().then(({ data: { categories } }) => this.categoryRows = categories)
+    async created() {
+      if (this.allCategories) {
+        this.categoryRows = this.allCategories
+      } else {
+        await this.fetchAllCategories().then(categories => this.categoryRows = categories)
+      }
+      setTimeout(() => console.log(this.categoryRows, 'rows'), 0)
+
     },
 
     methods: {
       ...mapActions({
         fetchAllCategories: `AdminModule/${action.GET_ALL_CATEGORIES}`
       }),
+
       createCategory() {
         this.$modal('category', 'create')
       },
@@ -60,6 +68,12 @@
       deleteCategory() {
         console.log('delete')
       }
+    },
+
+    computed: {
+      ...mapState({
+        allCategories: state => state.AdminModule.allCategories
+      })
     }
   }
 </script>
