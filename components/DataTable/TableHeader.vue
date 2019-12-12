@@ -42,7 +42,7 @@
     }
   }
 
-  .small-item{
+  .small-item {
     width: 50px;
   }
 </style>

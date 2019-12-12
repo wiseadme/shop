@@ -59,7 +59,7 @@
     },
 
     created() {
-
+      console.log(this.categories, 'eto v headere')
     },
 
     computed: {

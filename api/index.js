@@ -7,7 +7,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
   },
-  baseURL: process.env.BASE_URL,
+  baseURL: BASE_URL,
   withCredentials: false,
   maxContentLength: 50000000,
   timeout: 150000
