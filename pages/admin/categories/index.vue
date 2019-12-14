@@ -8,7 +8,7 @@
       @delete="deleteCategory"
     />
     <div class="table-wrap">
-      <data-table v-if="categoryRows" :rows="categoryRows" :cols="categoryCols"/>
+      <data-table v-if="rows" :rows="rows" :cols="cols"/>
     </div>
   </div>
 </template>
@@ -17,7 +17,6 @@
   import DataTable from '@/components/DataTable'
   import ToolBar from '@/components/AdminLayout/ToolBar'
   import categoryCols from '@/schemes/categoryCols.json'
-  import { login } from '../../../api'
 
   export default {
     layout: 'admin',
@@ -29,20 +28,14 @@
     data() {
       return {
         categoryName: '',
-        categoryRows: null,
+        rows: null,
         create: false,
-        categoryCols
+        cols: categoryCols
       }
     },
 
     async created() {
-      if (this.allCategories) {
-        this.categoryRows = this.allCategories
-      } else {
-        await this.fetchAllCategories()
-          .then(categories => this.categoryRows = categories)
-          .catch(err => console.log(err))
-      }
+      this.rows = this.allCategories
     },
 
     methods: {
@@ -59,15 +52,15 @@
       },
 
       downloadFile() {
-        console.log('download')
+        this.$modal('category', 'download')
       },
 
       save() {
-        console.log('save')
+        this.$modal('category', 'save')
       },
 
       deleteCategory() {
-        console.log('delete')
+        this.$modal('category', 'delete')
       }
     },
 

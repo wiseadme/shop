@@ -35,7 +35,6 @@
   .modal {
     width: 500px;
     border-radius: 5px;
-    overflow: hidden;
     box-shadow: $boxShadow;
 
     &__header {
@@ -48,6 +47,9 @@
     &__body {
       background: $white;
       padding: 15px;
+      max-height: 70vh;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     &__footer {

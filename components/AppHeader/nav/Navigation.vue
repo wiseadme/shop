@@ -7,7 +7,7 @@
         active-class='nav-block__link-active'
         data-name='nav'
         exact
-        :to='item.link'
+        :to='item.url'
         :key='item.name + i'
       >
         <i class="material-icons nav-block__icon">{{item.icon}}</i>

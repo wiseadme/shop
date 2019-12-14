@@ -23,7 +23,7 @@
       <div class='header__bottom'>
         <div class="inner-bottom">
           <div class='nav-wrap'>
-            <app-navigation :menu-items="menuItems"/>
+            <app-navigation :menu-items="categories"/>
           </div>
         </div>
       </div>

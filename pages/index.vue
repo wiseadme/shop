@@ -9,9 +9,7 @@
 
   export default {
     async asyncData({ store }) {
-      await store.dispatch('AdminModule/GET_ALL_CATEGORIES')
-        .then(data => console.log(data))
-        .catch(err => console.log(err))
+
     },
 
     components: {

@@ -1,11 +1,15 @@
 import VInput from '@/components/ui/VInput'
+import VSelect from '../../ui/VSelect'
 import VButton from '@/components/ui/VButton'
-// import * as action from '@/store/ActionsType'
 
 export default {
   data() {
     return {
-      categoryName: '',
+      name: '',
+      url: '',
+      icon: '',
+      position: '',
+      code: 'category',
       category: {
         create: {
           head: [
@@ -30,7 +34,7 @@ export default {
                   },
                   attrs: {},
                   on: {
-                    input: this.inputHandler
+                    input: this.inputHandler.bind(this, 'name')
                   },
                   children: []
                 },
@@ -45,12 +49,52 @@ export default {
                   element: VInput,
                   slot: 'body',
                   props: {
-                    label: 'Единицы измерения',
-                    placeholder: 'Например "штук"'
+                    label: 'Ссылка на страницу',
+                    placeholder: 'Например "/tovari"'
                   },
                   attrs: {},
                   on: {
-                    click: ''
+                    input: this.inputHandler.bind(this, 'url')
+                  },
+                  children: []
+                },
+              ]
+            },
+            {
+              element: 'div',
+              slot: 'body',
+              attrs: { class: 'modal__body-block' },
+              children: [
+                {
+                  element: VInput,
+                  slot: 'body',
+                  props: {
+                    label: 'Иконка категории',
+                    placeholder: 'material icons'
+                  },
+                  attrs: {},
+                  on: {
+                    input: this.inputHandler.bind(this, 'icon')
+                  },
+                  children: []
+                },
+              ]
+            },
+            {
+              element: 'div',
+              slot: 'body',
+              attrs: { class: 'modal__body-block' },
+              children: [
+                {
+                  element: VInput,
+                  slot: 'body',
+                  props: {
+                    label: 'Позиция в списке',
+                    placeholder: 'Например 0'
+                  },
+                  attrs: {},
+                  on: {
+                    input: this.inputHandler.bind(this, 'position')
                   },
                   children: []
                 },
@@ -154,10 +198,8 @@ export default {
     },
 
     saveNewCategory() {
-      const body = {
-        name: this.categoryName,
-        code: 'categoryName'
-      }
+      const { name, url, icon, position, code } = this
+      const body = { name, url, icon, position, code }
       this.saveCategory(body).then(res => {
         this.$notify({
           type: 'success',
@@ -166,8 +208,8 @@ export default {
       })
     },
 
-    inputHandler(ev) {
-      this.categoryName = ev
+    inputHandler(prop, ev) {
+      this[prop] = ev
     }
   }
 }

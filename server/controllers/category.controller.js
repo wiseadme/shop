@@ -3,9 +3,14 @@ const Category = require('../models/Category')
 const errorHandler = require('../utils/errorHandler')
 
 async function createCategory(req, res) {
+  const {name, url, icon, position, code} = req.body
   const category = new Category({
     _id: new mongoose.Types.ObjectId(),
-    name: req.body.name
+    name,
+    url,
+    icon,
+    position,
+    code
   })
   try {
     category.save().then(category => {

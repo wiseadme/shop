@@ -7,6 +7,22 @@ const category = new Schema({
   name: {
     type: String,
     required: true
+  },
+  url: {
+    type: String,
+    required: true
+  },
+  icon: {
+    type: String,
+    required: true
+  },
+  position: {
+    type: Number,
+    required: true
+  },
+  code: {
+    type: String,
+    required: true
   }
 },{
   timestamps: true
