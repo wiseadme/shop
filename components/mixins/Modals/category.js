@@ -1,6 +1,7 @@
 import VInput from '@/components/ui/VInput'
 import VSelect from '../../ui/VSelect'
 import VButton from '@/components/ui/VButton'
+import * as action from '../../../store/ActionsType'
 
 export default {
   data() {
@@ -30,7 +31,8 @@ export default {
                   slot: 'body',
                   props: {
                     label: 'Имя категории',
-                    placeholder: 'Например "книги"'
+                    placeholder: 'Например "книги"',
+                    required: true
                   },
                   attrs: {},
                   on: {
@@ -50,7 +52,8 @@ export default {
                   slot: 'body',
                   props: {
                     label: 'Ссылка на страницу',
-                    placeholder: 'Например "/tovari"'
+                    placeholder: 'Например "/tovari"',
+                    required: true
                   },
                   attrs: {},
                   on: {
@@ -70,7 +73,8 @@ export default {
                   slot: 'body',
                   props: {
                     label: 'Иконка категории',
-                    placeholder: 'material icons'
+                    placeholder: 'material icons',
+                    required: true
                   },
                   attrs: {},
                   on: {
@@ -86,11 +90,16 @@ export default {
               attrs: { class: 'modal__body-block' },
               children: [
                 {
-                  element: VInput,
+                  element: VSelect,
                   slot: 'body',
                   props: {
                     label: 'Позиция в списке',
-                    placeholder: 'Например 0'
+                    placeholder: 'Например 0',
+                    required: true,
+                    items: (() => {
+                      let all = this.$store.state.AdminModule.allCategories
+                      return all.map((it, i) => i)
+                    })()
                   },
                   attrs: {},
                   on: {
@@ -188,9 +197,14 @@ export default {
     }
   },
 
+  created() {
+    console.log(this.availablePositions)
+  },
+
   methods: {
     ...mapActions({
-      saveCategory: `AdminModule/${action.SAVE_CATEGORY}`
+      saveCategory: `AdminModule/${action.SAVE_CATEGORY}`,
+      getAllCategories: `AdminModule/${action.GET_ALL_CATEGORIES}`
     }),
 
     toggleModal() {
@@ -200,16 +214,21 @@ export default {
     saveNewCategory() {
       const { name, url, icon, position, code } = this
       const body = { name, url, icon, position, code }
-      this.saveCategory(body).then(res => {
-        this.$notify({
-          type: 'success',
-          message: res.message
+      this.saveCategory(body)
+        .then(res => {
+          this.$notify({
+            type: 'success',
+            message: res.message
+          })
         })
-      })
+        .then(() => this.getAllCategories())
+
     },
 
     inputHandler(prop, ev) {
       this[prop] = ev
     }
-  }
+  },
+
+  computed: {}
 }

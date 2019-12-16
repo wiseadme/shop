@@ -65,6 +65,7 @@
 		mounted() {
 			this.$refs.wrap.addEventListener("click", this.toggleItemsShow)
 			document.addEventListener("click", this.docClickHandle)
+      console.log(this.items, 'from v-select')
 		},
 
 		methods: {

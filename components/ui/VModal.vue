@@ -53,7 +53,7 @@
     }
 
     &__footer {
-      padding: 15px;
+      padding: 25px 15px;
       background: $white;
     }
 

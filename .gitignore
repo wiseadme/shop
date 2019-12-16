@@ -72,7 +72,7 @@ typings/
 dist
 
 # environment file
-server/.env
+#server/.env
 
 # vuepress build output
 .vuepress/dist
@@ -89,3 +89,6 @@ sw.*
 
 # Mac OSX
 .DS_Store
+
+#packages
+package-lock.json
