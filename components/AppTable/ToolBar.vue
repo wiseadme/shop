@@ -24,44 +24,44 @@
       return {
         functions: [
           {
-            name: 'create',
+            name: 'reload',
+            icon: 'autorenew',
+            event: 'reload',
+            description: 'Запросить данные для таблицы',
+            tooltip: false,
+            disabled: false
+          },
+          {
+            name: 'formatTable',
+            icon: 'format_list_numbered',
+            event: 'format-table',
+            description: 'Скрытие и отображение колонок',
+            tooltip: false,
+            disabled: false
+          },
+          {
+            name: 'showAll',
+            icon: 'view_list',
+            event: 'show-all',
+            description: 'Отобразить все колонки',
+            tooltip: false,
+            disabled: false
+          },
+          {
+            name: 'filter',
+            icon: 'filter_list',
+            event: 'filter',
+            description: 'Фильтрация данных',
+            tooltip: false,
+            disabled: false
+          },
+          {
+            name: 'add',
             icon: 'add',
-            event: 'create',
-            description: 'Создать',
+            event: 'add',
+            description: 'Добавить',
             tooltip: false,
             disabled: false
-          },
-          {
-            name: 'edit',
-            icon: 'create',
-            event: 'edit',
-            description: 'Редактировать',
-            tooltip: false,
-            disabled: false
-          },
-          {
-            name: 'download',
-            icon: 'insert_drive_file',
-            event: 'download',
-            description: 'Скачать',
-            tooltip: false,
-            disabled: false
-          },
-          {
-            name: 'save',
-            icon: 'save',
-            event: 'save',
-            description: 'Сохранить',
-            tooltip: false,
-            disabled: true
-          },
-          {
-            name: 'delete',
-            icon: 'delete_forever',
-            event: 'delete',
-            description: 'Удалить',
-            tooltip: false,
-            disabled: true
           }
         ]
       }
@@ -80,11 +80,12 @@
   .toolbar {
     width: 100%;
     height: 60px;
-    @include flexAlign(flex-end);
+    @include flexAlign(center, center);
 
     &__methods {
       margin: 0 20px;
-      @include flexAlign(center);
+      position: relative;
+      @include flexAlign(center, center);
     }
 
     &__methods-item {
@@ -95,6 +96,7 @@
       cursor: pointer;
       margin: 0 5px;
       transition: all .2s linear;
+      @include flexAlign(center, center);
 
       &--active {
         background: $blue;
@@ -112,26 +114,24 @@
       &--disabled {
         background: $grey;
       }
-
     }
 
     &__methods-tooltip {
-      padding: 10px;
       position: absolute;
-      top: 110%;
+      top: 120%;
       left: 50%;
+      white-space: nowrap;
+      padding: 5px 10px;
       transform: translateX(-50%);
-      background: $black;
+      text-align: center;
+      background: $darkGrey;
       border-radius: 5px;
       box-shadow: $boxShadow;
-      @include fontPlay($white, 12px)
+      z-index: 10;
+      @include fontExo($white, 12px);
     }
 
     &__methods-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       color: $white;
       font-size: 25px;
       transition: color .2s linear;

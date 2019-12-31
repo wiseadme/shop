@@ -2,20 +2,21 @@
   {
     "code": "number",
     "name": "№",
-    "sortable": false,
-    "filter": false,
-    "small": true
+    "width": "50px",
+    "key": "№"
   },
   {
     "code": "categoryName",
     "name": "Наименование категории",
     "sortable": true,
-    "filter": true
+    "filter": true,
+    "width": "375px"
   },
   {
     "code": "categoryValue",
     "name": "Кол-во товаров в категории",
     "sortable": true,
-    "filter": true
+    "filter": true,
+    "width": "210px"
   }
 ]

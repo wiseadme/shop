@@ -1,17 +1,18 @@
 <template>
-  <button @click.prevent="$emit('click')" :class="['v-button', buttonType, btnClass]">
-    {{ buttonText }}
+  <button @click.prevent="$emit('click')" :class="['v-button', type, btnClass]">
+    {{ text }}
   </button>
 </template>
 
 <script>
   export default {
     props: {
-      buttonText: {
+      text: {
         type: String
       },
-      buttonType: {
-        type: String
+      type: {
+        type: String,
+        default: 'info'
       },
       btnClass: {
         type: String
@@ -21,15 +22,36 @@
 </script>
 
 <style lang="scss">
+  $bcgWhite: #f4f4f4;
+  $white: #fefefe;
+  $red: #ff3851;
+  $black: #171717;
+  $green: #23a051;
+  $blue: #1349ff;
+  $orange: #ff601e;
+
+  .danger {
+    background: $red;
+  }
+
+  .success {
+    background: $green;
+  }
+
+  .info {
+    background: $blue;
+  }
+
+  .warning {
+    background-color: $orange;
+  }
+
   .v-button {
     position: relative;
-    width: auto;
-    min-width: 120px;
-    height: 38px;
-    min-height: 38px;
+    height: 40px;
     font-size: 0.8em;
     text-transform: uppercase;
-    color: #ffffff;
+    color: $white;
     cursor: pointer;
     border-radius: 3px;
     border: none;

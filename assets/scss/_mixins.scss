@@ -14,10 +14,11 @@
   padding: $padd;
 }
 
-@mixin flexAlign($justify) {
+@mixin flexAlign($align, $justify, $direction: row) {
   display: flex;
-  align-items: center;
+  align-items: $align;
   justify-content: $justify;
+  flex-direction: $direction;
 }
 
 @mixin hover($hover, $focus) {
@@ -29,21 +30,4 @@
     color: $focus;
   }
   @content;
-}
-
-@mixin grid($cols, $margin) {
-  float: left;
-  background: #5697ff;
-  margin: $margin;
-  @if ($cols >= 5) {
-    width: 100%;
-    margin-right: 0;
-  }
-  @else {
-    width: ((100% - (($cols - 1) * $margin)) / $cols); //рассчитываем ширину колонок
-    margin-right: $margin;
-  }
-  &:nth-child(#{$cols}n) {//выбираем последний из колонок
-    margin: 0;
-  }
 }

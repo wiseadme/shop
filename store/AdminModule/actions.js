@@ -10,6 +10,7 @@ const actions = {
       return data
     } catch (err) {
       errorHandler(err)
+      return Promise.reject(err)
     }
   },
 

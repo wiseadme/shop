@@ -1,28 +1,19 @@
 <template>
   <div class="category-page">
-    <tool-bar
-      @create="createCategory"
-      @edit="editCategory"
-      @download="downloadFile"
-      @save="save"
-      @delete="deleteCategory"
-    />
     <div class="table-wrap">
-      <data-table v-if="rows" :rows="rows" :cols="cols"/>
+      <app-table :rows="rows" :cols="cols"/>
     </div>
   </div>
 </template>
 
 <script>
-  import DataTable from '@/components/DataTable'
-  import ToolBar from '@/components/AdminLayout/ToolBar'
+  import AppTable from '@/components/AppTable'
   import categoryCols from '@/schemes/categoryCols.json'
 
   export default {
     layout: 'admin',
     components: {
-      DataTable,
-      ToolBar,
+      AppTable,
     },
 
     data() {

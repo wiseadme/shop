@@ -10,6 +10,6 @@
   .header{
     width: 100%;
     height: 60px;
-    background: $black;
+    background: $darkBlue;
   }
 </style>
