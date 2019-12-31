@@ -40,6 +40,14 @@
             disabled: false
           },
           {
+            name: 'edit',
+            icon: 'edit',
+            event: 'edit-row',
+            description: 'Редактировать',
+            tooltip: false,
+            disabled: false
+          },
+          {
             name: 'showAll',
             icon: 'view_list',
             event: 'show-all',

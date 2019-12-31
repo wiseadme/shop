@@ -119,14 +119,14 @@
       },
 
       sortColumn(col) {
-        this.tableCols.forEach(it => {
-          if (it !== col && it.sorted) it.sorted = false
-        })
-        this.$set(col, 'sorted', !col.sorted)
-        this.rows.sort((a, b) => {
-          if (a[col.key] > b[col.key] && col.sorted) return 1
-          return -1
-        })
+        // this.tableCols.forEach(it => {
+        //   if (it !== col && it.sorted) it.sorted = false
+        // })
+        // this.$set(col, 'sorted', !col.sorted)
+        // this.rows.sort((a, b) => {
+        //   if (a[col.key] > b[col.key] && col.sorted) return 1
+        //   return -1
+        // })
       },
 
       getUncheckedColsFromLS() {

@@ -110,6 +110,7 @@
         height: 30px;
         color: $blue;
         font-size: 30px;
+        transition: all .2s;
       }
 
       &-name {

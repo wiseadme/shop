@@ -1,5 +1,8 @@
 <template>
   <div class="table-header">
+    <div class="table-header__check">
+      <v-checkbox/>
+    </div>
     <template v-for="(col, i) in cols">
       <div v-if="col.checked"
            :key="col.key + i"
@@ -34,10 +37,12 @@
 
 <style lang="scss">
   .table-header {
+    width: 100%;
     height: 52px;
     display: inline-flex;
     justify-content: flex-start;
     position: sticky;
+    background: $darkGrey;
     top: 0;
 
     &__item {
@@ -66,9 +71,16 @@
         cursor: pointer;
       }
 
+
       .material-icons {
         font-size: 16px;
       }
+    }
+    &__check {
+      width: 40px;
+      height: 100%;
+      @include flexAlign(center, center);
+      border-right: 1px solid #ecedf1;
     }
   }
 

@@ -32,27 +32,7 @@
     methods: {
       ...mapActions({
         fetchAllCategories: `AdminModule/${action.GET_ALL_CATEGORIES}`
-      }),
-
-      createCategory() {
-        this.$modal('category', 'create')
-      },
-
-      editCategory() {
-        this.$modal('category', 'update')
-      },
-
-      downloadFile() {
-        this.$modal('category', 'download')
-      },
-
-      save() {
-        this.$modal('category', 'save')
-      },
-
-      deleteCategory() {
-        this.$modal('category', 'delete')
-      }
+      })
     },
 
     computed: {

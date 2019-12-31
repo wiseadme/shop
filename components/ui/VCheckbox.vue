@@ -1,7 +1,7 @@
 <template>
   <div class="v-checkbox" @click="toggleCheckbox">
     <i class="material-icons v-checkbox__icon">{{`check_box${checked ? '' : '_outline_blank'}`}}</i>
-    <span class="v-checkbox__label">{{label}}</span>
+    <span v-if="label" class="v-checkbox__label">{{label}}</span>
   </div>
 </template>
 <script>
@@ -13,11 +13,9 @@
     props: {
       label: {
         type: String,
-        required: true
       },
       item: {
         type: Object,
-        required: true
       },
       isChecked: {
         type: Boolean,

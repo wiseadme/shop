@@ -38,7 +38,6 @@
   import AppSearch from './nav/Search.vue'
   import AppAddress from './nav/Address.vue'
   import AppAuth from './nav/Auth.vue'
-  import menuItems from '../../schemes/menu.json'
 
   export default {
     name: 'AppHeader',
@@ -54,7 +53,7 @@
 
     data() {
       return {
-        menuItems
+
       }
     },
 
@@ -93,7 +92,7 @@
     &__bottom {
       display: flex;
       justify-content: center;
-      background: $black;
+      background: $darkBlue;
     }
 
     &__basket {

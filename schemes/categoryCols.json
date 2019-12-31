@@ -1,22 +1,32 @@
 [
   {
-    "code": "number",
+    "key": "№",
     "name": "№",
-    "width": "50px",
-    "key": "№"
+    "width": "40px",
+    "checked": true
   },
   {
-    "code": "categoryName",
+    "key": "name",
     "name": "Наименование категории",
     "sortable": true,
     "filter": true,
+    "checked": true,
     "width": "375px"
   },
   {
-    "code": "categoryValue",
+    "key": "value",
     "name": "Кол-во товаров в категории",
     "sortable": true,
     "filter": true,
+    "checked": true,
+    "width": "210px"
+  },
+  {
+    "key": "sum",
+    "name": "Сумма всех товаров в категории",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
     "width": "210px"
   }
 ]

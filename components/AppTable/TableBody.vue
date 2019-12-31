@@ -1,16 +1,20 @@
 <template>
   <div class="table-body">
-    <template v-for="row in rows">
+    <template v-for="(row, i) in rows">
       <div class="table-body__row" :key="row.name">
-        <template v-for="(col, i) in cols">
+        <div class="table-body__row-check">
+          <v-checkbox/>
+        </div>
+        <template v-for="(col, j) in cols">
           <div
             v-if="col.checked"
-            :key="col.name + i"
+            :key="col.name + j"
             :class="['table-body__cell']"
             :style="{width: col.width}"
             :data-col="col.name"
           >
-            <span>
+            <span v-if="col.key === '№'">{{ i += 1 }}</span>
+            <span v-else>
               {{row[col.key] ? row[col.key] === true ? '+': row[col.key] : row[col.key] === false || !row[col.key] ? '-' : ''}}
             </span>
           </div>
@@ -63,11 +67,17 @@
 
       &:hover {
         /*background: #d6d9d4;*/
-        background: $blue;
+        background: #d3d6d1;
       }
 
       &:hover .table-body__cell {
         color: $white;
+      }
+      &-check {
+        width: 40px;
+        height: 100%;
+        @include flexAlign(center, center);
+        border-right: 1px solid #ecedf1;
       }
     }
 
@@ -80,6 +90,10 @@
       transition: color .2s;
       border-right: 1px solid #ecedf1;
       @include fontExo($darkBlue, 14px);
+
+      &:first-child{
+        justify-content: center;
+      }
     }
   }
 
