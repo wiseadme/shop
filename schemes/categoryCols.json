@@ -12,7 +12,10 @@
     "filter": true,
     "checked": true,
     "width": "375px",
-    "useOnCreate": true
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "введите наименование",
+    "regExp": ""
   },
   {
     "key": "url",
@@ -21,7 +24,10 @@
     "filter": true,
     "checked": true,
     "width": "210px",
-    "useOnCreate": true
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "введите наименование",
+    "regExp": ""
   },
   {
     "key": "icon",
@@ -30,7 +36,10 @@
     "filter": true,
     "checked": true,
     "width": "210px",
-    "useOnCreate": true
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "введите наименование",
+    "regExp": ""
   },
   {
     "key": "position",
@@ -39,7 +48,10 @@
     "filter": true,
     "checked": true,
     "width": "210px",
-    "useOnCreate": true
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "введите наименование",
+    "regExp": ""
   },
   {
     "key": "value",

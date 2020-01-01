@@ -33,7 +33,7 @@
   }
 
   .modal {
-    width: 500px;
+    min-width: 450px;
     border-radius: 5px;
     box-shadow: $boxShadow;
 
@@ -54,7 +54,7 @@
     }
 
     &__footer {
-      padding: 25px 15px;
+      padding: 15px;
       background: $white;
     }
 

@@ -43,8 +43,23 @@
         <v-button @click="cancel" text="закрыть" type="warning"/>
       </div>
     </v-modal>
-
-    <v-render v-if="false" :activeModal="{}"/>
+    <v-modal v-if="showAddModal">
+      <h2 slot="header">Создать объект</h2>
+      <div slot="body" class="modal-body-fields">
+        <div class="field-wrap" v-for="col in colsOnCreate" :key="col.key">
+          <v-input
+            :label="col.name"
+            :required="col.required"
+            :placeholder="col.placeholder"
+            clear-icon="info"
+          />
+        </div>
+      </div>
+      <div slot="footer" class="buttons-wrap">
+        <v-button @click="filterTableCols" text="создать" type="info"/>
+        <v-button @click="showAddModal = false" text="отмена" type="warning"/>
+      </div>
+    </v-modal>
   </div>
 </template>
 
@@ -75,7 +90,7 @@
         tableRows: null,
         showPreloader: true,
         showColsModal: false,
-        showAddModal: '',
+        showAddModal: false,
         filter: {
           __cols: [],
         }
@@ -85,8 +100,6 @@
     created() {
       this.tableCols = this.cols
       this.tableRows = this.copyWithoutLink(this.rows)
-      this.showAddModal = this.$route.path.slice(6)
-      console.log(this.colsOnCreate)
       if (process.browser) {
         this.getUncheckedColsFromLS()
       }
@@ -165,7 +178,7 @@
       },
 
       addItem() {
-
+        this.showAddModal = true
       },
 
       cancel() {
@@ -195,7 +208,7 @@
 
     &-inner {
       width: 100%;
-      height: 100%;
+      height: calc(100% - 60px);
       overflow: auto;
     }
   }
@@ -217,5 +230,15 @@
 
   .buttons-wrap {
     @include flexAlign(center, space-between)
+  }
+
+  .field-wrap{
+    margin: 15px 0;
+  }
+
+  .modal-body-fields {
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    /*width: 70vw;*/
   }
 </style>

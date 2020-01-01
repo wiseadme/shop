@@ -60,7 +60,7 @@
 <style lang="scss" scoped>
   .aside {
     position: absolute;
-    z-index: 100;
+    z-index: 1000;
     top: 60px;
     width: 60px;
     height: calc(100vh - 60px);
@@ -103,13 +103,13 @@
 
       &-icon {
         position: absolute;
-        left: 15px;
+        left: 20px;
         top: 50%;
         transform: translateY(-50%);
-        width: 30px;
-        height: 30px;
+        width: 20px;
+        height: 20px;
         color: $blue;
-        font-size: 30px;
+        font-size: 20px;
         transition: all .2s;
       }
 
