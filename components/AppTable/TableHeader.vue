@@ -1,7 +1,7 @@
 <template>
   <div class="table-header">
     <div class="table-header__check">
-      <v-checkbox/>
+      <v-checkbox :is-checked="checkAll" @checked="$emit('check-all')"/>
     </div>
     <template v-for="(col, i) in cols">
       <div
@@ -27,6 +27,9 @@
       cols: {
         type: Array,
       },
+      checkAll: {
+        type: Boolean
+      }
     },
 
     data() {
@@ -38,7 +41,6 @@
 
 <style lang="scss">
   .table-header {
-    /*width: 100%;*/
     min-width: calc(100vw - 60px);
     height: 52px;
     display: inline-flex;

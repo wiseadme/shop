@@ -11,12 +11,15 @@
     <div class="table-inner">
       <TableHeader
         :cols="tableCols"
+        :check-all = "checkAll"
         @sort-column="sortColumn"
+        @check-all="toggleCheckAllRows"
       />
       <TableBody
         v-if="rows && rows.length"
         :rows="tableRows"
         :cols="tableCols"
+        :check-all="checkAll"
         @check-row="toggleCheckRow"
       />
       <div v-show="!rows" class="preloader-wrap">
@@ -25,7 +28,6 @@
     </div>
 
     <!-- Table modals is Here -->
-
     <v-modal v-if="showColsModal">
       <h2 slot="header">Фильтрация колонок</h2>
       <div slot="body" v-for="col in cols" :key="col.name">
@@ -91,6 +93,7 @@
         showPreloader: true,
         showColsModal: false,
         showAddModal: false,
+        checkAll: false,
         filter: {
           __cols: [],
         }
@@ -130,12 +133,12 @@
           }
         })
         this.filter.__cols = checkedCols
-        this.setGetOrRemoveLS('unchecked-cols', this.filter.__cols, true)
+        this.setGetOrRemoveLS('cols', { cols: this.tableCols, unchecked: this.filter.__cols }, true)
       },
 
       showAllCols() {
         this.filter.__cols = []
-        this.setGetOrRemoveLS('unchecked-cols', null)
+        this.setGetOrRemoveLS('cols', null)
         this.tableCols.forEach(it => it.checked = true)
       },
 
@@ -151,9 +154,9 @@
       },
 
       getUncheckedColsFromLS() {
-        const savedCols = this.setGetOrRemoveLS('unchecked-cols')
-        if (savedCols && savedCols.length) {
-          this.filter.__cols = savedCols
+        const savedCols = this.setGetOrRemoveLS('cols')
+        if (savedCols && savedCols.unchecked.length) {
+          this.filter.__cols = savedCols.unchecked
           this.filterTableCols()
         }
       },
@@ -164,7 +167,16 @@
       },
 
       toggleCheckRow(row) {
+        if (this.checkAll) {
+          this.toggleCheckAllRows()
+        }
         this.$set(row, 'checked', !row.checked)
+        console.log(row)
+      },
+
+      toggleCheckAllRows() {
+        this.checkAll = !this.checkAll
+        this.tableRows.forEach(it => this.$set(it, 'checked', this.checkAll))
       },
 
       setGetOrRemoveLS(name, item = [], flag = false) {
@@ -232,7 +244,7 @@
     @include flexAlign(center, space-between)
   }
 
-  .field-wrap{
+  .field-wrap {
     margin: 15px 0;
   }
 

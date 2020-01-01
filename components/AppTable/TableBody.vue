@@ -7,7 +7,7 @@
         @click="checkRow(row)"
       >
         <div class="table-body__row-check">
-          <v-checkbox :is-checked="row.checked"/>
+          <v-checkbox :is-checked="row.checked || checkAll"/>
         </div>
         <template v-for="(col, j) in cols">
           <div
@@ -33,9 +33,13 @@
     props: {
       cols: {
         type: Array,
+        required: true
       },
       rows: {
         type: Array
+      },
+      checkAll: {
+        type: Boolean
       }
     },
 
