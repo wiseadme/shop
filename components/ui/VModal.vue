@@ -46,11 +46,10 @@
 
     &__body {
       @include fontExo($darkBlue, 1em);
+      position: relative;
       background: $white;
       padding: 15px;
       max-height: 70vh;
-      overflow-x: hidden;
-      overflow-y: auto;
     }
 
     &__footer {

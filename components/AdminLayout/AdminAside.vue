@@ -161,7 +161,7 @@
 
       &:hover {
         padding-left: 13px;
-        background: $blueLight;
+        background: #06145c;
       }
     }
   }

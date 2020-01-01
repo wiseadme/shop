@@ -47,7 +47,18 @@ async function allCategories(req, res) {
 }
 
 async function updateCategory(req, res) {
-
+  const $set = {}
+  Object.keys(req.body).forEach(it => {
+    $set[it] = req.body[it]
+  })
+  try {
+    const category = await Category.findOneAndUpdate({
+      _id: req.params.id
+    }, { $set }, { new: true })
+    res.json(category)
+  } catch (err) {
+    errorHandler(err)
+  }
 }
 
 async function deleteCategory(req, res) {

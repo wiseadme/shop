@@ -4,14 +4,14 @@
       <div
         :key="row.name"
         :class="['table-body__row', {checked: row.checked}]"
-        @click="checkRow(row)"
+        @dblclick="checkRow(row)"
       >
         <div class="table-body__row-check">
-          <v-checkbox :is-checked="row.checked || checkAll"/>
+          <v-checkbox @checked="$emit('checked', row)" :is-checked="row.checked || checkAll"/>
         </div>
         <template v-for="(col, j) in cols">
           <div
-            v-if="col.checked"
+            v-if="col.checked && !row.edit"
             :key="col.name + j"
             :class="['table-body__cell']"
             :style="{width: col.width}"
@@ -21,6 +21,18 @@
             <span v-else>
               {{row[col.key] ? row[col.key] === true ? '+': row[col.key] : row[col.key] === false || !row[col.key] ? '-' : ''}}
             </span>
+          </div>
+          <div v-if="col.checked && row.edit"
+            :key="col.name + j"
+            :class="['table-body__cell']"
+            :style="{width: col.width}"
+            :data-col="col.name"
+          >
+            <span v-if="col.key === '№'">{{ i += 1 }}</span>
+            <input v-else type="text" :value="row[col.key]">
+<!--            <span>-->
+<!--              {{row[col.key] ? row[col.key] === true ? '+': row[col.key] : row[col.key] === false || !row[col.key] ? '-' : ''}}-->
+<!--            </span>-->
           </div>
         </template>
       </div>
@@ -40,7 +52,7 @@
       },
       checkAll: {
         type: Boolean
-      }
+      },
     },
 
     data() {
@@ -74,7 +86,7 @@
       cursor: pointer;
 
       &:hover {
-        background: $blue;
+        background: $grey;
       }
 
       &:hover .table-body__cell {

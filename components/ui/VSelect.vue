@@ -36,6 +36,10 @@
 
 <script>
 	export default {
+	  model:{
+	    event: "selected",
+      prop: "value"
+    },
 		props: {
 			items: {
 				type: Array,
@@ -53,7 +57,7 @@
 				type: Boolean,
 			},
 		},
-    
+
     data() {
 			return {
 				showItems: false,
@@ -65,7 +69,6 @@
 		mounted() {
 			this.$refs.wrap.addEventListener("click", this.toggleItemsShow)
 			document.addEventListener("click", this.docClickHandle)
-      console.log(this.items, 'from v-select')
 		},
 
 		methods: {
@@ -85,11 +88,12 @@
 
 			selectedItem(it) {
 				this.value = it
-				this.$emit("input", it)
+				this.$emit("selected", it)
 			},
 		},
 
     beforeDestroy() {
+      this.$refs.wrap.removeEventListener("click", this.toggleItemsShow)
       document.removeEventListener("click", this.docClickHandle)
     }
   }

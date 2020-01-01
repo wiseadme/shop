@@ -57,9 +57,9 @@
         <v-button
           ref="send"
           :data-api="!isRegistration ? '/auth/login' : '/auth/registration'"
-          :buttonText="!isRegistration ? 'войти' : 'отправить'"
+          :text="!isRegistration ? 'войти' : 'отправить'"
+          type="info"
           btn-class="v-button-custom"
-          buttonType="info"
           @click="sendUserParams"
         />
         <nuxt-link

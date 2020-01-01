@@ -5,13 +5,14 @@
         @reload="$emit('reload')"
         @format-table="showColsModal = !showColsModal"
         @show-all="showAllCols"
-        @add="addItem"
+        @add="addEventHandler"
+        @edit-row="editEventHandler"
       />
     </div>
     <div class="table-inner">
       <TableHeader
         :cols="tableCols"
-        :check-all = "checkAll"
+        :check-all="checkAllRows"
         @sort-column="sortColumn"
         @check-all="toggleCheckAllRows"
       />
@@ -19,8 +20,9 @@
         v-if="rows && rows.length"
         :rows="tableRows"
         :cols="tableCols"
-        :check-all="checkAll"
+        :check-all="checkAllRows"
         @check-row="toggleCheckRow"
+        @checked="toggleCheckRow"
       />
       <div v-show="!rows" class="preloader-wrap">
         <img class="preloader" src="/img/preloader.gif">
@@ -28,9 +30,10 @@
     </div>
 
     <!-- Table modals is Here -->
-    <v-modal v-if="showColsModal">
-      <h2 slot="header">Фильтрация колонок</h2>
-      <div slot="body" v-for="col in cols" :key="col.name">
+    <transition name="fadeIn">
+      <v-modal v-if="showColsModal">
+        <h2 slot="header">Фильтрация колонок</h2>
+        <div slot="body" v-for="col in cols" :key="col.name">
         <span class="check-wrap">
           <v-checkbox
             :label="col.name"
@@ -39,29 +42,43 @@
             @checked="addInFilteredCols"
           />
         </span>
-      </div>
-      <div slot="footer" class="buttons-wrap">
-        <v-button @click="filterTableCols" text="применить" type="info"/>
-        <v-button @click="cancel" text="закрыть" type="warning"/>
-      </div>
-    </v-modal>
-    <v-modal v-if="showAddModal">
-      <h2 slot="header">Создать объект</h2>
-      <div slot="body" class="modal-body-fields">
-        <div class="field-wrap" v-for="col in colsOnCreate" :key="col.key">
-          <v-input
-            :label="col.name"
-            :required="col.required"
-            :placeholder="col.placeholder"
-            clear-icon="info"
-          />
         </div>
-      </div>
-      <div slot="footer" class="buttons-wrap">
-        <v-button @click="filterTableCols" text="создать" type="info"/>
-        <v-button @click="showAddModal = false" text="отмена" type="warning"/>
-      </div>
-    </v-modal>
+        <div slot="footer" class="buttons-wrap">
+          <v-button @click="filterTableCols" text="применить" type="info"/>
+          <v-button @click="cancel" text="закрыть" type="warning"/>
+        </div>
+      </v-modal>
+      <v-modal v-if="showAddModal">
+        <h2 slot="header">Создать объект</h2>
+        <div slot="body" class="modal-body-fields">
+          <div class="field-wrap" v-for="col in colsOnCreate" :key="col.key">
+            <v-input
+              v-if="col.fieldType === 'input'"
+              v-model="actualModal.add[col.key]"
+              :label="col.name"
+              :required="col.required"
+              :placeholder="col.placeholder"
+              clear-icon="info"
+              @input="validateValue"
+            />
+            <v-select
+              v-if="col.fieldType === 'select'"
+              v-model="actualModal.add[col.key]"
+              :label="col.name"
+              :required="col.required"
+              :placeholder="col.placeholder"
+              :items="[0,1,2,3,4]"
+              clear-icon="info"
+              @selected="validateValue"
+            />
+          </div>
+        </div>
+        <div slot="footer" class="buttons-wrap">
+          <v-button @click="createNewRowItem" text="создать" type="info"/>
+          <v-button @click="showAddModal = false" text="отмена" type="warning"/>
+        </div>
+      </v-modal>
+    </transition>
   </div>
 </template>
 
@@ -93,9 +110,14 @@
         showPreloader: true,
         showColsModal: false,
         showAddModal: false,
-        checkAll: false,
+        checkedRows: [],
+        checkAllRows: false,
+        actualModal: {
+          add: {}
+        },
         filter: {
           __cols: [],
+          __pretty: {}
         }
       }
     },
@@ -167,16 +189,30 @@
       },
 
       toggleCheckRow(row) {
-        if (this.checkAll) {
+        if (this.checkAllRows) {
           this.toggleCheckAllRows()
         }
         this.$set(row, 'checked', !row.checked)
-        console.log(row)
+        if (row.edit) {
+          this.editEventHandler()
+        }
+        if (row.checked) {
+          this.checkedRows.push(row)
+        } else {
+          let ind = this.checkedRows.findIndex(it => it._id === row._id)
+          this.checkedRows.splice(ind, 1)
+        }
       },
 
       toggleCheckAllRows() {
-        this.checkAll = !this.checkAll
-        this.tableRows.forEach(it => this.$set(it, 'checked', this.checkAll))
+        this.checkAllRows = !this.checkAllRows
+        this.checkedRows = []
+        this.tableRows.forEach(it => {
+          this.$set(it, 'checked', this.checkAllRows)
+          if (this.checkAllRows) {
+            this.checkedRows.push(it)
+          }
+        })
       },
 
       setGetOrRemoveLS(name, item = [], flag = false) {
@@ -189,8 +225,28 @@
         return JSON.parse(localStorage.getItem(name))
       },
 
-      addItem() {
+      validateValue(e) {
+        console.log(e)
+      },
+
+      editEventHandler() {
+        this.checkedRows.forEach(row => {
+          this.$set(row, 'edit', !row.edit)
+        })
+      },
+
+      addEventHandler() {
         this.showAddModal = true
+        Object.keys(this.colsOnCreate).forEach(col => {
+          if (col && col.key) {
+            this.$set(this.actualModal.add, col.key, '')
+          }
+        })
+      },
+
+      createNewRowItem() {
+        this.$emit('create', this.actualModal.add)
+        this.showAddModal = false
       },
 
       cancel() {
@@ -245,7 +301,7 @@
   }
 
   .field-wrap {
-    margin: 15px 0;
+    margin: 20px 0;
   }
 
   .modal-body-fields {

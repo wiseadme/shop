@@ -1,7 +1,10 @@
 <template>
   <div class="table-header">
     <div class="table-header__check">
-      <v-checkbox :is-checked="checkAll" @checked="$emit('check-all')"/>
+      <v-checkbox
+        :is-checked="checkAll"
+        @checked="$emit('check-all')"
+      />
     </div>
     <template v-for="(col, i) in cols">
       <div

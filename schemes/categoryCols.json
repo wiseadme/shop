@@ -15,7 +15,8 @@
     "useOnCreate": true,
     "required": true,
     "placeholder": "введите наименование",
-    "regExp": ""
+    "regExp": "",
+    "fieldType": "input"
   },
   {
     "key": "url",
@@ -27,7 +28,8 @@
     "useOnCreate": true,
     "required": true,
     "placeholder": "введите наименование",
-    "regExp": ""
+    "regExp": "",
+    "fieldType": "input"
   },
   {
     "key": "icon",
@@ -39,7 +41,8 @@
     "useOnCreate": true,
     "required": true,
     "placeholder": "введите наименование",
-    "regExp": ""
+    "regExp": "",
+    "fieldType": "input"
   },
   {
     "key": "position",
@@ -51,7 +54,8 @@
     "useOnCreate": true,
     "required": true,
     "placeholder": "введите наименование",
-    "regExp": ""
+    "regExp": "",
+    "fieldType": "select"
   },
   {
     "key": "value",

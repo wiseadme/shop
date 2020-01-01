@@ -19,10 +19,6 @@ const category = new Schema({
   position: {
     type: Number,
     required: true
-  },
-  key: {
-    type: String,
-    required: true
   }
 }, {
   timestamps: true

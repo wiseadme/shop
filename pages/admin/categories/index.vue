@@ -5,6 +5,7 @@
         :rows="rows"
         :cols="cols"
         @reload="reloadRowItems"
+        @create="createNewCategory"
       />
     </div>
   </div>
@@ -35,7 +36,8 @@
 
     methods: {
       ...mapActions({
-        fetchAllCategories: `AdminModule/${action.GET_ALL_CATEGORIES}`
+        fetchAllCategories: `AdminModule/${action.GET_ALL_CATEGORIES}`,
+        saveCategory: `AdminModule/${action.SAVE_CATEGORY}`
       }),
 
       reloadRowItems() {
@@ -46,6 +48,17 @@
             this.$notify({
               type: 'success',
               message: 'Данные обновлены'
+            })
+          })
+      },
+
+      createNewCategory(category) {
+        this.saveCategory(category)
+          .then(() => this.reloadRowItems())
+          .catch(err => {
+            this.$notify({
+              type: 'danger',
+              message: 'Ошибка сервера. Повторите операцию позже'
             })
           })
       }
