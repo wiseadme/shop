@@ -165,6 +165,7 @@
       },
 
       sortColumn(col) {
+        console.log(col)
         this.tableCols.forEach(it => {
           if (it !== col && it.sorted) it.sorted = false
         })

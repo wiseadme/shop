@@ -111,6 +111,8 @@
       padding: 0 5px;
       height: 100%;
       overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
       transition: color .2s;
       border-right: 1px solid #ecedf1;
       @include fontExo($darkBlue, 14px);
