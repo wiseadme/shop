@@ -1,7 +1,11 @@
 <template>
   <div class="category-page">
     <div class="table-wrap">
-      <app-table :rows="rows" :cols="cols"/>
+      <app-table
+        :rows="rows"
+        :cols="cols"
+        @reload="reloadRowItems"
+      />
     </div>
   </div>
 </template>
@@ -26,19 +30,30 @@
     },
 
     async created() {
-      await this.fetchAllCategories()
-        .then(rows => this.rows = rows)
-        .catch(err => {
-          this.$notify({
-            type: 'danger',
-            message: 'Ошибка: ' + err
-          })
-        })
+      this.rows = this.allCategories
     },
 
     methods: {
       ...mapActions({
         fetchAllCategories: `AdminModule/${action.GET_ALL_CATEGORIES}`
+      }),
+
+      reloadRowItems() {
+        this.rows = null
+        this.fetchAllCategories()
+          .then(rows => this.rows = rows)
+          .then(() => {
+            this.$notify({
+              type: 'success',
+              message: 'Данные обновлены'
+            })
+          })
+      }
+    },
+
+    computed: {
+      ...mapState({
+        allCategories: state => state.AdminModule.allCategories
       })
     }
   }

@@ -38,7 +38,8 @@
 
 <style lang="scss">
   .table-header {
-    width: 100%;
+    /*width: 100%;*/
+    min-width: calc(100vw - 60px);
     height: 52px;
     display: inline-flex;
     justify-content: flex-start;

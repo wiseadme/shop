@@ -5,6 +5,7 @@
         @reload="$emit('reload')"
         @format-table="showColsModal = !showColsModal"
         @show-all="showAllCols"
+        @add="addItem"
       />
     </div>
     <div class="table-inner">
@@ -42,6 +43,8 @@
         <v-button @click="cancel" text="закрыть" type="warning"/>
       </div>
     </v-modal>
+
+    <v-render v-if="false" :activeModal="{}"/>
   </div>
 </template>
 
@@ -72,6 +75,7 @@
         tableRows: null,
         showPreloader: true,
         showColsModal: false,
+        showAddModal: '',
         filter: {
           __cols: [],
         }
@@ -80,7 +84,9 @@
 
     created() {
       this.tableCols = this.cols
-      this.tableRows = this.rows
+      this.tableRows = this.copyWithoutLink(this.rows)
+      this.showAddModal = this.$route.path.slice(6)
+      console.log(this.colsOnCreate)
       if (process.browser) {
         this.getUncheckedColsFromLS()
       }
@@ -139,6 +145,11 @@
         }
       },
 
+      copyWithoutLink(obj) {
+        const rows = JSON.stringify(obj)
+        return JSON.parse(rows)
+      },
+
       toggleCheckRow(row) {
         this.$set(row, 'checked', !row.checked)
       },
@@ -153,16 +164,24 @@
         return JSON.parse(localStorage.getItem(name))
       },
 
+      addItem() {
+
+      },
+
       cancel() {
         this.showColsModal = false
       }
     },
 
+    computed: {
+      colsOnCreate() {
+        return this.tableCols.filter(it => it.useOnCreate)
+      }
+    },
+
     watch: {
       rows(to) {
-        console.log(to)
-        const rows = JSON.stringify(to)
-        this.tableRows = JSON.parse(rows)
+        this.tableRows = this.copyWithoutLink(to)
       }
     }
   }

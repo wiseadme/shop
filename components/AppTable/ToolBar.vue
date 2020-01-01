@@ -27,7 +27,7 @@
             name: 'reload',
             icon: 'autorenew',
             event: 'reload',
-            description: 'Запросить данные для таблицы',
+            description: 'Обновить данные',
             tooltip: false,
             disabled: false
           },
@@ -35,7 +35,7 @@
             name: 'formatTable',
             icon: 'format_list_numbered',
             event: 'format-table',
-            description: 'Скрытие и отображение колонок',
+            description: 'Отображение колонок',
             tooltip: false,
             disabled: false
           },
@@ -56,10 +56,18 @@
             disabled: false
           },
           {
-            name: 'filter',
-            icon: 'filter_list',
-            event: 'filter',
-            description: 'Фильтрация данных',
+            name: 'copy',
+            icon: 'save',
+            event: 'copy',
+            description: 'Копировать',
+            tooltip: false,
+            disabled: false
+          },
+          {
+            name: 'delete',
+            icon: 'delete_forever',
+            event: 'delete',
+            description: 'Удалить',
             tooltip: false,
             disabled: false
           },

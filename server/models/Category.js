@@ -20,14 +20,14 @@ const category = new Schema({
     type: Number,
     required: true
   },
-  code: {
+  key: {
     type: String,
     required: true
   }
-},{
+}, {
   timestamps: true
 })
 
 category.set('toJSON', { virtuals: true })
 
-module.exports = model("Category", category)
+module.exports = model('Category', category)

@@ -11,7 +11,35 @@
     "sortable": true,
     "filter": true,
     "checked": true,
-    "width": "375px"
+    "width": "375px",
+    "useOnCreate": true
+  },
+  {
+    "key": "url",
+    "name": "Url категории",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true
+  },
+  {
+    "key": "icon",
+    "name": "Иконка категории",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true
+  },
+  {
+    "key": "position",
+    "name": "Позиция категории",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true
   },
   {
     "key": "value",
