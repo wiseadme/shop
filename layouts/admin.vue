@@ -51,7 +51,6 @@
     top: $adminHeader;
     height: calc(100vh - 60px);
     width: calc(100% - 60px);
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
   }
 </style>

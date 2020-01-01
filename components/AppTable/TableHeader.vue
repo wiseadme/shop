@@ -4,10 +4,11 @@
       <v-checkbox/>
     </div>
     <template v-for="(col, i) in cols">
-      <div v-if="col.checked"
-           :key="col.key + i"
-           :style="{width: col.width}"
-           :class="['table-header__item']"
+      <div
+        v-if="col.checked"
+        :key="col.key + i"
+        :style="{width: col.width}"
+        :class="['table-header__item']"
       >
         <span class="table-header__item-name">{{col.name}}</span>
         <i
@@ -71,16 +72,20 @@
         cursor: pointer;
       }
 
-
       .material-icons {
         font-size: 16px;
       }
     }
+
     &__check {
       width: 40px;
       height: 100%;
       @include flexAlign(center, center);
       border-right: 1px solid #ecedf1;
+
+      .v-checkbox__icon {
+        color: $white;
+      }
     }
   }
 

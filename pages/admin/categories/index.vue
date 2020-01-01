@@ -19,25 +19,26 @@
     data() {
       return {
         categoryName: '',
-        rows: null,
         create: false,
+        rows: null,
         cols: categoryCols
       }
     },
 
     async created() {
-      this.rows = this.allCategories
+      await this.fetchAllCategories()
+        .then(rows => this.rows = rows)
+        .catch(err => {
+          this.$notify({
+            type: 'danger',
+            message: 'Ошибка: ' + err
+          })
+        })
     },
 
     methods: {
       ...mapActions({
         fetchAllCategories: `AdminModule/${action.GET_ALL_CATEGORIES}`
-      })
-    },
-
-    computed: {
-      ...mapState({
-        allCategories: state => state.AdminModule.allCategories
       })
     }
   }
@@ -46,12 +47,17 @@
 <style lang="scss" scoped>
   .category-page {
     width: 100%;
-    height: 100%;
+    height: calc(100vh - 60px);
+    overflow: hidden;
   }
 
   .btn-block {
     display: flex;
     justify-content: space-between;
+  }
+
+  .table-wrap {
+    height: 100%;
   }
 
 </style>

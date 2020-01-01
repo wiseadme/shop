@@ -1,9 +1,13 @@
 <template>
   <div class="table-body">
     <template v-for="(row, i) in rows">
-      <div class="table-body__row" :key="row.name">
+      <div
+        :key="row.name"
+        :class="['table-body__row', {checked: row.checked}]"
+        @click="checkRow(row)"
+      >
         <div class="table-body__row-check">
-          <v-checkbox/>
+          <v-checkbox :is-checked="row.checked"/>
         </div>
         <template v-for="(col, j) in cols">
           <div
@@ -37,15 +41,15 @@
 
     data() {
       return {
-        currentTick: 0,
+        rowsOnTable: null
       }
     },
 
     methods: {
-      fromArray() {
-
+      checkRow(row) {
+        this.$emit('check-row', row)
       }
-    },
+    }
   }
 </script>
 
@@ -66,13 +70,17 @@
       cursor: pointer;
 
       &:hover {
-        /*background: #d6d9d4;*/
-        background: #d3d6d1;
+        background: $blue;
       }
 
       &:hover .table-body__cell {
         color: $white;
       }
+
+      &:hover .v-checkbox__icon {
+        color: $white;
+      }
+
       &-check {
         width: 40px;
         height: 100%;
@@ -91,13 +99,12 @@
       border-right: 1px solid #ecedf1;
       @include fontExo($darkBlue, 14px);
 
-      &:first-child{
+      &:first-child {
         justify-content: center;
       }
     }
   }
-
-  .cell-large {
-    width: 450px;
+  .checked {
+    background: $grey;
   }
 </style>

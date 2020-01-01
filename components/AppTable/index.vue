@@ -13,9 +13,10 @@
         @sort-column="sortColumn"
       />
       <TableBody
-        v-if="rows"
-        :rows="rows"
+        v-if="rows && rows.length"
+        :rows="tableRows"
         :cols="tableCols"
+        @check-row="toggleCheckRow"
       />
       <div v-show="!rows" class="preloader-wrap">
         <img class="preloader" src="/img/preloader.gif">
@@ -79,6 +80,7 @@
 
     created() {
       this.tableCols = this.cols
+      this.tableRows = this.rows
       if (process.browser) {
         this.getUncheckedColsFromLS()
       }
@@ -119,14 +121,14 @@
       },
 
       sortColumn(col) {
-        // this.tableCols.forEach(it => {
-        //   if (it !== col && it.sorted) it.sorted = false
-        // })
-        // this.$set(col, 'sorted', !col.sorted)
-        // this.rows.sort((a, b) => {
-        //   if (a[col.key] > b[col.key] && col.sorted) return 1
-        //   return -1
-        // })
+        this.tableCols.forEach(it => {
+          if (it !== col && it.sorted) it.sorted = false
+        })
+        this.$set(col, 'sorted', !col.sorted)
+        this.tableRows.sort((a, b) => {
+          if (a[col.key] > b[col.key] && col.sorted) return 1
+          return -1
+        })
       },
 
       getUncheckedColsFromLS() {
@@ -135,6 +137,10 @@
           this.filter.__cols = savedCols
           this.filterTableCols()
         }
+      },
+
+      toggleCheckRow(row) {
+        this.$set(row, 'checked', !row.checked)
       },
 
       setGetOrRemoveLS(name, item = [], flag = false) {
@@ -150,6 +156,14 @@
       cancel() {
         this.showColsModal = false
       }
+    },
+
+    watch: {
+      rows(to) {
+        console.log(to)
+        const rows = JSON.stringify(to)
+        this.tableRows = JSON.parse(rows)
+      }
     }
   }
 </script>
@@ -162,7 +176,7 @@
 
     &-inner {
       width: 100%;
-      height: calc(100% - 60px);
+      height: 100%;
       overflow: auto;
     }
   }
@@ -179,7 +193,7 @@
 
   .check-wrap {
     display: block;
-    margin: 5px 0;
+    margin: 15px 0;
   }
 
   .buttons-wrap {

@@ -38,13 +38,14 @@
     box-shadow: $boxShadow;
 
     &__header {
-      @include fontPlay($white, 1.2em);
+      @include fontExo($white, 1.2em);
       text-align: center;
       padding: 15px;
       background: $blue;
     }
 
     &__body {
+      @include fontExo($darkBlue, 1em);
       background: $white;
       padding: 15px;
       max-height: 70vh;

@@ -4,22 +4,22 @@
     <span v-if="label" class="v-checkbox__label">{{label}}</span>
   </div>
 </template>
+
 <script>
   export default {
-    model: {
-      event: 'checked',
-      prop: 'value'
-    },
     props: {
       label: {
         type: String,
+        default: ''
       },
       item: {
         type: Object,
+        default: () => {}
       },
       isChecked: {
         type: Boolean,
-      },
+        default: false
+      }
     },
     data() {
       return {
@@ -36,9 +36,16 @@
         this.checked = !this.checked
         this.$emit('checked', { checked: this.checked, item: this.item })
       }
+    },
+
+    watch: {
+      isChecked(to) {
+        this.checked = to
+      }
     }
   }
 </script>
+
 <style lang="scss" scoped>
   .v-checkbox {
     display: flex;
