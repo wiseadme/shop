@@ -22,17 +22,15 @@
               {{row[col.key] ? row[col.key] === true ? '+': row[col.key] : row[col.key] === false || !row[col.key] ? '-' : ''}}
             </span>
           </div>
-          <div v-if="col.checked && row.edit"
+          <div
+            v-if="col.checked && row.edit"
             :key="col.name + j"
             :class="['table-body__cell']"
             :style="{width: col.width}"
             :data-col="col.name"
           >
             <span v-if="col.key === '№'">{{ i += 1 }}</span>
-            <input v-else type="text" :value="row[col.key]">
-<!--            <span>-->
-<!--              {{row[col.key] ? row[col.key] === true ? '+': row[col.key] : row[col.key] === false || !row[col.key] ? '-' : ''}}-->
-<!--            </span>-->
+            <input v-else @blur="blurHandler($event, row, col.key)" type="text" :value="row[col.key]">
           </div>
         </template>
       </div>
@@ -64,6 +62,10 @@
     methods: {
       checkRow(row) {
         this.$emit('check-row', row)
+      },
+
+      blurHandler($event, row, key) {
+        row[key] = $event.target.value
       }
     }
   }
@@ -122,6 +124,7 @@
       }
     }
   }
+
   .checked {
     background: $grey;
   }

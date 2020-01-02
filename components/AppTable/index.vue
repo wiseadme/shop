@@ -78,6 +78,16 @@
           <v-button @click="showAddModal = false" text="отмена" type="warning"/>
         </div>
       </v-modal>
+      <v-modal v-if="isDifferences">
+        <h2 slot="header">Внимание</h2>
+        <div slot="body" class="warning-message">
+          <span>Все измененные данные будут сброшены. Вы уверены что хотите продолжить?</span>
+        </div>
+        <div slot="footer" class="buttons-wrap">
+          <v-button @click="discardAllDiffs" text="продолжить" type="success"/>
+          <v-button @click="isDifferences = false" text="отмена" type="warning"/>
+        </div>
+      </v-modal>
     </transition>
   </div>
 </template>
@@ -112,6 +122,9 @@
         showAddModal: false,
         checkedRows: [],
         checkAllRows: false,
+        isDifferences: false,
+        discardChanges: false,
+        rowsDiscard: [],
         actualModal: {
           add: {}
         },
@@ -165,7 +178,6 @@
       },
 
       sortColumn(col) {
-        console.log(col)
         this.tableCols.forEach(it => {
           if (it !== col && it.sorted) it.sorted = false
         })
@@ -190,6 +202,10 @@
       },
 
       toggleCheckRow(row) {
+        if (this.checkDifferences(row) && !this.discardChanges) {
+          this.rowsDiscard.push(row)
+          return this.isDifferences = true
+        }
         if (this.checkAllRows) {
           this.toggleCheckAllRows()
         }
@@ -197,7 +213,7 @@
         if (row.edit) {
           this.editEventHandler()
         }
-        if (row.checked) {
+        if (row.checked && !this.resetChanges) {
           this.checkedRows.push(row)
         } else {
           let ind = this.checkedRows.findIndex(it => it._id === row._id)
@@ -214,6 +230,28 @@
             this.checkedRows.push(it)
           }
         })
+      },
+
+      checkDifferences(row = null) {
+        let isDiff = false
+        let diffs = []
+        row ? diffs[0] = row : diffs = this.checkedRows.filter(it => it.edit)
+        diffs.forEach(ed => {
+          let found = this.rows.find(it => it._id === ed._id)
+          Object.keys(found).forEach(key => {
+            if (found[key] !== ed[key]) isDiff = true
+          })
+        })
+        return isDiff
+      },
+
+      discardAllDiffs() {
+        this.discardChanges = true
+        this.toggleCheckRow(this.rowsDiscard[0])
+        setTimeout(() => {
+          this.discardChanges = false
+          this.isDifferences = false
+        }, 0)
       },
 
       setGetOrRemoveLS(name, item = [], flag = false) {

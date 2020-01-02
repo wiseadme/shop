@@ -49,6 +49,7 @@
   .v-button {
     position: relative;
     height: 40px;
+    min-width: 120px;
     font-size: 0.8em;
     text-transform: uppercase;
     color: $white;
