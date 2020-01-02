@@ -47,7 +47,7 @@
         </div>
         <div slot="footer" class="buttons-wrap">
           <v-button @click="filterTableCols" text="применить" type="info"/>
-          <v-button @click="cancel" text="закрыть" type="warning"/>
+          <v-button @click="showColsModal = false" text="закрыть" type="warning"/>
         </div>
       </v-modal>
       <v-modal v-if="showAddModal">
@@ -296,10 +296,6 @@
         }
       },
 
-      deleteCheckedRows() {
-
-      },
-
       setGetOrRemoveLS(name, item = [], flag = false) {
         if (flag && item) {
           return localStorage.setItem(name, JSON.stringify(item))
@@ -308,6 +304,10 @@
           localStorage.removeItem(name)
         }
         return JSON.parse(localStorage.getItem(name))
+      },
+
+      deleteCheckedRows() {
+
       },
 
       validateValue(e) {
@@ -342,10 +342,6 @@
       copyWithoutLink(obj) {
         const rows = JSON.stringify(obj)
         return JSON.parse(rows)
-      },
-
-      cancel() {
-        this.showColsModal = false
       }
     },
 
