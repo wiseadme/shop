@@ -201,11 +201,6 @@
         }
       },
 
-      copyWithoutLink(obj) {
-        const rows = JSON.stringify(obj)
-        return JSON.parse(rows)
-      },
-
       toggleCheckRow(row) {
         if (this.checkDifferences(row) && !this.discardChanges) {
           this.rowsToDiscard.push(row)
@@ -290,8 +285,7 @@
       saveChanges() {
         if (!this.checkDifferences()) return
         const rowsDiffs = []
-        const rowsToSave = this.checkedRows.filter(it => it.changed)
-        rowsToSave.forEach(row => {
+        this.checkedRows.filter(it => it.changed).forEach(row => {
           let ext = this.extractDiffKeys(row)
           ext ? rowsDiffs.push(ext) : false
         })
@@ -343,6 +337,11 @@
       closeWarningModal() {
         this.showWarningModal = false
         this.$emit('stop-diffs', false)
+      },
+
+      copyWithoutLink(obj) {
+        const rows = JSON.stringify(obj)
+        return JSON.parse(rows)
       },
 
       cancel() {

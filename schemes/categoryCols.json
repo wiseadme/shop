@@ -55,7 +55,7 @@
     "required": true,
     "placeholder": "введите наименование",
     "regExp": "",
-    "fieldType": "select"
+    "fieldType": "input"
   },
   {
     "key": "value",
