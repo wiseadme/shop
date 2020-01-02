@@ -66,6 +66,7 @@
 
       blurHandler($event, row, key) {
         row[key] = $event.target.value
+        row.changed = true
       }
     }
   }

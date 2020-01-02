@@ -212,10 +212,11 @@
         }
         this.$set(row, 'checked', !row.checked)
         if (row.edit) {
-          row.edit = !row.edit
+          row.edit = false
         }
-        if (row.checked && !this.resetChanges) {
+        if (row.checked && !this.discardChanges) {
           this.checkedRows.push(row)
+          console.log(this.checkedRows, 'v toggle')
         } else {
           let ind = this.checkedRows.findIndex(it => it._id === row._id)
           this.checkedRows.splice(ind, 1)
@@ -239,7 +240,7 @@
       checkDifferences(row = null) {
         let isDiff = []
         let diffs = []
-        row ? diffs[0] = row : diffs = this.checkedRows.filter(it => it.edit)
+        row ? diffs[0] = row : diffs = this.checkedRows.filter(it => it.changed)
         diffs.forEach(ed => {
           let diffRowKeys = this.extractDiffKeys(ed)
           diffRowKeys ? isDiff.push(diffRowKeys) : false
@@ -279,11 +280,12 @@
 
       saveChanges() {
         const rowsDiffs = []
-        const rowsToSave = this.checkedRows.filter(it => it.edit)
+        const rowsToSave = this.checkedRows.filter(it => it.changed)
         rowsToSave.forEach(row => {
           let ext = this.extractDiffKeys(row)
           ext ? rowsDiffs.push(ext) : false
         })
+
         this.$emit('update', rowsDiffs)
       },
 
@@ -377,8 +379,6 @@
   }
 
   .modal-body-fields {
-    /*display: flex;*/
-    /*flex-wrap: wrap;*/
-    /*width: 70vw;*/
+
   }
 </style>

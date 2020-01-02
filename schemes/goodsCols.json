@@ -1,0 +1,102 @@
+[
+  {
+    "key": "№",
+    "name": "№",
+    "width": "40px",
+    "checked": true
+  },
+  {
+    "key": "name",
+    "name": "Наименование товара",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "375px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "введите наименование",
+    "regExp": "",
+    "fieldType": "input"
+  },
+  {
+    "key": "url",
+    "name": "Url товара",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "введите url",
+    "regExp": "",
+    "fieldType": "input"
+  },
+  {
+    "key": "images",
+    "name": "Фото товара",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "Выберите файл",
+    "regExp": "",
+    "fieldType": "input"
+  },
+  {
+    "key": "quantity",
+    "name": "Количество",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "введите количество",
+    "regExp": "",
+    "fieldType": "input"
+  },
+  {
+    "key": "price",
+    "name": "Цена",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "введите цену",
+    "regExp": "",
+    "fieldType": "input"
+  },
+  {
+    "key": "category",
+    "name": "Категория",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "Выберите категорию",
+    "regExp": "",
+    "fieldType": "select"
+  },
+  {
+    "key": "balances",
+    "name": "Остаток",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px"
+  },
+  {
+    "key": "sum",
+    "name": "На общую сумму",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px"
+  }
+]

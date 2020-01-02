@@ -42,7 +42,7 @@ async function allCategories(req, res) {
   }
 }
 
-function updateCategories(req, res) {
+async function updateCategories(req, res) {
   const body = req.body
   const $set = {}
   const updates = []
@@ -56,14 +56,12 @@ function updateCategories(req, res) {
       Category.findOneAndUpdate({
         _id: it._id
       }, { $set }, { new: true })
-        .then(ctg => {
-          updates.push(ctg)
-        })
+        .then(ctg => updates.push(ctg))
     } catch (err) {
       errorHandler(err)
     }
   })
-  res.json(updates)
+  await Promise.all(updates).then(ctg => res.json(ctg))
 }
 
 async function deleteCategory(req, res) {

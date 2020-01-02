@@ -13,7 +13,13 @@
   {
     "icon": "monetization_on",
     "name": "Продажи",
-    "show": false
+    "show": false,
+    "child": [
+      {
+        "name": "в магазин",
+        "link": "/admin/goods"
+      }
+    ]
   },
   {
     "icon": "store",
