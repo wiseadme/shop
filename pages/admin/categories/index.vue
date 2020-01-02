@@ -4,9 +4,13 @@
       <app-table
         :rows="rows"
         :cols="cols"
-        @reload="reloadRowItems"
+        :check-diffs="mixCheckBeforeLeave"
+        @reload="reloadCategories"
         @create="createNewCategory"
-        @update="updateRows"
+        @update="updateCategoryRows"
+        @delete="deleteCategories"
+        @differences="diffsHandler"
+        @stop-diffs="mixCheckBeforeLeave = $event"
       />
     </div>
   </div>
@@ -15,19 +19,23 @@
 <script>
   import AppTable from '@/components/AppTable'
   import categoryCols from '@/schemes/categoryCols.json'
+  import differences from '@/components/mixins/differences'
 
   export default {
     layout: 'admin',
     components: {
       AppTable,
     },
+    mixins: [differences],
 
     data() {
       return {
         categoryName: '',
         create: false,
         rows: null,
-        cols: categoryCols
+        cols: categoryCols,
+        routeTo: '',
+        checkBeforeLeave: false
       }
     },
 
@@ -42,10 +50,10 @@
         updateCategories: `AdminModule/${action.UPDATE_CATEGORIES}`
       }),
 
-      reloadRowItems() {
+      reloadCategories() {
         this.rows = null
         this.fetchAllCategories()
-          .then(rows => this.rows = rows)
+          .then(rows => setTimeout(() => this.rows = rows, 500))
           .then(() => {
             this.$notify({
               type: 'success',
@@ -56,7 +64,7 @@
 
       createNewCategory(category) {
         this.saveCategory(category)
-          .then(() => this.reloadRowItems())
+          .then(() => this.reloadCategories())
           .catch(err => {
             this.$notify({
               type: 'danger',
@@ -65,17 +73,28 @@
           })
       },
 
-      async updateRows(categories) {
-        await this.updateCategories(categories)
-          .then(ctg => this.reloadRowItems())
-      }
+      updateCategoryRows(categories) {
+        this.updateCategories(categories)
+          .then(ctg => this.reloadCategories())
+      },
 
+      deleteCategories() {
+
+      },
+
+      diffsHandler(ev) {
+        this.mixIsDiffs = ev
+      }
     },
 
     computed: {
       ...mapState({
         allCategories: state => state.AdminModule.allCategories
       })
+    },
+
+    watch: {
+
     }
   }
 </script>

@@ -72,10 +72,10 @@
             disabled: false
           },
           {
-            name: 'add',
+            name: 'create',
             icon: 'add',
-            event: 'add',
-            description: 'Добавить',
+            event: 'create',
+            description: 'Создать',
             tooltip: false,
             disabled: false
           }

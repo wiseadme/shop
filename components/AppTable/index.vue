@@ -5,9 +5,10 @@
         @reload="$emit('reload')"
         @format-table="showColsModal = !showColsModal"
         @show-all="showAllCols"
-        @add="addEventHandler"
-        @edit-row="editEventHandler"
+        @create="createRowItem"
+        @edit-row="editCheckedRows"
         @save="saveChanges"
+        @delete="deleteCheckedRows"
       />
     </div>
     <div class="table-inner">
@@ -86,7 +87,7 @@
         </div>
         <div slot="footer" class="buttons-wrap">
           <v-button @click="discardAllDiffs" text="продолжить" type="success"/>
-          <v-button @click="showWarningModal = false" text="отмена" type="warning"/>
+          <v-button @click="closeWarningModal" text="отмена" type="warning"/>
         </div>
       </v-modal>
     </transition>
@@ -111,6 +112,9 @@
       },
       rows: {
         type: Array
+      },
+      checkDiffs: {
+        type: Boolean
       }
     },
 
@@ -216,7 +220,6 @@
         }
         if (row.checked && !this.discardChanges) {
           this.checkedRows.push(row)
-          console.log(this.checkedRows, 'v toggle')
         } else {
           let ind = this.checkedRows.findIndex(it => it._id === row._id)
           this.checkedRows.splice(ind, 1)
@@ -245,6 +248,9 @@
           let diffRowKeys = this.extractDiffKeys(ed)
           diffRowKeys ? isDiff.push(diffRowKeys) : false
         })
+        if (this.checkDiffs) {
+          this.$emit('differences', !!isDiff.length)
+        }
         return isDiff.length
       },
 
@@ -258,6 +264,9 @@
           this.rowsToDiscard.splice(i, 1)
           this.toggleCheckRow(row)
         })
+        if (this.checkDiffs) {
+          this.$emit('differences', false)
+        }
         setTimeout(() => {
           this.discardChanges = false
           this.showWarningModal = false
@@ -279,14 +288,22 @@
       },
 
       saveChanges() {
+        if (!this.checkDifferences()) return
         const rowsDiffs = []
         const rowsToSave = this.checkedRows.filter(it => it.changed)
         rowsToSave.forEach(row => {
           let ext = this.extractDiffKeys(row)
           ext ? rowsDiffs.push(ext) : false
         })
-
+        this.checkedRows = []
         this.$emit('update', rowsDiffs)
+        if (this.checkDiffs) {
+          this.$emit('differences', false)
+        }
+      },
+
+      deleteCheckedRows() {
+
       },
 
       setGetOrRemoveLS(name, item = [], flag = false) {
@@ -303,13 +320,13 @@
         console.log(e)
       },
 
-      editEventHandler() {
+      editCheckedRows() {
         this.checkedRows.forEach(row => {
           this.$set(row, 'edit', !row.edit)
         })
       },
 
-      addEventHandler() {
+      createRowItem() {
         this.showAddModal = true
         Object.keys(this.colsOnCreate).forEach(col => {
           if (col && col.key) {
@@ -323,9 +340,26 @@
         this.showAddModal = false
       },
 
+      closeWarningModal() {
+        this.showWarningModal = false
+        this.$emit('stop-diffs', false)
+      },
+
       cancel() {
         this.showColsModal = false
       }
+    },
+
+    beforeDestroy() {
+      this.$off('show-all', this.showAllCols)
+      this.$off('create', this.createRowItem)
+      this.$off('edit-row', this.editCheckedRows)
+      this.$off('save', this.saveChanges)
+      this.$off('delete', this.deleteCheckedRows)
+      this.$off('sort-column', this.sortColumn)
+      this.$off('check-all', this.toggleCheckAllRows)
+      this.$off('check-row', this.toggleCheckRow)
+      this.$off('checked', this.toggleCheckRow)
     },
 
     computed: {
@@ -337,6 +371,13 @@
     watch: {
       rows(to) {
         this.tableRows = this.copyWithoutLink(to)
+      },
+
+      //проверка перед сменой роута
+      checkDiffs(to) {
+        if (to && this.checkDifferences()) {
+          this.showWarningModal = true
+        }
       }
     }
   }
@@ -359,6 +400,8 @@
     width: 100%;
     height: calc(100% - 60px);
     @include flexAlign(center, center);
+    position: sticky;
+    left: 0;
   }
 
   .preloader {

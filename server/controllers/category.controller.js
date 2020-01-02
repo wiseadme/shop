@@ -52,16 +52,16 @@ async function updateCategories(req, res) {
         $set[t] = it[t]
       }
     })
-    try {
-      Category.findOneAndUpdate({
-        _id: it._id
-      }, { $set }, { new: true })
-        .then(ctg => updates.push(ctg))
-    } catch (err) {
-      errorHandler(err)
-    }
+    Category.findOneAndUpdate({
+      _id: it._id
+    }, { $set }, { new: true })
+      .then(ctg => updates.push(ctg))
   })
-  await Promise.all(updates).then(ctg => res.json(ctg))
+  try {
+    await Promise.all(updates).then(ctg => res.status(201).json(ctg))
+  } catch (err) {
+    errorHandler(err)
+  }
 }
 
 async function deleteCategory(req, res) {
