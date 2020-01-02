@@ -7,6 +7,7 @@
         @show-all="showAllCols"
         @add="addEventHandler"
         @edit-row="editEventHandler"
+        @save="saveChanges"
       />
     </div>
     <div class="table-inner">
@@ -78,14 +79,14 @@
           <v-button @click="showAddModal = false" text="отмена" type="warning"/>
         </div>
       </v-modal>
-      <v-modal v-if="isDifferences">
+      <v-modal v-if="showWarningModal">
         <h2 slot="header">Внимание</h2>
         <div slot="body" class="warning-message">
           <span>Все измененные данные будут сброшены. Вы уверены что хотите продолжить?</span>
         </div>
         <div slot="footer" class="buttons-wrap">
           <v-button @click="discardAllDiffs" text="продолжить" type="success"/>
-          <v-button @click="isDifferences = false" text="отмена" type="warning"/>
+          <v-button @click="showWarningModal = false" text="отмена" type="warning"/>
         </div>
       </v-modal>
     </transition>
@@ -120,11 +121,11 @@
         showPreloader: true,
         showColsModal: false,
         showAddModal: false,
+        showWarningModal: false,
         checkedRows: [],
         checkAllRows: false,
-        isDifferences: false,
         discardChanges: false,
-        rowsDiscard: [],
+        rowsToDiscard: [],
         actualModal: {
           add: {}
         },
@@ -203,15 +204,15 @@
 
       toggleCheckRow(row) {
         if (this.checkDifferences(row) && !this.discardChanges) {
-          this.rowsDiscard.push(row)
-          return this.isDifferences = true
+          this.rowsToDiscard.push(row)
+          return this.showWarningModal = true
         }
         if (this.checkAllRows) {
           this.toggleCheckAllRows()
         }
         this.$set(row, 'checked', !row.checked)
         if (row.edit) {
-          this.editEventHandler()
+          row.edit = !row.edit
         }
         if (row.checked && !this.resetChanges) {
           this.checkedRows.push(row)
@@ -222,6 +223,9 @@
       },
 
       toggleCheckAllRows() {
+        if (this.checkDifferences() && !this.discardChanges) {
+          return this.showWarningModal = true
+        }
         this.checkAllRows = !this.checkAllRows
         this.checkedRows = []
         this.tableRows.forEach(it => {
@@ -233,25 +237,54 @@
       },
 
       checkDifferences(row = null) {
-        let isDiff = false
+        let isDiff = []
         let diffs = []
         row ? diffs[0] = row : diffs = this.checkedRows.filter(it => it.edit)
         diffs.forEach(ed => {
-          let found = this.rows.find(it => it._id === ed._id)
-          Object.keys(found).forEach(key => {
-            if (found[key] !== ed[key]) isDiff = true
-          })
+          let diffRowKeys = this.extractDiffKeys(ed)
+          diffRowKeys ? isDiff.push(diffRowKeys) : false
         })
-        return isDiff
+        return isDiff.length
       },
 
       discardAllDiffs() {
         this.discardChanges = true
-        this.toggleCheckRow(this.rowsDiscard[0])
+        this.rowsToDiscard.forEach((row, i) => {
+          let found = this.rows.find(it => it._id === row._id)
+          Object.keys(found).forEach(key => {
+            row[key] = found[key]
+          })
+          this.rowsToDiscard.splice(i, 1)
+          this.toggleCheckRow(row)
+        })
         setTimeout(() => {
           this.discardChanges = false
-          this.isDifferences = false
+          this.showWarningModal = false
         }, 0)
+      },
+
+      extractDiffKeys(row) {
+        let flag = false
+        let diffObj = {}
+        let found = this.rows.find(it => it._id === row._id)
+        Object.keys(found).forEach(key => {
+          if (row[key] !== found[key]) {
+            diffObj[key] = row[key]
+            flag = true
+          }
+        })
+        flag ? diffObj._id = row._id : diffObj = false
+        return diffObj
+      },
+
+      saveChanges() {
+        const rowsDiffs = []
+        const rowsToSave = this.checkedRows.filter(it => it.edit)
+        rowsToSave.forEach(row => {
+          let ext = this.extractDiffKeys(row)
+          ext ? rowsDiffs.push(ext) : false
+        })
+        this.$emit('update', rowsDiffs)
       },
 
       setGetOrRemoveLS(name, item = [], flag = false) {

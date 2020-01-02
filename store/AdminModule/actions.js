@@ -18,6 +18,11 @@ const actions = {
     const { data: { categories } } = await api.fetchAllCategories()
     commit(mutation.SET_ALL_CATEGORIES, categories)
     return categories
+  },
+
+  async [action.UPDATE_CATEGORIES]({}, categories) {
+    const { data } = await api.updateCategories(categories)
+    return data
   }
 }
 

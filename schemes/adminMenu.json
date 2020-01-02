@@ -18,6 +18,12 @@
   {
     "icon": "store",
     "name": "Склад",
-    "show": false
+    "show": false,
+    "child": [
+      {
+        "name": "в магазин",
+        "link": "/"
+      }
+    ]
   }
 ]

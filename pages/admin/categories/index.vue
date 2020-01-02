@@ -6,6 +6,7 @@
         :cols="cols"
         @reload="reloadRowItems"
         @create="createNewCategory"
+        @update="updateRows"
       />
     </div>
   </div>
@@ -37,7 +38,8 @@
     methods: {
       ...mapActions({
         fetchAllCategories: `AdminModule/${action.GET_ALL_CATEGORIES}`,
-        saveCategory: `AdminModule/${action.SAVE_CATEGORY}`
+        saveCategory: `AdminModule/${action.SAVE_CATEGORY}`,
+        updateCategories: `AdminModule/${action.UPDATE_CATEGORIES}`
       }),
 
       reloadRowItems() {
@@ -61,7 +63,13 @@
               message: 'Ошибка сервера. Повторите операцию позже'
             })
           })
+      },
+
+      async updateRows(categories) {
+        await this.updateCategories(categories)
+          .then(ctg => this.reloadRowItems())
       }
+
     },
 
     computed: {

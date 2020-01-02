@@ -56,10 +56,10 @@
             disabled: false
           },
           {
-            name: 'copy',
+            name: 'save',
             icon: 'save',
-            event: 'copy',
-            description: 'Копировать',
+            event: 'save',
+            description: 'Сохранить',
             tooltip: false,
             disabled: false
           },

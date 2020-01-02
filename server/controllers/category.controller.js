@@ -33,10 +33,6 @@ async function createCategory(req, res) {
   }
 }
 
-async function readCategory(req, res) {
-
-}
-
 async function allCategories(req, res) {
   try {
     let categories = await Category.find({})
@@ -46,19 +42,28 @@ async function allCategories(req, res) {
   }
 }
 
-async function updateCategory(req, res) {
+function updateCategories(req, res) {
+  const body = req.body
   const $set = {}
-  Object.keys(req.body).forEach(it => {
-    $set[it] = req.body[it]
+  const updates = []
+  body.forEach(it => {
+    Object.keys(it).forEach(t => {
+      if (t !== '_id') {
+        $set[t] = it[t]
+      }
+    })
+    try {
+      Category.findOneAndUpdate({
+        _id: it._id
+      }, { $set }, { new: true })
+        .then(ctg => {
+          updates.push(ctg)
+        })
+    } catch (err) {
+      errorHandler(err)
+    }
   })
-  try {
-    const category = await Category.findOneAndUpdate({
-      _id: req.params.id
-    }, { $set }, { new: true })
-    res.json(category)
-  } catch (err) {
-    errorHandler(err)
-  }
+  res.json(updates)
 }
 
 async function deleteCategory(req, res) {
@@ -67,8 +72,7 @@ async function deleteCategory(req, res) {
 
 module.exports = {
   createCategory,
-  readCategory,
-  updateCategory,
+  updateCategories,
   allCategories,
   deleteCategory
 }
