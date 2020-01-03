@@ -158,18 +158,20 @@
       }
       this.table.cols = this.getCols()
       this.tableRows = this.copyWithoutLink(this.rows)
-      this.checkedCols = this.copyWithoutLink(this.table.cols)
     },
 
     methods: {
       checkCols(col) {
-        this.checkedCols[col.key].checked = !col.checked
+        col = this.copyWithoutLink(col)
+        col.checked = !col.checked
+        this.checkedCols[col.key] = col
       },
 
       filterTableCols() {
         Object.keys(this.checkedCols).forEach(key => {
           this.table.cols[key].checked = this.checkedCols[key].checked
         })
+        this.checkedCols = {}
         this.setGetOrRemoveLS(this.currentTable, this.table, true)
       },
 
