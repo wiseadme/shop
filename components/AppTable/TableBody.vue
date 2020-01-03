@@ -6,7 +6,7 @@
         :class="['table-body__row', {checked: row.checked}]"
         @dblclick="checkRow(row)"
       >
-        <div class="table-body__row-check">
+        <div :class="['table-body__row-check', {'edit-mode': row.edit}]">
           <v-checkbox @checked="$emit('checked', row)" :is-checked="row.checked || checkAll"/>
         </div>
         <template v-for="(col, j) in cols">
@@ -25,12 +25,19 @@
           <div
             v-if="col.checked && row.edit"
             :key="col.name + j"
-            :class="['table-body__cell']"
+            :class="['table-body__cell', 'edit-mode']"
             :style="{width: col.width}"
             :data-col="col.name"
           >
             <span v-if="col.key === '№'">{{ i += 1 }}</span>
-            <input v-else @blur="blurHandler($event, row, col.key)" type="text" :value="row[col.key]">
+            <input
+              v-if="col.useOnCreate"
+              class="table-body__cell-edit"
+              type="text"
+              :value="row[col.key]"
+              @blur="blurHandler($event, row, col.key)"
+            >
+
           </div>
         </template>
       </div>
@@ -123,7 +130,19 @@
       &:first-child {
         justify-content: center;
       }
+
+      &-edit{
+        width: 100%;
+        background: transparent;
+        border-bottom: 1px solid $white;
+        @include fontExo($white, 1em);
+      }
     }
+  }
+
+  .edit-mode{
+    background: $blueLight;
+    color: $white;
   }
 
   .checked {

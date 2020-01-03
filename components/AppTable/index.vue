@@ -90,6 +90,16 @@
           <v-button @click="closeWarningModal" text="отмена" type="warning"/>
         </div>
       </v-modal>
+      <v-modal v-if="showDangerModal" type="danger">
+        <h2 slot="header">Внимание</h2>
+        <div slot="body" class="warning-message">
+          <span>Все несохраненные данные будут потеряны. Вы уверены что хотите продолжить?</span>
+        </div>
+        <div slot="footer" class="buttons-wrap">
+          <v-button @click="discardAllDiffs" text="удалить" type="danger"/>
+          <v-button @click="closeWarningModal" text="отмена" type="warning"/>
+        </div>
+      </v-modal>
     </transition>
   </div>
 </template>
@@ -126,6 +136,7 @@
         showColsModal: false,
         showAddModal: false,
         showWarningModal: false,
+        showDangerModal: false,
         checkedRows: [],
         checkAllRows: false,
         discardChanges: false,

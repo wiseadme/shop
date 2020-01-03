@@ -1,5 +1,5 @@
 .danger {
-  background: $red;
+  background: $red !important;
 }
 
 .success{
@@ -11,7 +11,7 @@
 }
 
 .warning {
-  background-color: #dda325;
+  background-color: $orange;
 }
 
 .black {

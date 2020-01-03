@@ -1,7 +1,7 @@
 <template>
   <div class="modal-wrap">
     <div class="modal">
-      <div class="modal__header">
+      <div :class="['modal__header', type]">
         <slot name="header"></slot>
       </div>
       <div class="modal__body">
@@ -16,7 +16,12 @@
 
 <script>
   export default {
-    name: 'VModal'
+    name: 'VModal',
+    props: {
+      type: {
+        type: String
+      }
+    }
   }
 </script>
 
@@ -62,4 +67,9 @@
       justify-content: space-between;
     }
   }
+
+  .info{
+
+  }
+
 </style>
