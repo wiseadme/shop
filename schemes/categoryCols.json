@@ -1,11 +1,11 @@
-[
-  {
-    "key": "№",
+{
+  "number": {
+    "key": "number",
     "name": "№",
     "width": "40px",
     "checked": true
   },
-  {
+  "name": {
     "key": "name",
     "name": "Наименование категории",
     "sortable": true,
@@ -18,7 +18,7 @@
     "regExp": "",
     "fieldType": "input"
   },
-  {
+  "url": {
     "key": "url",
     "name": "Url категории",
     "sortable": true,
@@ -31,7 +31,7 @@
     "regExp": "",
     "fieldType": "input"
   },
-  {
+  "icon": {
     "key": "icon",
     "name": "Иконка категории",
     "sortable": true,
@@ -44,7 +44,7 @@
     "regExp": "",
     "fieldType": "input"
   },
-  {
+  "position": {
     "key": "position",
     "name": "Позиция категории",
     "sortable": true,
@@ -57,7 +57,7 @@
     "regExp": "",
     "fieldType": "input"
   },
-  {
+  "value": {
     "key": "value",
     "name": "Кол-во товаров в категории",
     "sortable": true,
@@ -65,7 +65,7 @@
     "checked": true,
     "width": "210px"
   },
-  {
+  "sum": {
     "key": "sum",
     "name": "Сумма всех товаров в категории",
     "sortable": true,
@@ -73,4 +73,4 @@
     "checked": true,
     "width": "210px"
   }
-]
+}

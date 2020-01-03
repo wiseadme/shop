@@ -1,11 +1,11 @@
-[
-  {
-    "key": "№",
+{
+  "number": {
+    "key": "number",
     "name": "№",
     "width": "40px",
     "checked": true
   },
-  {
+  "name": {
     "key": "name",
     "name": "Наименование товара",
     "sortable": true,
@@ -18,7 +18,7 @@
     "regExp": "",
     "fieldType": "input"
   },
-  {
+  "url": {
     "key": "url",
     "name": "Url товара",
     "sortable": true,
@@ -31,7 +31,7 @@
     "regExp": "",
     "fieldType": "input"
   },
-  {
+  "images": {
     "key": "images",
     "name": "Фото товара",
     "sortable": true,
@@ -44,7 +44,7 @@
     "regExp": "",
     "fieldType": "input"
   },
-  {
+  "quantity": {
     "key": "quantity",
     "name": "Количество",
     "sortable": true,
@@ -57,7 +57,7 @@
     "regExp": "",
     "fieldType": "input"
   },
-  {
+  "price": {
     "key": "price",
     "name": "Цена",
     "sortable": true,
@@ -70,7 +70,7 @@
     "regExp": "",
     "fieldType": "input"
   },
-  {
+  "category": {
     "key": "category",
     "name": "Категория",
     "sortable": true,
@@ -83,7 +83,7 @@
     "regExp": "",
     "fieldType": "select"
   },
-  {
+  "balances": {
     "key": "balances",
     "name": "Остаток",
     "sortable": true,
@@ -91,7 +91,7 @@
     "checked": true,
     "width": "210px"
   },
-  {
+  "sum": {
     "key": "sum",
     "name": "На общую сумму",
     "sortable": true,
@@ -99,4 +99,4 @@
     "checked": true,
     "width": "210px"
   }
-]
+}

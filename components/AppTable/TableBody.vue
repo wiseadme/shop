@@ -9,7 +9,7 @@
         <div :class="['table-body__row-check', {'edit-mode': row.edit}]">
           <v-checkbox @checked="$emit('checked', row)" :is-checked="row.checked || checkAll"/>
         </div>
-        <template v-for="(col, j) in cols">
+        <template v-for="(col, j) of cols">
           <div
             v-if="col.checked && !row.edit"
             :key="col.name + j"
@@ -17,7 +17,7 @@
             :style="{width: col.width}"
             :data-col="col.name"
           >
-            <span v-if="col.key === '№'">{{ i += 1 }}</span>
+            <span v-if="col.key === 'number'">{{ i += 1 }}</span>
             <span v-else>
               {{row[col.key] ? row[col.key] === true ? '+': row[col.key] : row[col.key] === false || !row[col.key] ? '-' : ''}}
             </span>
@@ -29,7 +29,7 @@
             :style="{width: col.width}"
             :data-col="col.name"
           >
-            <span v-if="col.key === '№'">{{ i += 1 }}</span>
+            <span v-if="col.key === 'number'">{{ i += 1 }}</span>
             <input
               v-if="col.useOnCreate"
               class="table-body__cell-edit"
@@ -49,7 +49,7 @@
   export default {
     props: {
       cols: {
-        type: Array,
+        type: Object,
         required: true
       },
       rows: {

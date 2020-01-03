@@ -6,7 +6,7 @@
         @checked="$emit('check-all')"
       />
     </div>
-    <template v-for="(col, i) in cols">
+    <template v-for="(col, i) of cols">
       <div
         v-if="col.checked"
         :key="col.key + i"
@@ -28,7 +28,7 @@
   export default {
     props: {
       cols: {
-        type: Array,
+        type: Object,
       },
       checkAll: {
         type: Boolean

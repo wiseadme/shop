@@ -14,7 +14,8 @@
       },
       item: {
         type: Object,
-        default: () => {}
+        default: () => {
+        }
       },
       isChecked: {
         type: Boolean,
@@ -34,7 +35,7 @@
     methods: {
       toggleCheckbox() {
         this.checked = !this.checked
-        this.$emit('checked', { checked: this.checked, item: this.item })
+        this.$emit('checked', this.item)
       }
     },
 

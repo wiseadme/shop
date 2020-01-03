@@ -13,7 +13,7 @@
     </div>
     <div class="table-inner">
       <TableHeader
-        :cols="tableCols"
+        :cols="table.cols"
         :check-all="checkAllRows"
         @sort-column="sortColumn"
         @check-all="toggleCheckAllRows"
@@ -21,7 +21,7 @@
       <TableBody
         v-if="rows && rows.length"
         :rows="tableRows"
-        :cols="tableCols"
+        :cols="table.cols"
         :check-all="checkAllRows"
         @check-row="toggleCheckRow"
         @checked="toggleCheckRow"
@@ -35,13 +35,13 @@
     <transition name="fadeIn">
       <v-modal v-if="showColsModal">
         <h2 slot="header">Фильтрация колонок</h2>
-        <div slot="body" v-for="col in cols" :key="col.name">
+        <div slot="body" v-for="col of table.cols" :key="col.name">
         <span class="check-wrap">
           <v-checkbox
             :label="col.name"
             :item="col"
             :isChecked="col.checked"
-            @checked="addInFilteredCols"
+            @checked="checkCols"
           />
         </span>
         </div>
@@ -53,7 +53,7 @@
       <v-modal v-if="showAddModal">
         <h2 slot="header">Создать объект</h2>
         <div slot="body" class="modal-body-fields">
-          <div class="field-wrap" v-for="col in colsOnCreate" :key="col.key">
+          <div class="field-wrap" v-for="col of colsOnCreate" :key="col.key">
             <v-input
               v-if="col.fieldType === 'input'"
               v-model="actualModal.add[col.key]"
@@ -69,7 +69,6 @@
               :label="col.name"
               :required="col.required"
               :placeholder="col.placeholder"
-              :items="[0,1,2,3,4]"
               clear-icon="info"
               @selected="validateValue"
             />
@@ -118,7 +117,7 @@
     },
     props: {
       cols: {
-        type: Array,
+        type: Object,
       },
       rows: {
         type: Array
@@ -130,13 +129,13 @@
 
     data() {
       return {
-        tableCols: null,
         tableRows: null,
         showPreloader: true,
         showColsModal: false,
         showAddModal: false,
         showWarningModal: false,
         showDangerModal: false,
+        checkedCols: {},
         checkedRows: [],
         checkAllRows: false,
         discardChanges: false,
@@ -144,53 +143,41 @@
         actualModal: {
           add: {}
         },
-        filter: {
-          __cols: [],
-          __pretty: {}
+        table: {
+          cols: {},
+          filter: {},
+          sort: {}
         }
       }
     },
 
     created() {
-      this.tableCols = this.cols
-      this.tableRows = this.copyWithoutLink(this.rows)
-      if (process.browser) {
-        this.getUncheckedColsFromLS()
+      if (process.browser && !this.setGetOrRemoveLS(this.currentTable)) {
+        this.table.cols = this.cols
+        this.setGetOrRemoveLS(this.currentTable, this.table, true)
       }
+      this.table.cols = this.getCols()
+      this.tableRows = this.copyWithoutLink(this.rows)
+      this.checkedCols = this.copyWithoutLink(this.table.cols)
     },
 
     methods: {
-      addInFilteredCols(col) {
-        let same = this.filter.__cols.findIndex(it => it.item.name === col.item.name)
-        if (same >= 0) {
-          let found = this.tableCols.find(it => it.name === col.item.name)
-          if (found.checked === col.checked) {
-            return this.filter.__cols.splice(same, 1)
-          }
-          return this.filter.__cols.splice(same, 1, col)
-        } else {
-          this.filter.__cols.push(col)
-        }
+      checkCols(col) {
+        this.checkedCols[col.key].checked = !col.checked
       },
 
       filterTableCols() {
-        let checkedCols = []
-        this.filter.__cols.forEach(col => {
-          checkedCols.push(col)
-          let ind = this.tableCols.findIndex(t => t.name === col.item.name)
-          this.tableCols[ind].checked = col.checked
-          if (col.checked) {
-            checkedCols.splice(checkedCols.indexOf(col), 1)
-          }
+        Object.keys(this.checkedCols).forEach(key => {
+          this.table.cols[key].checked = this.checkedCols[key].checked
         })
-        this.filter.__cols = checkedCols
-        this.setGetOrRemoveLS('cols', { cols: this.tableCols, unchecked: this.filter.__cols }, true)
+        this.setGetOrRemoveLS(this.currentTable, this.table, true)
       },
 
       showAllCols() {
-        this.filter.__cols = []
-        this.setGetOrRemoveLS('cols', null)
-        this.tableCols.forEach(it => it.checked = true)
+        Object.keys(this.table.cols).forEach(col => {
+          this.table.cols[col].checked = true
+        })
+        this.setGetOrRemoveLS(this.currentTable, null)
       },
 
       sortColumn(col) {
@@ -204,12 +191,11 @@
         })
       },
 
-      getUncheckedColsFromLS() {
-        const savedCols = this.setGetOrRemoveLS('cols')
-        if (savedCols && savedCols.unchecked.length) {
-          this.filter.__cols = savedCols.unchecked
-          this.filterTableCols()
+      getCols() {
+        if (process.browser && this.setGetOrRemoveLS(this.currentTable)) {
+          return this.setGetOrRemoveLS(this.currentTable).cols
         }
+        return this.cols
       },
 
       toggleCheckRow(row) {
@@ -351,8 +337,8 @@
       },
 
       copyWithoutLink(obj) {
-        const rows = JSON.stringify(obj)
-        return JSON.parse(rows)
+        const newObj = JSON.stringify(obj)
+        return JSON.parse(newObj)
       }
     },
 
@@ -370,7 +356,17 @@
 
     computed: {
       colsOnCreate() {
-        return this.tableCols.filter(it => it.useOnCreate)
+        const cols = {}
+        Object.keys(this.table.cols).forEach(col => {
+          if (this.table.cols[col].useOnCreate) {
+            cols[col] = this.table.cols[col]
+          }
+        })
+        return cols
+      },
+
+      currentTable() {
+        return `table-${this.$route.path.slice(7)}`
       }
     },
 

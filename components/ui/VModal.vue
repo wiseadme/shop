@@ -39,8 +39,9 @@
 
   .modal {
     min-width: 450px;
-    border-radius: 5px;
     box-shadow: $boxShadow;
+    border-radius: 5px;
+    overflow: hidden;
 
     &__header {
       @include fontExo($white, 1.2em);
