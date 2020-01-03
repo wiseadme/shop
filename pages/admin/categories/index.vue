@@ -18,7 +18,7 @@
 
 <script>
   import AppTable from '@/components/AppTable'
-  import categoryCols from '@/schemes/categoryCols.json'
+  import categoryCols from '@/schemes/category-cols.json'
   import differences from '@/components/mixins/differences'
   import * as action from '../../../store/ActionsType'
 
@@ -56,7 +56,7 @@
         this.rows = null
         this.fetchAllCategories()
           .then(rows => setTimeout(() => this.rows = rows, 500))
-          .then(() => {
+          .then(data => {
             this.$notify({
               type: 'success',
               message: 'Данные обновлены'

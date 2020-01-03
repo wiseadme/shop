@@ -19,7 +19,8 @@
           >
             <span v-if="col.key === 'number'">{{ i += 1 }}</span>
             <span v-else>
-              {{row[col.key] ? row[col.key] === true ? '+': row[col.key] : row[col.key] === false || !row[col.key] ? '-' : ''}}
+              {{row[col.key] ? row[col.key] === true ? '+': row[col.key] :
+              row[col.key] === false || !row[col.key] && row[col.key] !== 0 ? '-' : row[col.key]}}
             </span>
           </div>
           <div

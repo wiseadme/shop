@@ -6,6 +6,7 @@ import VAlert from "../components/ui/VAlert"
 import VModal from '../components/ui/VModal'
 import VCheckbox from '../components/ui/VCheckbox'
 import VRender from '../components/ui/VRender'
+import VFileLoader from '../components/ui/VFileLoader'
 
 export default {
   VButton,
@@ -15,6 +16,7 @@ export default {
   VSelect,
   VModal,
   VCheckbox,
-  VRender
+  VRender,
+  VFileLoader
 }
 

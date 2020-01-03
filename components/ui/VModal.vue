@@ -41,7 +41,6 @@
     min-width: 450px;
     box-shadow: $boxShadow;
     border-radius: 5px;
-    overflow: hidden;
 
     &__header {
       @include fontExo($white, 1.2em);
@@ -65,7 +64,7 @@
 
     &__buttons-block {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
     }
   }
 

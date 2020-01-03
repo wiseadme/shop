@@ -6,7 +6,6 @@ const fs = require('fs')
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     let dir = moment().format('DDMMYYYY-HHmmss_SSS')
-
     fs.mkdir(`server/uploads/${dir}`, (err) => {
       if (err) throw err
       cb(null, path.resolve() + `/server/uploads/${dir}`)
@@ -27,7 +26,7 @@ const fileFilter = (req, file, cb) => {
 }
 
 const limits = {
-  fileSize: 1024 * 1024 * 5
+  fileSize: 1024 * 1024 * 2
 }
 
 module.exports = multer({

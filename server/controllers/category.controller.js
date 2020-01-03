@@ -67,11 +67,11 @@ async function deleteCategories(req, res) {
   const categories = req.body
   const deleted = []
   categories.forEach(ctg => {
-    Category.findOneAndDelete({_id: ctg._id})
+    Category.deleteOne({ _id: ctg._id })
       .then(del => deleted.push(del))
   })
   try {
-    await Promise.all(deleted).then(ctg => res.status(201).json(ctg))
+    await Promise.all(deleted).then(ctg => res.status(201).json({ deleted: true }))
   } catch (err) {
     errorHandler(err)
   }

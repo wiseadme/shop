@@ -4,6 +4,7 @@
       <app-table
         :rows="rows"
         :cols="cols"
+        :create-items="allCategories"
       />
     </div>
   </div>
@@ -11,7 +12,7 @@
 
 <script>
   import AppTable from '@/components/AppTable'
-  import goodsCols from '@/schemes/goodsCols.json'
+  import productCols from '@/schemes/product-cols.json'
 
   export default {
     layout: 'admin',
@@ -24,12 +25,12 @@
         categoryName: '',
         create: false,
         rows: null,
-        cols: goodsCols
+        cols: productCols
       }
     },
 
     async created() {
-
+      console.log(this.cols)
     },
 
     methods: {
@@ -37,7 +38,13 @@
     },
 
     computed: {
+      ...mapState({
+        allCategories: state => state.AdminModule.allCategories
+      }),
 
+      createItems() {
+        return this.allCategories.map(ctg => ctg.name)
+      }
     }
   }
 </script>

@@ -18,16 +18,16 @@
     "regExp": "",
     "fieldType": "input"
   },
-  "url": {
-    "key": "url",
-    "name": "Url товара",
+  "head": {
+    "key": "head",
+    "name": "Заголовок товара",
     "sortable": true,
     "filter": true,
     "checked": true,
     "width": "210px",
     "useOnCreate": true,
     "required": true,
-    "placeholder": "введите url",
+    "placeholder": "Введите заголовок",
     "regExp": "",
     "fieldType": "input"
   },
@@ -42,7 +42,7 @@
     "required": true,
     "placeholder": "Выберите файл",
     "regExp": "",
-    "fieldType": "input"
+    "fieldType": "file"
   },
   "quantity": {
     "key": "quantity",

@@ -23,11 +23,11 @@
         <div class="list">
           <span
             v-for="it in items"
-            :key="it"
+            :key="it.name"
             ref="items"
             class="list__item"
             @click="selectedItem(it)"
-          >{{ it }}</span>
+          >{{ it.name }}</span>
         </div>
       </div>
     </transition>
@@ -87,7 +87,7 @@
 			},
 
 			selectedItem(it) {
-				this.value = it
+				this.value = it.name
 				this.$emit("selected", it)
 			},
 		},

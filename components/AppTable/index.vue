@@ -46,8 +46,12 @@
         </span>
         </div>
         <div slot="footer" class="buttons-wrap">
-          <v-button @click="filterTableCols" text="применить" type="info"/>
-          <v-button @click="showColsModal = false" text="закрыть" type="warning"/>
+          <div class="form-btn">
+            <v-button @click="filterTableCols" text="применить" type="info"/>
+          </div>
+          <div class="form-btn">
+            <v-button @click="showColsModal = false" text="закрыть" type="warning"/>
+          </div>
         </div>
       </v-modal>
       <v-modal v-if="showAddModal">
@@ -69,14 +73,27 @@
               :label="col.name"
               :required="col.required"
               :placeholder="col.placeholder"
+              :items="createItems"
               clear-icon="info"
+              @selected="validateValue"
+            />
+            <v-file-loader
+              v-if="col.fieldType === 'file'"
+              v-model="actualModal.add[col.key]"
+              label="Выберите изображения (до 12 штук)"
+              :required="col.required"
+              :placeholder="col.placeholder"
               @selected="validateValue"
             />
           </div>
         </div>
         <div slot="footer" class="buttons-wrap">
-          <v-button @click="createNewRowItem" text="создать" type="info"/>
-          <v-button @click="showAddModal = false" text="отмена" type="warning"/>
+          <div class="form-btn">
+            <v-button @click="createNewRowItem" text="создать" type="info"/>
+          </div>
+          <div class="form-btn">
+            <v-button @click="showAddModal = false" text="отмена" type="warning"/>
+          </div>
         </div>
       </v-modal>
       <v-modal v-if="showWarningModal">
@@ -95,8 +112,12 @@
           <span>Все несохраненные данные будут потеряны. Вы уверены что хотите продолжить?</span>
         </div>
         <div slot="footer" class="buttons-wrap">
-          <v-button @click="discardAllDiffs" text="удалить" type="danger"/>
-          <v-button @click="closeWarningModal" text="отмена" type="warning"/>
+          <div class="form-btn">
+            <v-button @click="discardAllDiffs" text="удалить" type="danger"/>
+          </div>
+          <div class="form-btn">
+            <v-button @click="closeWarningModal" text="отмена" type="warning"/>
+          </div>
         </div>
       </v-modal>
     </transition>
@@ -121,6 +142,9 @@
       },
       rows: {
         type: Array
+      },
+      createItems: {
+        type: Array,
       },
       checkDiffs: {
         type: Boolean
@@ -183,8 +207,10 @@
       },
 
       sortColumn(col) {
-        this.tableCols.forEach(it => {
-          if (it !== col && it.sorted) it.sorted = false
+        Object.keys(this.table.cols).forEach(key => {
+          if (this.table.cols[key] !== col) {
+            this.table.cols[key].sorted = false
+          }
         })
         this.$set(col, 'sorted', !col.sorted)
         this.tableRows.sort((a, b) => {
@@ -415,16 +441,15 @@
     display: block;
     margin: 15px 0;
   }
-
+  .form-btn{
+    margin-right: 15px;
+  }
   .buttons-wrap {
-    @include flexAlign(center, space-between)
+    @include flexAlign(center, center)
   }
 
   .field-wrap {
-    margin: 20px 0;
+    margin: 20px 10px;
   }
 
-  .modal-body-fields {
-
-  }
 </style>

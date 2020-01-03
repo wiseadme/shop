@@ -17,7 +17,7 @@
     "child": [
       {
         "name": "в магазин",
-        "link": "/admin/goods"
+        "link": "/admin/products"
       }
     ]
   },
