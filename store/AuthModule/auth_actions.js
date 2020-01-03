@@ -9,7 +9,7 @@ const actions = {
   async [action.LOGIN_USER]({ commit, dispatch }, user) {
     try {
       let { data } = await api.login(user.data)
-      setOrRemoveFromLS('user', data)
+      // setOrRemoveFromLS('user', data)
       dispatch(action.SET_USER, data)
       commit(mutation.SET_RESPONSE, data)
       return data
@@ -24,7 +24,6 @@ const actions = {
     this.$axios.setToken(false)
     Cookies.remove('jwt-token')
     dispatch(action.REMOVE_USER)
-    setOrRemoveFromLS('user')
   },
 
   [action.REMOVE_USER]({ commit }) {

@@ -36,6 +36,8 @@
     "babel-eslint": "^10.0.1",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
     "css-mqpacker": "^7.0.0",
     "eslint": "^4.19.1",
     "eslint-friendly-formatter": "^4.0.1",

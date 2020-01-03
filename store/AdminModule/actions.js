@@ -23,6 +23,11 @@ const actions = {
   async [action.UPDATE_CATEGORIES]({}, categories) {
     const { data } = await api.updateCategories(categories)
     return data
+  },
+
+  async [action.DELETE_CATEGORIES]({}, categories) {
+    const { data } = await api.deleteCategories(categories)
+    return data
   }
 }
 

@@ -3,7 +3,7 @@ const Category = require('../models/Category')
 const errorHandler = require('../utils/errorHandler')
 
 async function createCategory(req, res) {
-  const { name, url, icon, position, code } = req.body
+  const { name, url, icon, position } = req.body
   const check = Object.keys(req.body).every(it => req.body[it] !== '')
   if (check) {
     const category = new Category({
@@ -12,7 +12,6 @@ async function createCategory(req, res) {
       url,
       icon,
       position,
-      code
     })
     try {
       category.save().then(category => {
@@ -64,13 +63,23 @@ async function updateCategories(req, res) {
   }
 }
 
-async function deleteCategory(req, res) {
-
+async function deleteCategories(req, res) {
+  const categories = req.body
+  const deleted = []
+  categories.forEach(ctg => {
+    Category.findOneAndDelete({_id: ctg._id})
+      .then(del => deleted.push(del))
+  })
+  try {
+    await Promise.all(deleted).then(ctg => res.status(201).json(ctg))
+  } catch (err) {
+    errorHandler(err)
+  }
 }
 
 module.exports = {
   createCategory,
   updateCategories,
   allCategories,
-  deleteCategory
+  deleteCategories
 }

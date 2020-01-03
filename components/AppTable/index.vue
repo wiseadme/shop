@@ -83,7 +83,7 @@
       <v-modal v-if="showWarningModal">
         <h2 slot="header">Внимание</h2>
         <div slot="body" class="warning-message">
-          <span>Все измененные данные будут сброшены. Вы уверены что хотите продолжить?</span>
+          <span>Все несохраненные данные будут потеряны. Вы уверены что хотите продолжить?</span>
         </div>
         <div slot="footer" class="buttons-wrap">
           <v-button @click="discardAllDiffs" text="продолжить" type="success"/>
@@ -307,7 +307,7 @@
       },
 
       deleteCheckedRows() {
-
+        this.$emit('delete', this.checkedRows)
       },
 
       validateValue(e) {
@@ -368,7 +368,6 @@
         this.tableRows = this.copyWithoutLink(to)
       },
 
-      //проверка перед сменой роута
       checkDiffs(to) {
         if (to && this.checkDifferences()) {
           this.showWarningModal = true

@@ -3,10 +3,15 @@ const keys = require('../keys')
 const User = require('../models/User')
 
 const JwtStrategy = pspjwt.Strategy
-const ExtractJwt = pspjwt.ExtractJwt
+
+function cookieExtractor(req) {
+  let token = null
+  if (req && req.cookies) token = req.cookies['jwt-token']
+  return token
+}
 
 const options = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: cookieExtractor,
   secretOrKey: keys.JWT_KEY
 }
 

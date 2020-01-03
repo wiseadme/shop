@@ -8,7 +8,7 @@
         @reload="reloadCategories"
         @create="createNewCategory"
         @update="updateCategoryRows"
-        @delete="deleteCategories"
+        @delete="deleteCategoryRows"
         @differences="diffsHandler"
         @stop-diffs="mixCheckBeforeLeave = $event"
       />
@@ -20,6 +20,7 @@
   import AppTable from '@/components/AppTable'
   import categoryCols from '@/schemes/categoryCols.json'
   import differences from '@/components/mixins/differences'
+  import * as action from '../../../store/ActionsType'
 
   export default {
     layout: 'admin',
@@ -47,7 +48,8 @@
       ...mapActions({
         fetchAllCategories: `AdminModule/${action.GET_ALL_CATEGORIES}`,
         saveCategory: `AdminModule/${action.SAVE_CATEGORY}`,
-        updateCategories: `AdminModule/${action.UPDATE_CATEGORIES}`
+        updateCategories: `AdminModule/${action.UPDATE_CATEGORIES}`,
+        deleteCategories: `AdminModule/${action.DELETE_CATEGORIES}`
       }),
 
       reloadCategories() {
@@ -76,10 +78,23 @@
       updateCategoryRows(categories) {
         this.updateCategories(categories)
           .then(ctg => this.reloadCategories())
+          .catch(err => {
+            this.$notify({
+              type: 'danger',
+              message: 'Ошибка сервера. Повторите операцию позже'
+            })
+          })
       },
 
-      deleteCategories() {
-
+      deleteCategoryRows(checkedRows) {
+        this.deleteCategories(checkedRows)
+          .then(() => this.reloadCategories())
+          .catch(err => {
+            this.$notify({
+              type: 'danger',
+              message: 'Ошибка сервера. Повторите операцию позже'
+            })
+          })
       },
 
       diffsHandler(ev) {
@@ -91,10 +106,6 @@
       ...mapState({
         allCategories: state => state.AdminModule.allCategories
       })
-    },
-
-    watch: {
-
     }
   }
 </script>
