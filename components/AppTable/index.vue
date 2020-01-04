@@ -236,7 +236,7 @@
         })
         this.$set(col, 'sorted', !col.sorted)
         this.tableRows.sort((a, b) => {
-          if (a[col.key] > b[col.key] && col.sorted) return 1
+          if (a[col.key] > b[col.key]) return 1
           return -1
         })
       },

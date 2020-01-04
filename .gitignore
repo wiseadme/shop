@@ -92,3 +92,4 @@ sw.*
 
 #packages
 package-lock.json
+server/uploads
