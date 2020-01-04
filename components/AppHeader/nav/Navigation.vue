@@ -13,8 +13,8 @@
           <span class="nav-block__link-text">{{it.name}}</span>
         </div>
         <transition name="fadeIn">
-          <template v-show="it.show">
-            <div class="submenu">
+          <template>
+            <div  v-show="it.show" class="submenu">
               <nuxt-link
                 v-for='(t, i) in it.children'
                 class='submenu__link'
