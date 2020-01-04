@@ -1,6 +1,6 @@
 <template>
   <div class="v-file-loader">
-    <input v-if="isClear" @change="fileLoader" ref="input" type="file" multiple hidden>
+    <input v-if="isClear" @change="fileLoader" name="images" ref="input" type="file" multiple hidden>
     <div class="v-file-loader__field" @click="$refs.input.click()">
       <i class="material-icons">attach_file</i>
       <span class="v-file-loader__label">{{label}}</span>

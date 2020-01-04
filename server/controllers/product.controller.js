@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 const Product = require('../models/Product')
 const errorHandler = require('../utils/errorHandler')
-const upload = require('../middleware/upload')
 
 async function createProduct(req, res) {
   const { name, head, text, images, unit, quantity, price, category } = req.body

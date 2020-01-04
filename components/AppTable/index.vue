@@ -31,7 +31,8 @@
       </div>
     </div>
 
-    <!-- Table modals is Here -->
+    <!---------- Table modals is here ----------->
+
     <transition name="fadeIn">
       <v-modal v-if="showColsModal">
         <h2 slot="header">Фильтрация колонок</h2>
@@ -229,8 +230,8 @@
 
       sortColumn(col) {
         Object.keys(this.table.cols).forEach(key => {
-          if (this.table.cols[key] !== col) {
-            this.table.cols[key].sorted = false
+          if (this.table.cols[key].key !== col.key) {
+            this.$set(this.table.cols[key], 'sorted', false)
           }
         })
         this.$set(col, 'sorted', !col.sorted)

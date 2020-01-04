@@ -1,20 +1,20 @@
 const multer = require('multer')
-const moment = require('moment')
 const path = require('path')
 const fs = require('fs')
+const transliter = require('../utils/transliter.js')
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    let dir = moment().format('DDMMYYYY-HHmmss_SSS')
-    fs.mkdir(`./server/uploads/${dir}`, (err) => {
-      if (err) throw err
-      cb(null, path.resolve() + `./server/uploads/${dir}`)
+    let dir = transliter(req.body.head)
+    fs.mkdir(`server/uploads/${dir}`, (err) => {
+      if (err) {
+        return cb(null, path.resolve() + `/server/uploads/${dir}`)
+      }
+      cb(null, path.resolve() + `/server/uploads/${dir}`)
     })
   },
   filename(req, file, cb) {
-    console.log(req, file)
-    const date = moment().format('DDMMYYYY-HHmmss_SSS')
-    cb(null, `${date}-${file.originalname}`)
+    cb(null, `${file.originalname}`)
   }
 })
 

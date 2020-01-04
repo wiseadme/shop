@@ -2,7 +2,7 @@
   <div class="table-body">
     <template v-for="(row, i) in rows">
       <div
-        :key="row.name"
+        :key="row.name + row._id"
         :class="['table-body__row', {checked: row.checked}]"
         @dblclick="checkRow(row)"
       >

@@ -55,4 +55,4 @@ const product = new Schema({
 
 product.set('toJSON', { virtuals: true })
 
-module.exports = model('Post', product)
+module.exports = model('Product', product)

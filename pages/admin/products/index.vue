@@ -83,11 +83,13 @@
         formData.append('name', name)
         formData.append('head', head)
         formData.append('text', text)
-        formData.append('images', images)
         formData.append('quantity', quantity)
         formData.append('unit', unit.name)
         formData.append('price', price)
         formData.append('category', category.id)
+        images.forEach(it => {
+          formData.append('images', it)
+        })
         return formData
       }
     },

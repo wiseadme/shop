@@ -24,9 +24,9 @@ export const deleteCategories = categories => api.post('/api/category/delete', c
 
 //products
 
-const pr = axios.create({
+const multi = axios.create({
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'multipart/form-data',
     'Access-Control-Allow-Origin': '*',
   },
   baseURL: BASE_URL,
@@ -36,4 +36,4 @@ const pr = axios.create({
 })
 
 export const fetchAllProducts = () => api.get('/api/product/all')
-export const createProduct = product => api.post('/api/product/create', product)
+export const createProduct = product => multi.post('/api/product/create', product)
