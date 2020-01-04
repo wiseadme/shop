@@ -37,13 +37,14 @@
         const files = e.target.files
         if (this.files.length + files.length > 12) {
           return this.$emit('limit')
-        } else {
-          Array.prototype.forEach.call(files, it => {
-            this.files.push(it)
-          })
-          this.isClear = false
-          setTimeout(() => this.isClear = true)
         }
+        Array.prototype.forEach.call(files, it => {
+          if (this.files.find(t => t.name === it.name)) return
+          this.files.push(it)
+        })
+        this.isClear = false
+        this.$emit('input', this.files)
+        setTimeout(() => this.isClear = true)
       },
 
       removeFile(file) {
@@ -59,21 +60,21 @@
     height: auto;
 
     &__field {
+      @include flexAlign(center, center);
+      @include fontExo($blue, .8em);
       position: relative;
       width: 100%;
       height: 52px;
       border-radius: 3px;
       border: 2px dotted $blue;
-      @include flexAlign(center, center);
-      @include fontExo($blue, .8em);
       cursor: pointer;
     }
 
     &__chips-box {
-      max-width: 450px;
+      @include flexAlign(center, flex-start);
+      width: 100%;
       height: auto;
       min-height: 70px;
-      @include flexAlign(center, flex-start);
       flex-wrap: wrap;
       border: 2px dotted $blue;
       border-radius: 3px;
@@ -81,10 +82,10 @@
     }
 
     &__chip {
-      border-radius: 20px;
-      background: $blue;
       @include fontExo($white, .8em);
       @include flexAlign(center, space-between);
+      border-radius: 20px;
+      background: $blue;
       min-width: 75px;
       box-shadow: $boxShadow;
       padding: 5px;

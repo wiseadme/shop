@@ -24,7 +24,10 @@ const product = new Schema({
     required: true
   },
 
-  images: [{ type: File }],
+  images: {
+    type: Array,
+    required: true
+  },
 
   quantity: {
     type: Number,

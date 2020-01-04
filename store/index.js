@@ -8,8 +8,11 @@ const mutations = {}
 
 const actions = {
   async nuxtServerInit({ dispatch }) {
-    await dispatch('AuthModule/AUTO_LOGIN')
-    await dispatch('AdminModule/GET_ALL_CATEGORIES')
+    await Promise.all([
+      dispatch('AuthModule/AUTO_LOGIN'),
+      dispatch('AdminModule/GET_ALL_CATEGORIES'),
+      dispatch('AdminModule/GET_ALL_PRODUCTS')
+    ])
   }
 }
 

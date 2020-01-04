@@ -14,6 +14,7 @@
 
 <script>
 export default {
+  name: 'VCard',
   props: {
     img: {
       type: String

@@ -7,6 +7,12 @@ export default {
     }
   },
 
+  methods: {
+    diffsHandler(ev) {
+      this.mixIsDiffs = ev
+    }
+  },
+
   beforeRouteLeave(to, from, next) {
     this.routeTo = to
     if (this.mixIsDiffs) {

@@ -6,6 +6,7 @@
 
 <script>
   export default {
+    name: 'VButton',
     props: {
       text: {
         type: String

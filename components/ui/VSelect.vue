@@ -36,6 +36,7 @@
 
 <script>
 	export default {
+	  name: 'VSelect',
 	  model:{
 	    event: "selected",
       prop: "value"
@@ -67,6 +68,7 @@
 		},
 
 		mounted() {
+      console.log(this.items)
 			this.$refs.wrap.addEventListener("click", this.toggleItemsShow)
 			document.addEventListener("click", this.docClickHandle)
 		},

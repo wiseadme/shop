@@ -7,6 +7,7 @@
 
 <script>
   export default {
+    name: 'VCheckbox',
     props: {
       label: {
         type: String,

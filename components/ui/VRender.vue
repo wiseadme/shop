@@ -2,7 +2,7 @@
   import VModal from './VModal'
 
   export default {
-    name: 'VModalRender',
+    name: 'VRender',
     components: {
       VModal
     },

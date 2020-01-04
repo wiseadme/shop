@@ -56,8 +56,13 @@
       </v-modal>
       <v-modal v-if="showAddModal">
         <h2 slot="header">Создать объект</h2>
-        <div slot="body" class="modal-body-fields">
-          <div class="field-wrap" v-for="col of colsOnCreate" :key="col.key">
+        <div slot="body" :class="['modal-body-fields', `modal-${currentTable}`]">
+          <div
+            v-for="col of colsOnCreate"
+            :key="col.key"
+            :class="['field-wrap', `field-${currentTable}`,
+            {'loader-wrap': col.fieldType === 'file', 'area-wrap': col.fieldType === 'area'}]"
+          >
             <v-input
               v-if="col.fieldType === 'input'"
               v-model="actualModal.add[col.key]"
@@ -73,7 +78,7 @@
               :label="col.name"
               :required="col.required"
               :placeholder="col.placeholder"
-              :items="createItems"
+              :items="createItems[col.key]"
               clear-icon="info"
               @selected="validateValue"
             />
@@ -83,7 +88,12 @@
               label="Выберите изображения (до 12 штук)"
               :required="col.required"
               :placeholder="col.placeholder"
-              @selected="validateValue"
+              @input="validateValue"
+            />
+            <v-area
+              v-if="col.fieldType === 'area'"
+              :placeholder="col.placeholder"
+              v-model="actualModal.add[col.key]"
             />
           </div>
         </div>
@@ -102,8 +112,12 @@
           <span>Все несохраненные данные будут потеряны. Вы уверены что хотите продолжить?</span>
         </div>
         <div slot="footer" class="buttons-wrap">
-          <v-button @click="discardAllDiffs" text="продолжить" type="success"/>
-          <v-button @click="closeWarningModal" text="отмена" type="warning"/>
+          <div class="form-btn">
+            <v-button @click="discardAllDiffs" text="продолжить" type="success"/>
+          </div>
+          <div class="form-btn">
+            <v-button @click="closeWarningModal" text="отмена" type="warning"/>
+          </div>
         </div>
       </v-modal>
       <v-modal v-if="showDangerModal" type="danger">
@@ -144,7 +158,7 @@
         type: Array
       },
       createItems: {
-        type: Array,
+        type: Object,
       },
       checkDiffs: {
         type: Boolean
@@ -206,6 +220,13 @@
         this.setGetOrRemoveLS(this.currentTable, null)
       },
 
+      getCols() {
+        if (process.browser && this.setGetOrRemoveLS(this.currentTable)) {
+          return this.setGetOrRemoveLS(this.currentTable).cols
+        }
+        return this.cols
+      },
+
       sortColumn(col) {
         Object.keys(this.table.cols).forEach(key => {
           if (this.table.cols[key] !== col) {
@@ -217,13 +238,6 @@
           if (a[col.key] > b[col.key] && col.sorted) return 1
           return -1
         })
-      },
-
-      getCols() {
-        if (process.browser && this.setGetOrRemoveLS(this.currentTable)) {
-          return this.setGetOrRemoveLS(this.currentTable).cols
-        }
-        return this.cols
       },
 
       toggleCheckRow(row) {
@@ -336,7 +350,7 @@
       },
 
       validateValue(e) {
-        console.log(e)
+        console.log(this.actualModal.add)
       },
 
       editCheckedRows() {
@@ -441,15 +455,40 @@
     display: block;
     margin: 15px 0;
   }
-  .form-btn{
+
+  .form-btn {
     margin-right: 15px;
   }
+
   .buttons-wrap {
     @include flexAlign(center, center)
   }
 
   .field-wrap {
-    margin: 20px 10px;
+    margin: 10px 0;
   }
 
+  .modal-table-products {
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    max-height: 60vh;
+    padding: 5px;
+    overflow-y: auto;
+  }
+
+  .field-table-products {
+    width: 30%;
+  }
+
+  .loader-wrap {
+    width: 100%;
+  }
+
+  .area-wrap {
+    width: 100%;
+  }
 </style>

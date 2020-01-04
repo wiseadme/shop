@@ -31,19 +31,6 @@
     "regExp": "",
     "fieldType": "input"
   },
-  "images": {
-    "key": "images",
-    "name": "Фото товара",
-    "sortable": true,
-    "filter": true,
-    "checked": true,
-    "width": "210px",
-    "useOnCreate": true,
-    "required": true,
-    "placeholder": "Выберите файл",
-    "regExp": "",
-    "fieldType": "file"
-  },
   "quantity": {
     "key": "quantity",
     "name": "Количество",
@@ -82,6 +69,45 @@
     "placeholder": "Выберите категорию",
     "regExp": "",
     "fieldType": "select"
+  },
+  "unit": {
+    "key": "unit",
+    "name": "Единица измерения",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "Выберите единицу",
+    "regExp": "",
+    "fieldType": "select"
+  },
+  "images": {
+    "key": "images",
+    "name": "Фото товара",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "Выберите файл",
+    "regExp": "",
+    "fieldType": "file"
+  },
+  "text": {
+    "key": "text",
+    "name": "Описание товара",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "Введите описание товара",
+    "regExp": "",
+    "fieldType": "area"
   },
   "balances": {
     "key": "balances",

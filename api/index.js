@@ -16,8 +16,24 @@ const api = axios.create({
 export const login = user => api.post('/api/auth/login', user)
 export const createUser = newUser => api.post('/api/auth/registration', newUser)
 
-//category
+//categories
 export const fetchAllCategories = () => api.get('/api/category/all')
 export const createCategory = category => api.post('/api/category/create', category)
 export const updateCategories = categories => api.patch('/api/category/update', categories)
 export const deleteCategories = categories => api.post('/api/category/delete', categories)
+
+//products
+
+const pr = axios.create({
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+  baseURL: BASE_URL,
+  withCredentials: true,
+  maxContentLength: 50000000,
+  timeout: 150000
+})
+
+export const fetchAllProducts = () => api.get('/api/product/all')
+export const createProduct = product => api.post('/api/product/create', product)

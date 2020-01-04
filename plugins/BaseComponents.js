@@ -1,22 +1,11 @@
-import VButton from "../components/ui/VButton"
-import VInput from "../components/ui/VInput"
-import VSelect from '../components/ui/VSelect'
-import VCard from "../components/ui/VCard"
-import VAlert from "../components/ui/VAlert"
-import VModal from '../components/ui/VModal'
-import VCheckbox from '../components/ui/VCheckbox'
-import VRender from '../components/ui/VRender'
-import VFileLoader from '../components/ui/VFileLoader'
-
-export default {
-  VButton,
-  VAlert,
-  VCard,
-  VInput,
-  VSelect,
-  VModal,
-  VCheckbox,
-  VRender,
-  VFileLoader
-}
+import Vue from 'vue'
+Vue.component('VButton', () => import('@/components/ui/VButton'))
+Vue.component('VInput', () => import('@/components/ui/VInput'))
+Vue.component('VSelect', () => import('@/components/ui/VSelect'))
+Vue.component('VCard', () => import('@/components/ui/VCard'))
+Vue.component('VModal', () => import('@/components/ui/VModal'))
+Vue.component('VCheckbox', () => import('@/components/ui/VCheckbox'))
+Vue.component('VRender', () => import('@/components/ui/VRender'))
+Vue.component('VFileLoader', () => import('@/components/ui/VFileLoader'))
+Vue.component('VArea', () => import('@/components/ui/VArea'))
 

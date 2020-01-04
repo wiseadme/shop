@@ -28,6 +28,17 @@ const actions = {
   async [action.DELETE_CATEGORIES]({}, categories) {
     const { data } = await api.deleteCategories(categories)
     return data
+  },
+
+  async [action.CREATE_PRODUCT]({}, product) {
+    const { data } = await api.createProduct(product)
+    return data
+  },
+
+  async [action.GET_ALL_PRODUCTS]({ commit }) {
+    const { data: { products } } = await api.fetchAllProducts()
+    commit(mutation.SET_ALL_PRODUCTS, products)
+    return products
   }
 }
 

@@ -22,6 +22,7 @@ async function start() {
   app.use('/api/auth', router.authRoute)
   app.use('/api/image', router.imageRoute)
   app.use('/api/category', router.categoryRoute)
+  app.use('/api/product', router.productRoute)
   app.use(nuxt.render)
   // app.use('/api/post', router.postRoute)
 

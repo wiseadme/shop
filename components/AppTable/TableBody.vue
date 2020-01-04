@@ -18,6 +18,7 @@
             :data-col="col.name"
           >
             <span v-if="col.key === 'number'">{{ i += 1 }}</span>
+            <span v-else-if="checkType(row[col.key]) === 'Object'" :data-id="row[col.key]._id">{{ row[col.key].name }}</span>
             <span v-else>
               {{row[col.key] ? row[col.key] === true ? '+': row[col.key] :
               row[col.key] === false || !row[col.key] && row[col.key] !== 0 ? '-' : row[col.key]}}
@@ -75,6 +76,10 @@
       blurHandler($event, row, key) {
         row[key] = $event.target.value
         row.changed = true
+      },
+
+      checkType(forCheck) {
+        return Object.prototype.toString.call(forCheck).slice(8, -1)
       }
     }
   }

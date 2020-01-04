@@ -20,7 +20,6 @@
   import AppTable from '@/components/AppTable'
   import categoryCols from '@/schemes/category-cols.json'
   import differences from '@/components/mixins/differences'
-  import * as action from '../../../store/ActionsType'
 
   export default {
     layout: 'admin',
@@ -31,12 +30,8 @@
 
     data() {
       return {
-        categoryName: '',
-        create: false,
         rows: null,
         cols: categoryCols,
-        routeTo: '',
-        checkBeforeLeave: false
       }
     },
 
@@ -95,16 +90,12 @@
               message: 'Ошибка сервера. Повторите операцию позже'
             })
           })
-      },
-
-      diffsHandler(ev) {
-        this.mixIsDiffs = ev
       }
     },
 
     computed: {
       ...mapState({
-        allCategories: state => state.AdminModule.allCategories
+        allCategories: state => state.AdminModule.categories
       })
     }
   }
