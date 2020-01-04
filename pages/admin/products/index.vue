@@ -84,7 +84,7 @@
         formData.append('head', head)
         formData.append('text', text)
         formData.append('images', images)
-        formData.append('quantity', quantity.name)
+        formData.append('quantity', quantity)
         formData.append('price', price)
         formData.append('category', category.id)
         return formData
