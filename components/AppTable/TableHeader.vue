@@ -53,6 +53,7 @@
     position: sticky;
     background: $darkGrey;
     top: 0;
+    z-index: 9;
 
     &__item {
       position: relative;

@@ -462,7 +462,7 @@
   }
 
   .form-btn {
-    margin-right: 15px;
+    margin: 15px;
   }
 
   .buttons-wrap {

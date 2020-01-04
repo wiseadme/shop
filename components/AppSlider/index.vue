@@ -144,7 +144,7 @@
     display: block;
     position: relative;
     top: calc(50% - 2em);
-    z-index: 100;
+    z-index: 8;
     width: 100%;
     height: auto;
     text-align: center;
@@ -163,7 +163,7 @@
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 99;
+    z-index: 9;
   }
 
   .buttons-block__prev,
@@ -196,7 +196,7 @@
     display: flex;
     position: absolute;
     bottom: 10px;
-    z-index: 100;
+    z-index: 5;
     width: 100%;
     justify-content: center;
   }
