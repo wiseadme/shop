@@ -29,6 +29,11 @@ const product = new Schema({
     required: true
   },
 
+  unit: {
+    type: String,
+    required: true
+  },
+
   quantity: {
     type: Number,
     required: true

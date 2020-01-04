@@ -12,11 +12,11 @@
   },
   {
     "icon": "monetization_on",
-    "name": "Продажи",
+    "name": "Товары",
     "show": false,
     "child": [
       {
-        "name": "в магазин",
+        "name": "Товары в наличии",
         "link": "/admin/products"
       }
     ]

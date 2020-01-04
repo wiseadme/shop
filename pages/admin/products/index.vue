@@ -57,7 +57,7 @@
       reloadProducts() {
         this.rows = null
         this.fetchAllProducts()
-          .then(rows => this.rows = rows)
+          .then(rows => setTimeout(() => this.rows = rows, 500))
           .then(data => {
             this.$notify({
               type: 'success',
@@ -78,13 +78,14 @@
       },
 
       createFormData(obj) {
-        const { name, head, text, images, quantity, price, category } = obj
+        const { name, head, text, images, unit, quantity, price, category } = obj
         const formData = new FormData()
         formData.append('name', name)
         formData.append('head', head)
         formData.append('text', text)
         formData.append('images', images)
         formData.append('quantity', quantity)
+        formData.append('unit', unit.name)
         formData.append('price', price)
         formData.append('category', category.id)
         return formData

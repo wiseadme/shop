@@ -1,9 +1,10 @@
 const mongoose = require('mongoose')
 const Product = require('../models/Product')
 const errorHandler = require('../utils/errorHandler')
+const upload = require('../middleware/upload')
 
 async function createProduct(req, res) {
-  const { name, head, text, images, quantity, price, category } = req.body
+  const { name, head, text, images, unit, quantity, price, category } = req.body
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     url: '/gfhgjhfkjghfkg',
@@ -12,10 +13,10 @@ async function createProduct(req, res) {
     text,
     images,
     quantity,
+    unit,
     price,
     category
   })
-  console.log(req.body)
   try {
     await product.save().then(pr => {
       res.status(201).json({ pr })
