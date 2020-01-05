@@ -110,7 +110,9 @@
       <v-modal v-if="showWarningModal">
         <h2 slot="header">Внимание</h2>
         <div slot="body" class="warning-message">
-          <span>Все несохраненные данные будут потеряны. Вы уверены что хотите продолжить?</span>
+          <div class="msg-wrap">
+            <span>Все несохраненные данные будут потеряны. Вы уверены что хотите продолжить?</span>
+          </div>
         </div>
         <div slot="footer" class="buttons-wrap">
           <div class="form-btn">
@@ -458,11 +460,11 @@
 
   .check-wrap {
     display: block;
-    margin: 15px 0;
+    margin: 15px;
   }
 
   .form-btn {
-    margin: 15px;
+    margin: 0 10px;
   }
 
   .buttons-wrap {
@@ -493,7 +495,9 @@
   .loader-wrap {
     width: 100%;
   }
-
+  .msg-wrap{
+    padding: 15px;
+  }
   .area-wrap {
     width: 100%;
   }

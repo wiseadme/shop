@@ -18,7 +18,8 @@
             :data-col="col.name"
           >
             <span v-if="col.key === 'number'">{{ i += 1 }}</span>
-            <span v-else-if="checkType(row[col.key]) === 'Object'" :data-id="row[col.key]._id">{{ row[col.key].name }}</span>
+            <span v-else-if="checkType(row[col.key]) === 'Object'"
+                  :data-id="row[col.key]._id">{{ row[col.key].name }}</span>
             <span v-else>
               {{row[col.key] ? row[col.key] === true ? '+': row[col.key] :
               row[col.key] === false || !row[col.key] && row[col.key] !== 0 ? '-' : row[col.key]}}
@@ -36,10 +37,9 @@
               v-if="col.own"
               class="table-body__cell-edit"
               type="text"
-              :value="row[col.key]"
-              @blur="blurHandler($event, row, col.key)"
+              :value="checkType(row[col.key]) === 'Object' ? row[col.key].name : row[col.key]"
+              @blur="blurHandler($event, row, {prop: col.key, sub: 'name'})"
             >
-
           </div>
         </template>
       </div>
@@ -74,14 +74,20 @@
       },
 
       blurHandler($event, row, key) {
-        row[key] = $event.target.value
+        if (this.checkType(row[key] === 'Object')) {
+          row[key.prop][key.sub] = $event.target.value
+        } else {
+          row[key] = $event.target.value
+        }
         row.changed = true
       },
 
       checkType(forCheck) {
         return Object.prototype.toString.call(forCheck).slice(8, -1)
       }
-    }
+    },
+
+    computed: {}
   }
 </script>
 
@@ -137,7 +143,7 @@
         justify-content: center;
       }
 
-      &-edit{
+      &-edit {
         width: 100%;
         background: transparent;
         border-bottom: 1px solid $white;
@@ -146,7 +152,7 @@
     }
   }
 
-  .edit-mode{
+  .edit-mode {
     background: $blueLight;
     color: $white;
   }

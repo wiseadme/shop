@@ -9,7 +9,7 @@
       <figcaption v-show="caption" class="item-figure__caption">
         <span class="item-figure__caption-text">{{item.head}}</span>
       </figcaption>
-      <span class="status" v-if="item.status">{{item.status}}</span>
+      <span class="status" v-if="item.status">{{item.status.name}}</span>
     </figure>
     <div class="item-sale">
       <span class="item-sale__price">{{item.price}}</span>
