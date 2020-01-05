@@ -63,7 +63,7 @@ async function login(req, res) {
             userId: candidate._id
           },
           keys.JWT_KEY,
-          { expiresIn: 60 * 60 }
+          { expiresIn: 600 * 60 }
         )
         res.status(200).json({
           token: token,

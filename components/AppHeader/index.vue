@@ -70,11 +70,10 @@
 </script>
 
 
-<style lang='scss'>
+<style lang='scss' scoped>
   .header {
     width: 100%;
     height: 120px;
-    margin-bottom: 20px;
 
     &__inner {
       width: 100%;
@@ -105,7 +104,6 @@
       width: 350px;
       height: 40px;
       overflow: hidden;
-      /* border: 1px solid red; */
     }
 
     &__contact {
@@ -134,7 +132,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    max-width: 1660px;
+    max-width: 1600px;
     height: 60px;
   }
 
@@ -143,8 +141,9 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 1660px;
+    max-width: 1600px;
     height: 60px;
+
 
   }
 </style>

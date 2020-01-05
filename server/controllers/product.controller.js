@@ -1,16 +1,19 @@
 const mongoose = require('mongoose')
 const Product = require('../models/Product')
 const errorHandler = require('../utils/errorHandler')
+const transliter = require('../utils/transliter.js')
 
 async function createProduct(req, res) {
-  const { name, head, text, images, unit, quantity, price, category } = req.body
+  let { name, head, text, slides, unit, quantity, price, category } = req.body
+  let images = JSON.parse(slides)
+  let imageUrl = transliter(head)
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
-    url: '/gfhgjhfkjghfkg',
+    url: `/${transliter(head)}`,
+    slides: images.map(f => `${imageUrl.toLowerCase()}/${f}` ),
     name,
     head,
     text,
-    images,
     quantity,
     unit,
     price,

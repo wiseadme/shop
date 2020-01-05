@@ -16,7 +16,8 @@
     "required": true,
     "placeholder": "введите наименование",
     "regExp": "",
-    "fieldType": "input"
+    "fieldType": "input",
+    "own": true
   },
   "head": {
     "key": "head",
@@ -29,7 +30,18 @@
     "required": true,
     "placeholder": "Введите заголовок",
     "regExp": "",
-    "fieldType": "input"
+    "fieldType": "input",
+    "own": true
+  },
+  "url": {
+    "key": "url",
+    "name": "ссылка на товар",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": false,
+    "own": true
   },
   "quantity": {
     "key": "quantity",
@@ -42,7 +54,8 @@
     "required": true,
     "placeholder": "введите количество",
     "regExp": "",
-    "fieldType": "input"
+    "fieldType": "input",
+    "own": true
   },
   "price": {
     "key": "price",
@@ -55,7 +68,8 @@
     "required": true,
     "placeholder": "введите цену",
     "regExp": "",
-    "fieldType": "input"
+    "fieldType": "input",
+    "own": true
   },
   "category": {
     "key": "category",
@@ -68,7 +82,8 @@
     "required": true,
     "placeholder": "Выберите категорию",
     "regExp": "",
-    "fieldType": "select"
+    "fieldType": "select",
+    "own": true
   },
   "unit": {
     "key": "unit",
@@ -81,10 +96,11 @@
     "required": true,
     "placeholder": "Выберите единицу",
     "regExp": "",
-    "fieldType": "select"
+    "fieldType": "select",
+    "own": true
   },
-  "images": {
-    "key": "images",
+  "slides": {
+    "key": "slides",
     "name": "Фото товара",
     "sortable": true,
     "filter": true,
@@ -94,7 +110,8 @@
     "required": true,
     "placeholder": "Выберите файл",
     "regExp": "",
-    "fieldType": "file"
+    "fieldType": "file",
+    "own": true
   },
   "text": {
     "key": "text",
@@ -107,7 +124,8 @@
     "required": true,
     "placeholder": "Введите описание товара",
     "regExp": "",
-    "fieldType": "area"
+    "fieldType": "area",
+    "own": true
   },
   "balances": {
     "key": "balances",

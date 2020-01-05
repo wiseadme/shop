@@ -33,7 +33,7 @@
           >
             <span v-if="col.key === 'number'">{{ i += 1 }}</span>
             <input
-              v-if="col.useOnCreate"
+              v-if="col.own"
               class="table-body__cell-edit"
               type="text"
               :value="row[col.key]"

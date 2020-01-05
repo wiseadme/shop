@@ -24,7 +24,7 @@ const product = new Schema({
     required: true
   },
 
-  images: {
+  slides: {
     type: Array,
     required: true
   },

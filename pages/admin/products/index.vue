@@ -78,7 +78,7 @@
       },
 
       createFormData(obj) {
-        const { name, head, text, images, unit, quantity, price, category } = obj
+        let { name, head, text, slides, unit, quantity, price, category } = obj
         const formData = new FormData()
         formData.append('name', name)
         formData.append('head', head)
@@ -87,7 +87,8 @@
         formData.append('unit', unit.name)
         formData.append('price', price)
         formData.append('category', category.id)
-        images.forEach(it => {
+        formData.append('slides', JSON.stringify(slides.map(it => it.name)))
+        slides.forEach(it => {
           formData.append('images', it)
         })
         return formData

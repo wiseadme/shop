@@ -16,7 +16,8 @@
     "required": true,
     "placeholder": "введите наименование",
     "regExp": "",
-    "fieldType": "input"
+    "fieldType": "input",
+    "own": true
   },
   "url": {
     "key": "url",
@@ -29,7 +30,8 @@
     "required": true,
     "placeholder": "введите наименование",
     "regExp": "",
-    "fieldType": "input"
+    "fieldType": "input",
+    "own": true
   },
   "icon": {
     "key": "icon",
@@ -42,7 +44,8 @@
     "required": true,
     "placeholder": "введите наименование",
     "regExp": "",
-    "fieldType": "input"
+    "fieldType": "input",
+    "own": true
   },
   "position": {
     "key": "position",
@@ -55,7 +58,8 @@
     "required": true,
     "placeholder": "введите наименование",
     "regExp": "",
-    "fieldType": "input"
+    "fieldType": "input",
+    "own": true
   },
   "value": {
     "key": "value",

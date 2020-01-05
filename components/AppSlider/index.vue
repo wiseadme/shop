@@ -105,7 +105,6 @@
     height: 300px;
     top: 0;
     left: 0;
-    border-radius: 5px;
     overflow: hidden;
   }
 
