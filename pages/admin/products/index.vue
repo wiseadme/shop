@@ -94,10 +94,10 @@
         const formData = new FormData()
         Object.keys(obj).forEach(key => {
           if (key === 'slides') {
-            formData.append(key, JSON.stringify(obj[key].map(it => it.name)))
             obj[key].forEach(it => {
               formData.append('images', it)
             })
+            return formData.append(key, JSON.stringify(obj[key].map(it => it.name)))
           }
           if (key === 'category') {
             return formData.append(key, obj[key].id)

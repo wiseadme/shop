@@ -9,16 +9,16 @@ async function createProduct(req, res) {
   const keys = Object.keys(req.body)
 
   keys.forEach(key => {
-    if (key !== 'slides' && key !== 'category') {
+    if (key !== 'category') {
       return parsed[key] = JSON.parse(req.body[key])
     }
     parsed[key] = req.body[key]
   })
-
+  console.log(parsed)
   const imageUrl = transliter(parsed.head)
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
-    url: `/${transliter(parsed.head)}`,
+    url: `/${imageUrl}`,
     slides: parsed.slides.map(f => `${imageUrl.toLowerCase()}/${f}` ),
     name: parsed.name,
     head: parsed.head,

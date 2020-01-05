@@ -351,7 +351,7 @@
       },
 
       validateValue(e) {
-        console.log(this.actualModal.add)
+        // console.log(this.actualModal.add)
       },
 
       editCheckedRows() {

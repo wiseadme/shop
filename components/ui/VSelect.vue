@@ -68,7 +68,6 @@
 		},
 
 		mounted() {
-      console.log(this.items)
 			this.$refs.wrap.addEventListener("click", this.toggleItemsShow)
 			document.addEventListener("click", this.docClickHandle)
 		},
