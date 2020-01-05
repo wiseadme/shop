@@ -471,6 +471,7 @@
 
   .field-wrap {
     margin: 10px 0;
+    padding: 0 15px;
   }
 
   .modal-table-products {
@@ -479,14 +480,14 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    max-width: 1200px;
+    width: 1200px;
     max-height: 60vh;
     padding: 5px;
     overflow-y: auto;
   }
 
   .field-table-products {
-    width: 30%;
+    width: 33%;
   }
 
   .loader-wrap {

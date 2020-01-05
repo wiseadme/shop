@@ -4,20 +4,32 @@ const errorHandler = require('../utils/errorHandler')
 const transliter = require('../utils/transliter.js')
 
 async function createProduct(req, res) {
-  let { name, head, text, slides, unit, quantity, price, category } = req.body
-  let images = JSON.parse(slides)
-  let imageUrl = transliter(head)
+  console.log(req.body)
+  const parsed = {}
+  const keys = Object.keys(req.body)
+
+  keys.forEach(key => {
+    if (key !== 'slides' && key !== 'category') {
+      return parsed[key] = JSON.parse(req.body[key])
+    }
+    parsed[key] = req.body[key]
+  })
+
+  const imageUrl = transliter(parsed.head)
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
-    url: `/${transliter(head)}`,
-    slides: images.map(f => `${imageUrl.toLowerCase()}/${f}` ),
-    name,
-    head,
-    text,
-    quantity,
-    unit,
-    price,
-    category
+    url: `/${transliter(parsed.head)}`,
+    slides: parsed.slides.map(f => `${imageUrl.toLowerCase()}/${f}` ),
+    name: parsed.name,
+    head: parsed.head,
+    quantity: parsed.quantity,
+    price: parsed.price,
+    category: parsed.category,
+    unit: parsed.unit,
+    stock: parsed.stock,
+    discount: parsed.discount,
+    status: parsed.status,
+    text: parsed.text
   })
   try {
     await product.save().then(pr => {
@@ -30,6 +42,7 @@ async function createProduct(req, res) {
 
 async function getProducts(req, res) {
   const products = await Product.find().populate('category', ['name'])
+  console.log(products)
   res.status(200).json({ products })
 }
 

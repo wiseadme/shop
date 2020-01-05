@@ -41,6 +41,7 @@
     min-width: 450px;
     box-shadow: $boxShadow;
     border-radius: 5px;
+    background: $white;
 
     &__header {
       @include fontExo($white, 1.2em);
@@ -53,7 +54,6 @@
       @include fontExo($darkBlue, 1em);
       position: relative;
       background: $white;
-      padding: 15px;
       max-height: 70vh;
     }
 

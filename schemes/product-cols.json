@@ -99,6 +99,50 @@
     "fieldType": "select",
     "own": true
   },
+  "stock": {
+    "key": "stock",
+    "name": "Акция",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "Выберите из списка",
+    "regExp": "",
+    "fieldType": "select",
+    "own": true
+  },
+
+  "discount": {
+    "key": "discount",
+    "name": "Скидки",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "Например -50%",
+    "regExp": "",
+    "fieldType": "input",
+    "own": true
+  },
+
+  "status": {
+    "key": "status",
+    "name": "Статус товара",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "Выберите единицу",
+    "regExp": "",
+    "fieldType": "select",
+    "own": true
+  },
   "slides": {
     "key": "slides",
     "name": "Фото товара",

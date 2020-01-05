@@ -49,7 +49,9 @@
     data() {
       return {
         mainMenu: [
-          { name: 'Каталог', icon: 'view_day', children: this.menuItems, show: false }
+          { name: 'Каталог', icon: 'view_day', children: this.menuItems, show: false },
+          { name: 'Контакты', icon: 'import_contacts', children: false, show: false },
+          { name: 'Доставка', icon: 'directions_car', children: false, show: false },
         ]
       }
     },

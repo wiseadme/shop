@@ -1,21 +1,25 @@
 <template>
   <div class="item">
-    <figure class="item-figure">
-      <img class="item-figure__image" :src="`/api/image/${item.slides[1]}`" alt="" title="">
-      <figcaption class="item-figure__caption">
+    <figure
+      class="item-figure"
+      @mouseenter="caption = true"
+      @mouseleave="caption = false"
+    >
+      <img class="item-figure__image" :src="`/api/image/${item.slides[0]}`" alt="" title="">
+      <figcaption v-show="caption" class="item-figure__caption">
         <span class="item-figure__caption-text">{{item.head}}</span>
       </figcaption>
+      <span class="status" v-if="item.status">{{item.status}}</span>
     </figure>
+    <div class="item-sale">
+      <span class="item-sale__price">{{item.price}}</span>
+      <span class="item-sale__symbol">₽</span>
+    </div>
     <div class="item-info">
       <span class="item-info__head">{{item.head}}</span>
-      <span class="item-info__desc">{{item.text.slice(0, 8) + '...'}}</span>
-    </div>
-    <div class="item-sale">
-      <span class="item-sale__rating">цена</span>
-      <span class="item-sale__price">{{item.price}}</span>
     </div>
     <div class="item-btn">
-      <div class="item-btn__button"></div>
+      <div class="item-btn__button">В корзину</div>
     </div>
   </div>
 </template>
@@ -28,20 +32,31 @@
         type: Object,
         required: true
       }
+    },
+    data() {
+      return {
+        caption: false
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
+  @import url('https://fonts.googleapis.com/css?family=PT+Mono&display=swap');
+
   .item {
     width: 250px;
     padding: 0;
-    box-shadow: $boxShadow;
+    border: 1px solid $grey;
+    border-radius: 3px;
+    overflow: hidden;
     @include flexAlign(center, center, column);
 
+
     &-figure {
-      width: 250px;
-      height: 250px;
+      width: 200px;
+      height: 200px;
+      margin-top: 20px;
       position: relative;
 
       &__image {
@@ -71,11 +86,49 @@
     }
 
     &-info {
+      width: 90%;
+      height: 50px;
       @include flexAlign(center, center, column);
+      margin: 10px 0;
 
       &__head {
+        @include fontExo($darkBlue, 1em);
+        padding: 0 5px;
+        width: 100%;
+        font-family: 'PT Mono', monospace;
+      }
+    }
+
+    &-sale {
+      width: 90%;
+      @include flexAlign(center, flex-start);
+      padding: 5px;
+
+      &__price {
+        @include fontExo($blue, 1.4em);
+        font-weight: 700;
+      }
+
+      &__symbol {
+        color: $blue;
+        padding-top: 2px;
+        font-weight: 700;
+      }
+    }
+
+    &-btn {
+      margin: 20px;
+      width: 90%;
+      padding: 5px;
+
+      &__button {
+        width: 120px;
+        height: 42px;
+        border: 1px solid $blue;
+        border-radius: 3px;
+        cursor: pointer;
+        @include flexAlign(center, center);
         @include fontPlay($blue, 1em);
-        margin: 10px;
       }
     }
   }

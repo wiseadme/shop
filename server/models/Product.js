@@ -20,7 +20,7 @@ const product = new Schema({
   },
 
   text: {
-    type: Object,
+    type: String,
     required: true
   },
 
@@ -30,18 +30,30 @@ const product = new Schema({
   },
 
   unit: {
-    type: String,
+    type: Object,
     required: true
   },
 
   quantity: {
-    type: Number,
+    type: String,
     required: true
   },
 
   price: {
     type: String,
     required: true
+  },
+
+  status: {
+    type: Object,
+  },
+
+  stock: {
+    type: Object,
+  },
+
+  discount: {
+    type: String,
   },
 
   category: {

@@ -38,6 +38,18 @@
             { name: 'килограмм' },
             { name: 'грамм' },
             { name: 'упаковка' }
+          ],
+          status: [
+            { name: 'Новинка' },
+            { name: 'Бестселлер' },
+            { name: 'Уцененный' },
+            { name: 'нет' }
+          ],
+          stock: [
+            { name: '1 + 1' },
+            { name: '2 + 1' },
+            { name: '3 + 1' },
+            { name: 'нет' }
           ]
         }
       }
@@ -46,6 +58,7 @@
     created() {
       this.rows = this.products
       this.createItems.category = this.categories.map(it => new Object({ name: it.name, id: it._id }))
+
     },
 
     methods: {
@@ -78,18 +91,18 @@
       },
 
       createFormData(obj) {
-        let { name, head, text, slides, unit, quantity, price, category } = obj
         const formData = new FormData()
-        formData.append('name', name)
-        formData.append('head', head)
-        formData.append('text', text)
-        formData.append('quantity', quantity)
-        formData.append('unit', unit.name)
-        formData.append('price', price)
-        formData.append('category', category.id)
-        formData.append('slides', JSON.stringify(slides.map(it => it.name)))
-        slides.forEach(it => {
-          formData.append('images', it)
+        Object.keys(obj).forEach(key => {
+          if (key === 'slides') {
+            formData.append(key, JSON.stringify(obj[key].map(it => it.name)))
+            obj[key].forEach(it => {
+              formData.append('images', it)
+            })
+          }
+          if (key === 'category') {
+            return formData.append(key, obj[key].id)
+          }
+          formData.append(key, JSON.stringify(obj[key]))
         })
         return formData
       }
