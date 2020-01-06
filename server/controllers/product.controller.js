@@ -41,7 +41,6 @@ async function createProduct(req, res) {
 
 async function getProducts(req, res) {
   const products = await Product.find().populate('category', ['name'])
-  console.log(products)
   res.status(200).json({ products })
 }
 

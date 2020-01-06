@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <!---------- Table modals is here ----------->
+    <!-- Table modals is here -->
 
     <transition name="fadeIn">
       <v-modal v-if="showColsModal">

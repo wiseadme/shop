@@ -68,6 +68,7 @@
 
     filters: {
       extractValue(val) {
+        console.log('iz filtra ', val)
         if (typeof val === 'object' && !val.length) {
           return val.name
         }
