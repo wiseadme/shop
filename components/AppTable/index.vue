@@ -392,15 +392,7 @@
     },
 
     beforeDestroy() {
-      this.$off('show-all', this.showAllCols)
-      this.$off('create', this.createRowItem)
-      this.$off('edit-row', this.editCheckedRows)
-      this.$off('save', this.saveChanges)
-      this.$off('delete', this.deleteCheckedRows)
-      this.$off('sort-column', this.sortColumn)
-      this.$off('check-all', this.toggleCheckAllRows)
-      this.$off('check-row', this.toggleCheckRow)
-      this.$off('checked', this.toggleCheckRow)
+
     },
 
     computed: {
