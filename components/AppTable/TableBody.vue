@@ -1,8 +1,7 @@
 <template>
   <div class="table-body">
-    <template v-for="(row, i) in rows">
+    <div v-for="(row, i) in rows" :key="row.name + row._id">
       <div
-        :key="row.name + row._id"
         :class="['table-body__row', {checked: row.checked}]"
         @dblclick="checkRow(row)"
       >
@@ -17,8 +16,8 @@
             :style="{width: col.width}"
             :data-col="col.name"
           >
-            <span v-if="col.key === 'number'">{{ i += 1 }}</span>
-            <span v-else>
+            <span class="table-body__cell-text" v-if="col.key === 'number'">{{ i += 1 }}</span>
+            <span class="table-body__cell-text" v-else>
               {{row[col.key] ? row[col.key] === true ? '+': row[col.key] :
               row[col.key] === false || !row[col.key] && row[col.key] !== 0 ? '-' : row[col.key] | extractValue}}
             </span>
@@ -37,11 +36,25 @@
               type="text"
               :value="row[col.key] | extractValue"
               @blur="blurHandler($event, row, col.key)"
+              @focus="row[col.key].name ? $set(row[col.key], 'sub', true) : false"
+              @input="inputHandler($event, row[col.key])"
             >
+            <template v-show="row[col.key] && row[col.key].name && row[col.key].sub">
+              <div class="selects-wrap">
+                <span
+                  v-for="it in createItems[col.key]"
+                  :key="it.name"
+                  class="selects-wrap__item"
+                  @click="selectItem(row, col.key, it)"
+                >
+                  {{it.name}}
+                </span>
+              </div>
+            </template>
           </div>
         </template>
       </div>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -58,6 +71,9 @@
       checkAll: {
         type: Boolean
       },
+      createItems: {
+        type: Object
+      }
     },
 
     data() {
@@ -68,8 +84,8 @@
 
     filters: {
       extractValue(val) {
-        console.log('iz filtra ', val)
-        if (typeof val === 'object' && !val.length) {
+        const type = Object.prototype.toString.call(val).slice(8, -1)
+        if (type === 'Object') {
           return val.name
         }
         return val
@@ -83,11 +99,22 @@
 
       blurHandler($event, row, key) {
         if (this.checkType(row[key]) === 'Object') {
+          setTimeout(() => this.$set(row[key], 'sub', false), 120)
           row[key].name = $event.target.value
         } else {
           row[key] = $event.target.value
         }
         row.changed = true
+      },
+
+      inputHandler(ev, val) {
+        if (this.checkType(val) === 'Object') {
+          ev.target.value = val.name
+        }
+      },
+
+      selectItem(row, key, newValue) {
+        this.$set(row, key, newValue)
       },
 
       checkType(forCheck) {
@@ -138,14 +165,19 @@
     &__cell {
       display: inline-flex;
       align-items: center;
+      position: relative;
       padding: 0 5px;
       height: 100%;
-      overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
       transition: color .2s;
       border-right: 1px solid #ecedf1;
       @include fontExo($darkBlue, 14px);
+
+      &-text {
+        width: 100%;
+        overflow: hidden;
+      }
 
       &:first-child {
         justify-content: center;
@@ -167,5 +199,24 @@
 
   .checked {
     background: $grey;
+  }
+
+  .selects-wrap {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    @include flexAlign(center, center, column);
+    background: $blueLight;
+    box-shadow: $boxShadow;
+
+    &__item {
+      width: 100%;
+      padding: 8px;
+
+      &:hover {
+        background: $darkBlue;
+      }
+    }
   }
 </style>

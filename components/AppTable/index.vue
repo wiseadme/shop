@@ -23,6 +23,7 @@
         :rows="tableRows"
         :cols="table.cols"
         :check-all="checkAllRows"
+        :create-items="createItems"
         @check-row="toggleCheckRow"
         @checked="toggleCheckRow"
       />
