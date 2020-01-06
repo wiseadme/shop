@@ -39,13 +39,13 @@
               @focus="row[col.key].name ? $set(row[col.key], 'sub', true) : false"
               @input="inputHandler($event, row[col.key])"
             >
-            <template v-show="row[col.key] && row[col.key].name && row[col.key].sub">
+            <template v-if="row[col.key] && row[col.key].name && row[col.key].sub">
               <div class="selects-wrap">
                 <span
                   v-for="it in createItems[col.key]"
                   :key="it.name"
                   class="selects-wrap__item"
-                  @click="selectItem(row, col.key, it)"
+                  @mousedown="selectItem(row, col.key, it)"
                 >
                   {{it.name}}
                 </span>
@@ -99,7 +99,7 @@
 
       blurHandler($event, row, key) {
         if (this.checkType(row[key]) === 'Object') {
-          setTimeout(() => this.$set(row[key], 'sub', false), 120)
+          setTimeout(() => this.$set(row[key], 'sub', false), 0)
           row[key].name = $event.target.value
         } else {
           row[key] = $event.target.value

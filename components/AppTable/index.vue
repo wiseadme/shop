@@ -31,9 +31,7 @@
         <img class="preloader" src="/img/preloader.gif">
       </div>
     </div>
-
     <!-- Table modals is here -->
-
     <transition name="fadeIn">
       <v-modal v-if="showColsModal">
         <h2 slot="header">Фильтрация колонок</h2>
@@ -172,7 +170,6 @@
     data() {
       return {
         tableRows: null,
-        showPreloader: true,
         showColsModal: false,
         showAddModal: false,
         showWarningModal: false,
@@ -331,6 +328,9 @@
         this.checkedRows.filter(it => it.changed).forEach(row => {
           let ext = this.extractDiffKeys(row)
           ext ? rowsDiffs.push(ext) : false
+          row.checked = false
+          row.edit = false
+          row.changed = false
         })
         this.checkedRows = []
         this.$emit('update', rowsDiffs)
