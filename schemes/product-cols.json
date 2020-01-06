@@ -123,7 +123,7 @@
     "width": "210px",
     "useOnCreate": true,
     "required": true,
-    "placeholder": "Например -50%",
+    "placeholder": "Например 10",
     "regExp": "",
     "fieldType": "input",
     "own": true

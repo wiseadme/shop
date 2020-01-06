@@ -6,6 +6,7 @@ const upload = require('../middleware/upload')
 const router = Router()
 
 router.get('/all', controller.getProducts)
+router.post('/item', controller.getProductItem)
 router.post('/create', upload.array('images', 12), passport.authenticate('jwt', { session: false }), controller.createProduct)
 router.patch('/update', passport.authenticate('jwt', { session: false }), controller.updateProducts)
 router.post('/delete', passport.authenticate('jwt', { session: false }), controller.deleteProducts)

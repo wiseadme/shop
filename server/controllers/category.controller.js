@@ -8,8 +8,8 @@ async function createCategory(req, res) {
   if (check) {
     const category = new Category({
       _id: new mongoose.Types.ObjectId(),
-      name,
       url,
+      name,
       icon,
       position,
     })

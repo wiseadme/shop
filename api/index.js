@@ -37,3 +37,4 @@ const multi = axios.create({
 
 export const fetchAllProducts = () => api.get('/api/product/all')
 export const createProduct = product => multi.post('/api/product/create', product)
+export const fetchProductItem = url => api.post('/api/product/item', { url })

@@ -1,5 +1,5 @@
 <template>
-  <div class="item">
+  <nuxt-link :to="{path:`${item.url}`}" class="item" :props="{name: 'Anar'}" prefetch>
     <figure
       class="item-figure"
     >
@@ -21,7 +21,7 @@
     <div class="item-btn">
       <div class="item-btn__button">В корзину</div>
     </div>
-  </div>
+  </nuxt-link>
 </template>
 
 <script>
@@ -37,7 +37,18 @@
       return {
         caption: false
       }
-    }
+    },
+
+    computed: {
+      ...mapState({
+        categories: state => state.AdminModule.categories,
+      }),
+
+      category() {
+        let ctg = this.categories.find(it => it._id === this.item.category._id)
+        return ctg.url
+      }
+    },
   }
 </script>
 
@@ -47,6 +58,7 @@
   .item {
     width: 250px;
     padding: 0;
+    text-decoration: none;
 
     border-radius: 3px;
     overflow: hidden;

@@ -39,6 +39,15 @@ const actions = {
     const { data: { products } } = await api.fetchAllProducts()
     commit(mutation.SET_ALL_PRODUCTS, products)
     return products
+  },
+
+  async [action.GET_PRODUCT_ITEM]({}, url) {
+    try {
+      const data = await api.fetchProductItem(url)
+      return data.data
+    } catch (err) {
+      return Promise.reject('Ошибка сервера')
+    }
   }
 }
 

@@ -25,7 +25,7 @@
       AppItem
     },
 
-    async created() {
+    created() {
 
     },
 
@@ -33,7 +33,8 @@
 
     computed: {
       ...mapState({
-        products: state => state.AdminModule.products
+        products: state => state.AdminModule.products,
+        categories: state => state.AdminModule.categories,
       })
     },
   }

@@ -57,7 +57,7 @@
 
     created() {
       this.rows = this.products
-      this.createItems.category = this.categories.map(it => new Object({ name: it.name, id: it._id }))
+      this.createItems.category = this.categories.map(it => new Object({ name: it.name, id: it._id, url: it.url }))
 
     },
 
@@ -98,9 +98,6 @@
               formData.append('images', it)
             })
             return formData.append(key, JSON.stringify(obj[key].map(it => it.name)))
-          }
-          if (key === 'category') {
-            return formData.append(key, obj[key].id)
           }
           formData.append(key, JSON.stringify(obj[key]))
         })
