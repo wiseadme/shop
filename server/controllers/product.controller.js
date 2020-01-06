@@ -4,7 +4,6 @@ const errorHandler = require('../utils/errorHandler')
 const transliter = require('../utils/transliter.js')
 
 async function createProduct(req, res) {
-  console.log(req.body)
   const parsed = {}
   const keys = Object.keys(req.body)
 
@@ -14,11 +13,11 @@ async function createProduct(req, res) {
     }
     parsed[key] = req.body[key]
   })
-  console.log(parsed)
+
   const imageUrl = transliter(parsed.head)
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
-    url: `/${imageUrl}`,
+    url: `/${imageUrl.toLowerCase()}`,
     slides: parsed.slides.map(f => `${imageUrl.toLowerCase()}/${f}` ),
     name: parsed.name,
     head: parsed.head,

@@ -2,18 +2,18 @@
   <div class="item">
     <figure
       class="item-figure"
-      @mouseenter="caption = true"
-      @mouseleave="caption = false"
     >
       <img class="item-figure__image" :src="`/api/image/${item.slides[0]}`" alt="" title="">
-      <figcaption v-show="caption" class="item-figure__caption">
+      <figcaption class="item-figure__caption">
         <span class="item-figure__caption-text">{{item.head}}</span>
       </figcaption>
-      <span class="status" v-if="item.status">{{item.status.name}}</span>
     </figure>
     <div class="item-sale">
       <span class="item-sale__price">{{item.price}}</span>
       <span class="item-sale__symbol">₽</span>
+    </div>
+    <div class="item-actions">
+      <span v-if="item.status" class="item-actions__status">{{item.status.name}}</span>
     </div>
     <div class="item-info">
       <span class="item-info__head">{{item.head}}</span>
@@ -47,17 +47,21 @@
   .item {
     width: 250px;
     padding: 0;
-    border: 1px solid $grey;
+
     border-radius: 3px;
     overflow: hidden;
     @include flexAlign(center, center, column);
+    box-shadow: $boxShadow;
 
 
     &-figure {
-      width: 200px;
-      height: 200px;
-      margin-top: 20px;
+      width: 250px;
+      height: 150px;
       position: relative;
+
+      &:hover .item-figure__caption {
+        opacity: 1;
+      }
 
       &__image {
         width: auto;
@@ -73,6 +77,8 @@
         left: 50%;
         transform: translate(-50%, -50%);
         background: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        transition: opacity .2s;
 
         &-text {
           position: absolute;
@@ -90,6 +96,7 @@
       height: 50px;
       @include flexAlign(center, center, column);
       margin: 10px 0;
+      position: relative;
 
       &__head {
         @include fontExo($darkBlue, 1em);
@@ -97,27 +104,29 @@
         width: 100%;
         font-family: 'PT Mono', monospace;
       }
+
     }
 
     &-sale {
       width: 90%;
       @include flexAlign(center, flex-start);
       padding: 5px;
+      margin: 10px 0 0 0;
 
       &__price {
-        @include fontExo($blue, 1.4em);
+        @include fontExo($darkBlue, 1.4em);
         font-weight: 700;
       }
 
       &__symbol {
-        color: $blue;
+        color: $darkBlue;
         padding-top: 2px;
         font-weight: 700;
       }
     }
 
     &-btn {
-      margin: 20px;
+      margin: 20px 0;
       width: 90%;
       padding: 5px;
 
@@ -126,9 +135,33 @@
         height: 42px;
         border: 1px solid $blue;
         border-radius: 3px;
+        background: transparent;
         cursor: pointer;
         @include flexAlign(center, center);
         @include fontPlay($blue, 1em);
+        transition: all .3s;
+
+        &:hover {
+          border: transparent;
+          background: $blue;
+          color: $white;
+        }
+      }
+    }
+
+    &-actions {
+      position: relative;
+      width: 90%;
+      height: 36px;
+
+      &__status {
+        position: absolute;
+        bottom: 5px;
+        left: 5px;
+        padding: 5px;
+        background: $blue;
+        border-radius: 3px;
+        @include fontExo($white, .9em)
       }
     }
   }

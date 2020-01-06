@@ -18,11 +18,9 @@
             :data-col="col.name"
           >
             <span v-if="col.key === 'number'">{{ i += 1 }}</span>
-            <span v-else-if="checkType(row[col.key]) === 'Object'"
-                  :data-id="row[col.key]._id">{{ row[col.key].name }}</span>
             <span v-else>
               {{row[col.key] ? row[col.key] === true ? '+': row[col.key] :
-              row[col.key] === false || !row[col.key] && row[col.key] !== 0 ? '-' : row[col.key]}}
+              row[col.key] === false || !row[col.key] && row[col.key] !== 0 ? '-' : row[col.key] | extractValue}}
             </span>
           </div>
           <div
@@ -37,8 +35,8 @@
               v-if="col.own"
               class="table-body__cell-edit"
               type="text"
-              :value="checkType(row[col.key]) === 'Object' ? row[col.key].name : row[col.key]"
-              @blur="blurHandler($event, row, {prop: col.key, sub: 'name'})"
+              :value="row[col.key] | extractValue"
+              @blur="blurHandler($event, row, col.key)"
             >
           </div>
         </template>
@@ -68,14 +66,23 @@
       }
     },
 
+    filters: {
+      extractValue(val) {
+        if (typeof val === 'object' && !val.length) {
+          return val.name
+        }
+        return val
+      }
+    },
+
     methods: {
       checkRow(row) {
         this.$emit('check-row', row)
       },
 
       blurHandler($event, row, key) {
-        if (this.checkType(row[key] === 'Object')) {
-          row[key.prop][key.sub] = $event.target.value
+        if (this.checkType(row[key]) === 'Object') {
+          row[key].name = $event.target.value
         } else {
           row[key] = $event.target.value
         }
