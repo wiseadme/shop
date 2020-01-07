@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const Product = require('../models/Product')
+const fs = require('fs-extra')
+const path = require('path')
 const errorHandler = require('../utils/errorHandler')
 const transliter = require('../utils/transliter.js')
 
@@ -88,6 +90,10 @@ async function deleteProducts(req, res) {
   const products = req.body
   const deleted = []
   products.forEach(pr => {
+    const dir = path.join(__dirname, `../uploads/${pr.url}`)
+    fs.remove(dir)
+      .then(() => console.log('directory deleted'))
+      .catch(err => console.log(err, 'ne udalil'))
     Product.deleteOne({ _id: pr._id })
       .then(del => deleted.push(del))
   })
