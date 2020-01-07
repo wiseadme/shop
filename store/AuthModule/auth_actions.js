@@ -11,15 +11,14 @@ const actions = {
       let { data } = await api.login(user.data)
       setOrRemoveFromLS('user', {login: data.login, id: data.userId})
       dispatch(action.SET_USER, data)
-      commit(mutation.SET_RESPONSE, data)
+      commit(mutation.CHANGE_LOGIN_STATE, true)
       return data
     } catch (err) {
-      commit(mutation.SET_RESPONSE, err.response.data)
       return Promise.reject(err)
     }
   },
 
-  async [action.LOG_OUT_USER]({ dispatch }) {
+  async [action.LOG_OUT_USER]({ commit, dispatch }) {
     Cookies.remove('jwt-token')
     dispatch(action.REMOVE_USER)
   },
@@ -27,8 +26,7 @@ const actions = {
   [action.REMOVE_USER]({ commit }) {
     commit(mutation.SET_USER, null)
     commit(mutation.SET_TOKEN, null)
-    commit(mutation.CHANGE_LOGIN_STATE)
-    commit(mutation.SET_RESPONSE, null)
+    commit(mutation.CHANGE_LOGIN_STATE, false)
     Cookies.remove('jwt-token')
   },
 
@@ -47,7 +45,7 @@ const actions = {
     commit(mutation.SET_USER, user)
     if (isJWTValid(user.token)) {
       dispatch(action.SET_TOKEN, user.token)
-      commit(mutation.CHANGE_LOGIN_STATE)
+      commit(mutation.CHANGE_LOGIN_STATE, true)
     } else {
       dispatch(action.LOG_OUT_USER)
     }
@@ -64,9 +62,10 @@ const actions = {
     const token = cookies['jwt-token']
     if (isJWTValid(token)) {
       dispatch(action.SET_TOKEN, token)
-      commit(mutation.CHANGE_LOGIN_STATE)
+      commit(mutation.CHANGE_LOGIN_STATE, true)
     } else {
       dispatch(action.LOG_OUT_USER)
+      commit(mutation.CHANGE_LOGIN_STATE, false)
     }
   }
 }

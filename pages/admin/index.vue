@@ -11,8 +11,8 @@
 
     beforeRouteEnter(to, from, next) {
       next(vm => {
-        if (!vm.isAdmin) {
-          next({ path: '/admin/auth' })
+        if (!vm.$store.state.AuthModule.isAuthenticated) {
+          next({ path: '/auth' })
         } else {
           next()
         }

@@ -1,3 +1,3 @@
-export default ({$axios}) => {
+export default ({$axios, store, redirect}) => {
 
 }
