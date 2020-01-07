@@ -1,38 +1,38 @@
 <template>
   <nav class='nav-block'>
     <div class="nav-block__menu">
-      <div
+      <ul
         v-for='it in mainMenu'
         :key="it.name"
         class="nav-block__item"
         @mouseover="it.show = true"
         @mouseleave="it.show = false"
       >
-        <div class="nav-block__link">
+        <li class="nav-block__link">
           <i class="material-icons nav-block__icon">{{it.icon}}</i>
           <span class="nav-block__link-text">{{it.name}}</span>
-        </div>
+        </li>
         <transition name="fadeIn">
           <template>
-            <div  v-show="it.show" class="submenu">
-              <nuxt-link
-                v-for='(t, i) in it.children'
-                class='submenu__link'
-                active-class='submenu__link-active'
-                data-name='nav'
-                exact
-                :to='t.url'
-                :key='t.name + i'
-              >
-                <div class="submenu__link-item">
-                  <i class="material-icons submenu__link-icon">{{t.icon}}</i>
-                  <span class="submenu__link-text">{{t.name}}</span>
-                </div>
-              </nuxt-link>
+            <div v-show="it.show && it.children" class="submenu">
+              <ul class="submenu__block" :style="{width: Math.ceil(it.children.length / 4) * 120 + 'px'}">
+                <li
+                  v-for='(t, i) in it.children'
+                  class='submenu__link'
+                  data-name='nav'
+                  @click='$router.push(t.url)'
+                  :key='t.name + i'
+                >
+                  <div class="submenu__link-item">
+                    <i class="material-icons submenu__link-icon">{{t.icon}}</i>
+                    <span class="submenu__link-text">{{t.name}}</span>
+                  </div>
+                </li>
+              </ul>
             </div>
           </template>
         </transition>
-      </div>
+      </ul>
     </div>
   </nav>
 </template>
@@ -110,27 +110,37 @@
   }
 
   .submenu {
-    @include flexAlign(flex-start, flex-start, column);
     position: absolute;
     top: 120px;
     left: 10%;
     width: 80%;
+    height: 200px;
     background: $blue;
     box-shadow: $boxShadow;
     z-index: 15;
 
+    &__block{
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+    }
+
     &__link {
-      min-width: 120px;
+      @include flexAlign(center, center);
+      width: 120px;
+      height: 50px;
       font-weight: 500;
       text-decoration: none;
-      padding: 17px 10px;
       cursor: pointer;
+
 
       &:hover {
         background: $white;
       }
+
       &:hover .submenu__link-text,
-      &:hover .submenu__link-icon{
+      &:hover .submenu__link-icon {
         color: $blue;
       }
     }
