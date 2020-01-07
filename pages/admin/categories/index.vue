@@ -65,7 +65,7 @@
           .catch(err => {
             this.$notify({
               type: 'danger',
-              message: 'Ошибка сервера. Повторите операцию позже'
+              message: err
             })
           })
       },
@@ -76,7 +76,7 @@
           .catch(err => {
             this.$notify({
               type: 'danger',
-              message: 'Ошибка сервера. Повторите операцию позже'
+              message: err
             })
           })
       },
@@ -87,7 +87,7 @@
           .catch(err => {
             this.$notify({
               type: 'danger',
-              message: 'Ошибка сервера. Повторите операцию позже'
+              message: err
             })
           })
       }

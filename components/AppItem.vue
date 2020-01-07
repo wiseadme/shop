@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="{path:`${item.url}`}" class="item" :props="{name: 'Anar'}" prefetch>
+  <nuxt-link :to="pageLink" class="item" prefetch>
     <figure
       class="item-figure"
     >
@@ -39,14 +39,13 @@
       }
     },
 
-    computed: {
-      ...mapState({
-        categories: state => state.AdminModule.categories,
-      }),
+    created() {
+      console.log(this.itemUrl)
+    },
 
-      category() {
-        let ctg = this.categories.find(it => it._id === this.item.category._id)
-        return ctg.url
+    computed: {
+      pageLink() {
+        return `${this.item.category.url}/${this.item.url}`
       }
     },
   }

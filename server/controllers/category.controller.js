@@ -1,28 +1,27 @@
 const mongoose = require('mongoose')
 const Category = require('../models/Category')
 const errorHandler = require('../utils/errorHandler')
+const transliter = require('../utils/transliter.js')
+
 
 async function createCategory(req, res) {
-  const { name, url, icon, position } = req.body
+  const { name, icon, position } = req.body
   const check = Object.keys(req.body).every(it => req.body[it] !== '')
+  const ctgUrl = transliter(name)
   if (check) {
     const category = new Category({
       _id: new mongoose.Types.ObjectId(),
-      url,
+      url: `${ctgUrl.toLowerCase()}`,
       name,
       icon,
       position,
     })
     try {
       category.save().then(category => {
-        res.status(200).json({
-          ok: true,
-          message: `Вы создали категорию ${req.body.name.toLowerCase()}`,
-          category
-        })
+        res.status(200).json(category)
       })
     } catch (err) {
-      errorHandler(err)
+      errorHandler(res, err)
     }
   } else {
     res.status(501).json({
@@ -37,7 +36,7 @@ async function allCategories(req, res) {
     let categories = await Category.find({})
     res.status(200).json({ categories })
   } catch (err) {
-    errorHandler(err)
+    errorHandler(res, err)
   }
 }
 
@@ -59,7 +58,7 @@ async function updateCategories(req, res) {
   try {
     await Promise.all(updates).then(ctg => res.status(201).json(ctg))
   } catch (err) {
-    errorHandler(err)
+    errorHandler(res, err)
   }
 }
 
@@ -73,7 +72,7 @@ async function deleteCategories(req, res) {
   try {
     await Promise.all(deleted).then(ctg => res.status(201).json({ deleted: true }))
   } catch (err) {
-    errorHandler(err)
+    errorHandler(res, err)
   }
 }
 

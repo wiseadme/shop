@@ -3,7 +3,7 @@
     <span>{{item.name}}</span>
     <span>{{item.text}}</span>
     <span>{{item.price}}</span>
-    <img :src="`/api/image/${item.slides[0]}`" alt="">
+    <img v-for="sl in item.slides" :key="sl" style="width: 250px;" :src="`/api/image/${sl}`" :alt="item.name">
   </div>
 </template>
 
@@ -12,7 +12,7 @@
     props: {},
     async asyncData({ store, route }) {
       let item = ''
-      await store.dispatch(`AdminModule/${action.GET_PRODUCT_ITEM}`, route.path).then(it => item = it)
+      await store.dispatch(`AdminModule/${action.GET_PRODUCT_ITEM}`, route.params.item).then(it => item = it)
       return {
         item
       }
@@ -24,7 +24,6 @@
         meta: [
           { hid: 'description', name: 'description', content: this.item.text },
           { hid: 'description', name: 'description', content: 'My custom description' },
-
         ]
       }
     }

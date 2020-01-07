@@ -8,6 +8,8 @@
         :check-diffs="mixCheckBeforeLeave"
         @create="createNewProduct"
         @reload="reloadProducts"
+        @update="updateProductRows"
+        @delete="deleteProductRows"
         @differences="diffsHandler"
         @stop-diffs="mixCheckBeforeLeave = $event"
       />
@@ -57,15 +59,30 @@
 
     created() {
       this.rows = this.products
-      this.createItems.category = this.categories.map(it => new Object({ name: it.name, id: it._id, url: it.url }))
+      this.createItems.category = this.categories.map(it => {
+        return new Object({ name: it.name, id: it._id, url: it.url })
+      })
 
     },
 
     methods: {
       ...mapActions({
         createProduct: `AdminModule/${action.CREATE_PRODUCT}`,
-        fetchAllProducts: `AdminModule/${action.GET_ALL_PRODUCTS}`
+        fetchAllProducts: `AdminModule/${action.GET_ALL_PRODUCTS}`,
+        updateProducts: `AdminModule/${action.UPDATE_PRODUCTS}`,
+        deleteProducts: `AdminModule/${action.DELETE_PRODUCTS}`
       }),
+
+      updateProductRows(products) {
+        this.updateProducts(products)
+          .then(pr => this.reloadProducts())
+          .catch(err => {
+            this.$notify({
+              type: 'danger',
+              message: err
+            })
+          })
+      },
 
       reloadProducts() {
         this.rows = null
@@ -85,7 +102,7 @@
           .catch(err => {
             this.$notify({
               type: 'danger',
-              message: 'Ошибка сервера. Повторите операцию позже'
+              message: err
             })
           })
       },
@@ -102,6 +119,17 @@
           formData.append(key, JSON.stringify(obj[key]))
         })
         return formData
+      },
+
+      deleteProductRows(checkedRows) {
+        this.deleteProducts(checkedRows)
+          .then(() => this.reloadProducts())
+          .catch(err => {
+            this.$notify({
+              type: 'danger',
+              message: err
+            })
+          })
       }
     },
 
