@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div class="page-wrap">
-      <AdminHeader v-if="isAdmin"/>
-      <AdminAside v-if="isAdmin"/>
+      <AdminHeader/>
+      <AdminAside/>
       <Notify/>
       <div class="admin-routes">
         <transition name="fadeIn">

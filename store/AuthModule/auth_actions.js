@@ -33,10 +33,8 @@ const actions = {
   async [action.CREATE_USER]({ commit }, user) {
     try {
       let { data } = await api.createUser(user.data)
-      commit(mutation.SET_RESPONSE, data)
       return data
     } catch (err) {
-      commit(mutation.SET_RESPONSE, err.response.data)
       return Promise.reject(err)
     }
   },

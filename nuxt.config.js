@@ -8,29 +8,40 @@ const resolve = (pathString) => {
 module.exports = {
   head: {
     title: 'Магазин книг по программированию',
+
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'yandex-verification', content: '' },
       { name: 'google-site-verification', content: '' }
     ],
+
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/img/favicon-32x32.png' }
     ],
   },
+
   loading: true,
+
   css: ['~/assets/scss/main.scss'],
+
   plugins: [
     { src: '~/plugins/index.js', ssr: false },
   ],
-  middleware: ['auth-control'],
+
+  router: {
+    middleware: ['admin-control'],
+  },
+
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/style-resources'
   ],
+
   styleResources: {
     scss: ['~/assets/scss/_global.scss']
   },
+
   axios: {
     baseURL: process.env.BASE_URL,
     headers: {
@@ -41,6 +52,7 @@ module.exports = {
     maxContentLength: 50000000,
     timeout: 150000
   },
+
   build: {
     vendor: ['axios'],
     postcss: [

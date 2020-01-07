@@ -39,10 +39,6 @@
       }
     },
 
-    created() {
-      console.log(this.itemUrl)
-    },
-
     computed: {
       pageLink() {
         return `/${this.item.category.url}/${this.item.url}`
