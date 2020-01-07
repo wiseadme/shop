@@ -294,7 +294,7 @@
         this.rowsToDiscard.forEach((row, i) => {
           let found = this.rows.find(it => it._id === row._id)
           Object.keys(found).forEach(key => {
-            row[key] = found[key]
+            row[key] = this.copyWithoutLink(found[key])
           })
           this.rowsToDiscard.splice(i, 1)
           this.toggleCheckRow(row)
@@ -488,9 +488,11 @@
   .loader-wrap {
     width: 100%;
   }
-  .msg-wrap{
+
+  .msg-wrap {
     padding: 15px;
   }
+
   .area-wrap {
     width: 100%;
   }

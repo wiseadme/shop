@@ -35,9 +35,9 @@
               class="table-body__cell-edit"
               type="text"
               :value="row[col.key] | extractValue"
-              @blur="blurHandler($event, row, col.key)"
-              @focus="row[col.key].name ? $set(row[col.key], 'sub', true) : false"
-              @input="inputHandler($event, row[col.key])"
+              @blur="blurHandler($event, row, col)"
+              @focus="focusHandler(row, col)"
+              @input="inputHandler($event, row, col)"
             >
             <template v-if="row[col.key] && row[col.key].name && row[col.key].sub">
               <div class="selects-wrap">
@@ -97,19 +97,32 @@
         this.$emit('check-row', row)
       },
 
-      blurHandler($event, row, key) {
-        if (this.checkType(row[key]) === 'Object') {
-          setTimeout(() => this.$set(row[key], 'sub', false), 0)
-          row[key].name = $event.target.value
+      focusHandler(row, col) {
+        if (col.fieldType === 'select' && !row[col.key].sub) {
+          this.$set(row[col.key], 'sub', true)
         } else {
-          row[key] = $event.target.value
+          row[col.key].sub = true
+        }
+      },
+
+      blurHandler($event, row, col) {
+        if (col.fieldType === 'select') {
+          row[col.key].sub = false
+          row[col.key].name = $event.target.value
+          setTimeout(() => delete row[col.key].sub)
+        } else {
+          if (col.key === 'position') {
+            row[col.key] = Number($event.target.value)
+          } else {
+            row[col.key] = $event.target.value
+          }
         }
         row.changed = true
       },
 
-      inputHandler(ev, val) {
-        if (this.checkType(val) === 'Object') {
-          ev.target.value = val.name
+      inputHandler(ev, row, col) {
+        if (col.fieldType === 'select') {
+          ev.target.value = row[col.key].name
         }
       },
 
@@ -207,6 +220,7 @@
     top: 100%;
     width: 100%;
     @include flexAlign(center, center, column);
+    z-index: 10;
     background: $blueLight;
     box-shadow: $boxShadow;
 
