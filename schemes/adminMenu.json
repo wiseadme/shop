@@ -11,7 +11,7 @@
     "show": false
   },
   {
-    "icon": "monetization_on",
+    "icon": "local_grocery_store",
     "name": "Товары",
     "show": false,
     "child": [
@@ -23,11 +23,26 @@
   },
   {
     "icon": "store",
-    "name": "Склад",
+    "name": "Магазин",
     "show": false,
     "child": [
       {
         "name": "в магазин",
+        "link": "/"
+      }
+    ]
+  },
+  {
+    "icon": "account_box",
+    "name": "Пользователи",
+    "show": false,
+    "child": [
+      {
+        "name": "Пользователи системы",
+        "link": "/"
+      },
+      {
+        "name": "Роли",
         "link": "/"
       }
     ]
