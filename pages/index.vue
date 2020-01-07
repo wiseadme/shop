@@ -33,8 +33,8 @@
 
     computed: {
       ...mapState({
-        products: state => state.AdminModule.products,
-        categories: state => state.AdminModule.categories,
+        products: state => state.DataModule.products,
+        categories: state => state.DataModule.categories,
       })
     },
   }

@@ -19,7 +19,7 @@ export function setOrRemoveFromLS(name, value) {
   }
 }
 
-function debounce(f, ms) {
+export function debounce(f, ms) {
   let isComedown = false
   return function () {
     if (isComedown) return
@@ -27,7 +27,6 @@ function debounce(f, ms) {
     isComedown = true
     setTimeout(() => isComedown = false, ms)
   }
-
 }
 
 export function getCookie(name) {
@@ -39,15 +38,9 @@ export function getCookie(name) {
   }
 }
 
-export function errorHandler(err) {
-  console.log(err)
-}
-
-
 export default {
   isJWTValid,
   setOrRemoveFromLS,
-  errorHandler,
   debounce,
   getCookie
 }

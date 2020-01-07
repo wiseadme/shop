@@ -45,7 +45,7 @@
 
     computed: {
       pageLink() {
-        return `${this.item.category.url}/${this.item.url}`
+        return `/${this.item.category.url}/${this.item.url}`
       }
     },
   }

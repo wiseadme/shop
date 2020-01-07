@@ -67,10 +67,10 @@
 
     methods: {
       ...mapActions({
-        createProduct: `AdminModule/${action.CREATE_PRODUCT}`,
-        fetchAllProducts: `AdminModule/${action.GET_ALL_PRODUCTS}`,
-        updateProducts: `AdminModule/${action.UPDATE_PRODUCTS}`,
-        deleteProducts: `AdminModule/${action.DELETE_PRODUCTS}`
+        createProduct: `DataModule/${action.CREATE_PRODUCT}`,
+        fetchAllProducts: `DataModule/${action.GET_ALL_PRODUCTS}`,
+        updateProducts: `DataModule/${action.UPDATE_PRODUCTS}`,
+        deleteProducts: `DataModule/${action.DELETE_PRODUCTS}`
       }),
 
       updateProductRows(products) {
@@ -135,8 +135,8 @@
 
     computed: {
       ...mapState({
-        products: state => state.AdminModule.products,
-        categories: state => state.AdminModule.categories,
+        products: state => state.DataModule.products,
+        categories: state => state.DataModule.categories,
       })
     }
   }

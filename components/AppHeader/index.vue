@@ -63,7 +63,7 @@
 
     computed: {
       ...mapState({
-        categories: state => state.AdminModule.categories
+        categories: state => state.DataModule.categories
       })
     }
   }

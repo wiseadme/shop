@@ -12,7 +12,7 @@
     props: {},
     async asyncData({ store, route }) {
       let item = ''
-      await store.dispatch(`AdminModule/${action.GET_PRODUCT_ITEM}`, route.params.item).then(it => item = it)
+      await store.dispatch(`DataModule/${action.GET_PRODUCT_ITEM}`, route.params.item).then(it => item = it)
       return {
         item
       }

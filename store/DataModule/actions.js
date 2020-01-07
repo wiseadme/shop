@@ -1,7 +1,6 @@
 import * as action from '../ActionsType'
 import * as mutation from '../MutationsType'
 import * as api from '../../api'
-import { errorHandler } from '@/utils'
 
 const actions = {
   async [action.SAVE_CATEGORY]({}, category) {
@@ -9,8 +8,7 @@ const actions = {
       const { data } = await api.createCategory(category)
       return data
     } catch (err) {
-      errorHandler(err)
-      return Promise.reject(err)
+      return Promise.reject('Ошибка сервера ' + err)
     }
   },
 
@@ -34,8 +32,13 @@ const actions = {
   },
 
   async [action.DELETE_CATEGORIES]({}, categories) {
-    const { data } = await api.deleteCategories(categories)
-    return data
+
+    try {
+      const { data } = await api.deleteCategories(categories)
+      return data
+    } catch (err) {
+      return Promise.reject('Ошибка сервера ' + err)
+    }
   },
 
   async [action.CREATE_PRODUCT]({}, product) {

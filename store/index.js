@@ -10,8 +10,8 @@ const actions = {
   async nuxtServerInit({ dispatch }) {
     await Promise.all([
       dispatch('AuthModule/AUTO_LOGIN'),
-      dispatch('AdminModule/GET_ALL_CATEGORIES'),
-      dispatch('AdminModule/GET_ALL_PRODUCTS')
+      dispatch('DataModule/GET_ALL_CATEGORIES'),
+      dispatch('DataModule/GET_ALL_PRODUCTS')
     ])
   }
 }

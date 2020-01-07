@@ -41,10 +41,10 @@
 
     methods: {
       ...mapActions({
-        fetchAllCategories: `AdminModule/${action.GET_ALL_CATEGORIES}`,
-        saveCategory: `AdminModule/${action.SAVE_CATEGORY}`,
-        updateCategories: `AdminModule/${action.UPDATE_CATEGORIES}`,
-        deleteCategories: `AdminModule/${action.DELETE_CATEGORIES}`
+        fetchAllCategories: `DataModule/${action.GET_ALL_CATEGORIES}`,
+        saveCategory: `DataModule/${action.SAVE_CATEGORY}`,
+        updateCategories: `DataModule/${action.UPDATE_CATEGORIES}`,
+        deleteCategories: `DataModule/${action.DELETE_CATEGORIES}`
       }),
 
       reloadCategories() {
@@ -95,7 +95,7 @@
 
     computed: {
       ...mapState({
-        allCategories: state => state.AdminModule.categories
+        allCategories: state => state.DataModule.categories
       })
     }
   }

@@ -1,6 +1,6 @@
 import Cookie from 'cookie'
 import Cookies from 'js-cookie'
-import { errorHandler, setOrRemoveFromLS, isJWTValid } from '@/utils'
+import { setOrRemoveFromLS, isJWTValid } from '@/utils'
 import * as api from '@/api'
 import * as action from '../ActionsType'
 import * as mutation from '../MutationsType'
@@ -14,7 +14,6 @@ const actions = {
       commit(mutation.SET_RESPONSE, data)
       return data
     } catch (err) {
-      errorHandler(err)
       commit(mutation.SET_RESPONSE, err.response.data)
       return Promise.reject(err)
     }
@@ -39,7 +38,6 @@ const actions = {
       commit(mutation.SET_RESPONSE, data)
       return data
     } catch (err) {
-      errorHandler(err)
       commit(mutation.SET_RESPONSE, err.response.data)
       return Promise.reject(err)
     }
