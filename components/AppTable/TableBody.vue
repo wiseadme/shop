@@ -100,8 +100,6 @@
       focusHandler(row, col) {
         if (col.fieldType === 'select' && !row[col.key].sub) {
           this.$set(row[col.key], 'sub', true)
-        } else {
-          row[col.key].sub = true
         }
       },
 
