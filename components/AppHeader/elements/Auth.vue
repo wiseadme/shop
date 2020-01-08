@@ -49,11 +49,12 @@
 <style lang='scss'>
   .auth-block {
     width: 100%;
+    padding: 5px;
 
     &__inner {
       width: auto;
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
       align-items: center;
     }
 
@@ -63,7 +64,7 @@
     }
 
     &__login, &__action {
-      @include fontPlay($darkBlue, .8em);
+      @include fontPlay($blue, .8em);
       text-decoration: none;
       line-height: 1.6em;
       margin: 0 10px;

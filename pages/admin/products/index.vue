@@ -20,6 +20,9 @@
 <script>
   import AppTable from '@/components/AppTable'
   import productCols from '@/schemes/product-cols.json'
+  import unit from '@/schemes/product-unit.json'
+  import status from '@/schemes/product-status.json'
+  import stock from '@/schemes/product-stock.json'
   import differences from '@/components/mixins/differences'
 
   export default {
@@ -35,24 +38,9 @@
         cols: productCols,
         createItems: {
           category: null,
-          unit: [
-            { name: 'единица' },
-            { name: 'килограмм' },
-            { name: 'грамм' },
-            { name: 'упаковка' }
-          ],
-          status: [
-            { name: 'Новинка' },
-            { name: 'Бестселлер' },
-            { name: 'Уцененный' },
-            { name: 'нет' }
-          ],
-          stock: [
-            { name: '1 + 1' },
-            { name: '2 + 1' },
-            { name: '3 + 1' },
-            { name: 'нет' }
-          ]
+          unit,
+          status,
+          stock
         }
       }
     },

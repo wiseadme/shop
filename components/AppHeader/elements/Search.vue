@@ -1,8 +1,8 @@
 <template>
-  <form class="search" action="">
+  <form class="search">
     <div class="search__group">
       <input class="search__input" type="text" placeholder="поиск по товарам">
-      <input type="submit" class="search__icon" value="" @click.prevent>
+      <button class="search__icon" value="" @click.prevent></button>
     </div>
   </form>
 </template>
@@ -17,11 +17,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .search{
-  position: absolute;
   width: 100%;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%)
 }
   .search__group{
     display: flex;

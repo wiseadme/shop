@@ -32,12 +32,12 @@
 </template>
 
 <script>
-  import AppNavigation from './nav/Navigation.vue'
-  import AppBasket from './nav/Basket.vue'
-  import AppContacts from './nav/Contacts.vue'
-  import AppSearch from './nav/Search.vue'
-  import AppAddress from './nav/Address.vue'
-  import AppAuth from './nav/Auth.vue'
+  import AppNavigation from './elements/Navigation.vue'
+  import AppBasket from './elements/Basket.vue'
+  import AppContacts from './elements/Contacts.vue'
+  import AppSearch from './elements/Search.vue'
+  import AppAddress from './elements/Address.vue'
+  import AppAuth from './elements/Auth.vue'
 
   export default {
     name: 'AppHeader',
@@ -99,7 +99,6 @@
     }
 
     &__search {
-      position: relative;
       display: block;
       width: 350px;
       height: 40px;
@@ -117,7 +116,9 @@
     }
 
     &__auth {
-      min-width: 200px;
+      display: block;
+      min-width: 170px;
+      margin-right: 10px;
     }
 
     &__nav {
