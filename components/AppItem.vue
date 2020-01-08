@@ -1,17 +1,14 @@
 <template>
   <div class="item">
-    <figure
+    <div
       class="item-figure"
     >
       <img class="item-figure__image" :src="`/api/image/${item.slides[0]}`" alt="" title="">
-      <figcaption class="item-figure__caption">
-        <span class="item-figure__caption-text">{{item.head}}</span>
-      </figcaption>
       <div class="item-actions">
         <span v-if="item.stock.name !== 'нет'" class="item-actions__stock">{{`Акция ${item.stock.name}`}}</span>
         <span v-if="item.discount" class="item-actions__discount">{{`-${item.discount}%`}}</span>
       </div>
-    </figure>
+    </div>
     <div class="item-sale">
       <span class="item-sale__price">{{item.price}}</span>
       <span class="item-sale__symbol">₽</span>
@@ -66,32 +63,10 @@
       height: 200px;
       position: relative;
 
-      /*&:hover .item-figure__caption {*/
-      /*  opacity: 1;*/
-      /*}*/
-
       &__image {
         width: 100%;
         height: 100%;
         object-fit: cover;
-      }
-
-      &__caption {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 0;
-        transition: opacity .2s;
-
-        &-text {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          text-align: center;
-          transform: translate(-50%, -50%);
-          @include fontPlay($white, .8em);
-        }
       }
     }
 
@@ -124,6 +99,7 @@
         border-radius: 3px;
         @include fontPlay($white, .9em);
         margin: 0 10px;
+        box-shadow: $boxShadow;
       }
 
       &__price {
@@ -171,17 +147,19 @@
 
       &__stock {
         padding: 5px;
-        background: $green;
+        background: $blue;
         border-radius: 3px;
         @include fontPlay($white, .9em);
         margin-right: 10px;
+        box-shadow: $boxShadow;
       }
 
       &__discount {
         padding: 5px;
         background: $red;
         border-radius: 3px;
-        @include fontPlay($white, .9em)
+        @include fontPlay($white, .9em);
+        box-shadow: $boxShadow;
       }
     }
   }

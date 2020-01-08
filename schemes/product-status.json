@@ -1,18 +1,14 @@
 [
   {
-    "name": "единица",
+    "name": "Новинка",
     "state": true
   },
   {
-    "name": "килограмм",
+    "name": "бестселлер",
     "state": true
   },
   {
-    "name": "грамм",
-    "state": true
-  },
-  {
-    "name": "упаковка",
+    "name": "уцененный",
     "state": true
   }
 ]
