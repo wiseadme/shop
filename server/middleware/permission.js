@@ -8,13 +8,14 @@ module.exports = function permit(...allowed) {
     const token = req.cookies['jwt-token']
     jwt.verify(token, keys.JWT_KEY, async function (err, decoded) {
       const user = await User.findById(decoded.userId)
-      console.log(user, decoded.role)
-      // if (decoded.role === 'admin')
-      next()
+      if (isAllowed(user.role)) {
+        next()
+      } else {
+        res.status(403).json({
+          ok: false,
+          message: 'Ограничение прав доступа'
+        })
+      }
     })
-    // if (token && isAllowed(req.user.role)) next()
-    // else {
-    //   res.status(403).json({ message: 'Forbidden' })
-    // }
   }
 }

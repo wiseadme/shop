@@ -62,6 +62,7 @@ async function login(req, res) {
           {
             login: candidate.login,
             userId: candidate._id,
+            role: candidate.role
           },
           keys.JWT_KEY,
           { expiresIn: 600 * 60 }
@@ -69,7 +70,8 @@ async function login(req, res) {
         res.status(200).json({
           token: token,
           login: candidate.login,
-          userId: candidate._id
+          userId: candidate._id,
+          role: candidate.role
         })
       } catch (err) {
         errorHandler(res, err)
