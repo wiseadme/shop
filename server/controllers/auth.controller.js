@@ -29,6 +29,7 @@ async function createUser(req, res) {
       const hash = await bcrypt.hashSync(password, salt)
       const user = await new User({
         _id: new mongoose.Types.ObjectId(),
+        role: 'user',
         login,
         email,
         password: hash
@@ -60,7 +61,7 @@ async function login(req, res) {
         const token = await jwt.sign(
           {
             login: candidate.login,
-            userId: candidate._id
+            userId: candidate._id,
           },
           keys.JWT_KEY,
           { expiresIn: 600 * 60 }
