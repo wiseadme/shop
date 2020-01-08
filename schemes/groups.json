@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Для мужчин",
+    "key": "men",
+    "icon": "view_day",
+    "children": null,
+    "show": true,
+    "sub": false
+  },
+  {
+    "name": "Для женщин",
+    "key": "women",
+    "icon": "view_day",
+    "children": null,
+    "show": true,
+    "sub": false
+  },
+  {
+    "name": "Для детей",
+    "key": "kids",
+    "icon": "view_day",
+    "children": null,
+    "show": true,
+    "sub": false
+  },
+  {
+    "name": "Общая",
+    "key": "common",
+    "icon": "view_day",
+    "children": null,
+    "show": false,
+    "sub": false
+  }
+]

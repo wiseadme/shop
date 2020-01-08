@@ -43,7 +43,7 @@ async function getProducts(req, res) {
   try {
     const products = await Product.find().populate('category', ['name', 'url'])
     res.status(200).json({ products })
-  }catch(err){
+  } catch (err) {
     errorHandler(res, err)
   }
 }
@@ -94,8 +94,7 @@ async function deleteProducts(req, res) {
     fs.remove(dir)
       .then(() => console.log('directory deleted'))
       .catch(err => console.log(err, 'ne udalil'))
-    Product.deleteOne({ _id: pr._id })
-      .then(del => deleted.push(del))
+    deleted.push(Product.deleteOne({ _id: pr._id }))
   })
   try {
     await Promise.all(deleted).then(ctg => res.status(201).json({ deleted: true }))

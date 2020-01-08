@@ -16,6 +16,10 @@ const category = new Schema({
     type: String,
     default: ''
   },
+  group: {
+    type: Object,
+    required: true
+  },
   position: {
     type: Number,
     required: true
@@ -24,6 +28,6 @@ const category = new Schema({
   timestamps: true
 })
 
-category.set('toJSON', { virtuals: true })
+category.set('toObject', { virtuals: true })
 
 module.exports = model('Category', category)

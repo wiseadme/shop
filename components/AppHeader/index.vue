@@ -78,10 +78,11 @@
     border-bottom: 1px solid $grey;
 
     &__inner {
-      width: 100%;
+      max-width: 1440px;
       height: 120px;
       display: flex;
       flex-direction: column;
+      margin: auto;
     }
 
     &__top {

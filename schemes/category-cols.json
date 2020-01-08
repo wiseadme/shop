@@ -61,6 +61,20 @@
     "fieldType": "input",
     "own": true
   },
+  "group": {
+    "key": "group",
+    "name": "Группа",
+    "sortable": true,
+    "filter": true,
+    "checked": true,
+    "width": "210px",
+    "useOnCreate": true,
+    "required": true,
+    "placeholder": "Выберите группу",
+    "regExp": "",
+    "fieldType": "select",
+    "own": true
+  },
   "value": {
     "key": "value",
     "name": "Кол-во товаров в категории",

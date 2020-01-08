@@ -5,29 +5,22 @@ const transliter = require('../utils/transliter.js')
 
 
 async function createCategory(req, res) {
-  const { name, icon, position } = req.body
-  const check = Object.keys(req.body).every(it => req.body[it] !== '')
+  const { name, icon, group, position } = req.body
   const ctgUrl = transliter(name)
-  if (check) {
-    const category = new Category({
-      _id: new mongoose.Types.ObjectId(),
-      url: `${ctgUrl.toLowerCase()}`,
-      name,
-      icon,
-      position,
+  const category = new Category({
+    _id: new mongoose.Types.ObjectId(),
+    url: `${ctgUrl.toLowerCase()}`,
+    name,
+    icon,
+    group,
+    position,
+  })
+  try {
+    category.save().then(category => {
+      res.status(200).json(category)
     })
-    try {
-      category.save().then(category => {
-        res.status(200).json(category)
-      })
-    } catch (err) {
-      errorHandler(res, err)
-    }
-  } else {
-    res.status(501).json({
-      ok: false,
-      message: 'Заполните все обязательные поля'
-    })
+  } catch (err) {
+    errorHandler(res, err)
   }
 }
 
@@ -66,8 +59,7 @@ async function deleteCategories(req, res) {
   const categories = req.body
   const deleted = []
   categories.forEach(ctg => {
-    Category.deleteOne({ _id: ctg._id })
-      .then(del => deleted.push(del))
+    deleted.push(Category.deleteOne({ _id: ctg._id }))
   })
   try {
     await Promise.all(deleted).then(ctg => res.status(201).json({ deleted: true }))

@@ -4,9 +4,11 @@
       <app-header/>
       <Notify/>
       <div class="container">
-        <transition mode="out-in" name="fadeIn">
-          <nuxt/>
-        </transition>
+        <div class="route-wrap">
+          <transition mode="out-in" name="fadeIn">
+            <nuxt/>
+          </transition>
+        </div>
       </div>
     </div>
   </div>

@@ -2,19 +2,19 @@
   <nav class='nav-block'>
     <div class="nav-block__menu">
       <ul
-        v-for='it in mainMenu'
+        v-for='it in groups'
         :key="it.name"
         class="nav-block__item"
-        @mouseover="it.show = true"
-        @mouseleave="it.show = false"
+        @mouseover="it.sub = true"
+        @mouseleave="it.sub = false"
       >
-        <li class="nav-block__link">
+        <li class="nav-block__link" v-if="it.show">
           <i class="material-icons nav-block__icon">{{it.icon}}</i>
           <span class="nav-block__link-text">{{it.name}}</span>
         </li>
         <transition name="fadeIn">
           <template>
-            <div v-show="it.show && it.children" class="submenu">
+            <div v-show="it.sub && it.children" class="submenu">
               <ul class="submenu__block">
                 <li
                   v-for='(t, i) in it.children'
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+  import groups from '@/schemes/groups'
   export default {
     name: 'Navigation',
     props: {
@@ -48,11 +49,7 @@
     },
     data() {
       return {
-        mainMenu: [
-          { name: 'Каталог', icon: 'view_day', children: this.menuItems, show: false },
-          { name: 'Контакты', icon: 'import_contacts', children: false, show: false },
-          { name: 'Доставка', icon: 'directions_car', children: false, show: false },
-        ]
+        groups,
       }
     },
 

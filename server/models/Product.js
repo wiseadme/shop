@@ -65,6 +65,6 @@ const product = new Schema({
   timestamps: true
 })
 
-product.set('toJSON', { virtuals: true })
+product.set('toObject', { virtuals: true })
 
 module.exports = model('Product', product)

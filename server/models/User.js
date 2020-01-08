@@ -28,6 +28,6 @@ const user = new Schema({
   timestamps: true
 })
 
-user.set('toJSON', {virtuals: true});
+user.set('toObject', { virtuals: true })
 
-module.exports = model("User", user)
+module.exports = model('User', user)
