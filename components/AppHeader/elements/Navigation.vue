@@ -15,7 +15,7 @@
         <transition name="fadeIn">
           <template>
             <div v-show="it.show && it.children" class="submenu">
-              <ul class="submenu__block" :style="{width: Math.ceil(it.children.length / 4) * 120 + 'px'}">
+              <ul class="submenu__block">
                 <li
                   v-for='(t, i) in it.children'
                   class='submenu__link'
@@ -24,7 +24,7 @@
                   :key='t.name + i'
                 >
                   <div class="submenu__link-item">
-                    <i class="material-icons submenu__link-icon">{{t.icon}}</i>
+                    <i v-if="t.icon" class="material-icons submenu__link-icon">{{t.icon}}</i>
                     <span class="submenu__link-text">{{t.name}}</span>
                   </div>
                 </li>
@@ -80,7 +80,7 @@
   }
 
   .nav-block__link {
-    @include fontPlay($white, .8em);
+    @include fontPlay($darkBlue, .8em);
     display: flex;
     min-width: 120px;
     align-items: center;
@@ -114,16 +114,29 @@
     top: 120px;
     left: 10%;
     width: 80%;
-    height: 200px;
-    background: $blue;
+    min-height: 200px;
+    background: $white;
     box-shadow: $boxShadow;
     z-index: 15;
 
-    &__block{
-      height: 200px;
+    &__block {
       display: flex;
+      position: relative;
+      width: 120px;
+      height: 200px;
       flex-direction: column;
       flex-wrap: wrap;
+      &:after{
+        content: "";
+        display: block;
+        height: 90%;
+        width: 1px;
+        position: absolute;
+        top: 5%;
+        right: -1px;
+        background: $grey;
+
+      }
     }
 
     &__link {
@@ -134,14 +147,13 @@
       text-decoration: none;
       cursor: pointer;
 
-
       &:hover {
-        background: $white;
+        background: $blue;
       }
 
       &:hover .submenu__link-text,
       &:hover .submenu__link-icon {
-        color: $blue;
+        color: $white;
       }
     }
 
@@ -150,11 +162,12 @@
     }
 
     &__link-text {
-      @include fontPlay($white, .9em);
+      @include fontPlay($darkBlue, .9em);
+      text-transform: uppercase;
     }
 
     &__link-icon {
-      color: $white;
+      color: $darkBlue;
       margin: 0 5px;
       font-size: 15px;
     }

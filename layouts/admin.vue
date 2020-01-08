@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="page-wrap">
+    <div class="admin-wrap">
       <AdminHeader/>
       <AdminAside/>
       <Notify/>

@@ -1,5 +1,5 @@
 <template>
-  <nuxt-link :to="pageLink" class="item" prefetch>
+  <div class="item">
     <figure
       class="item-figure"
     >
@@ -7,21 +7,23 @@
       <figcaption class="item-figure__caption">
         <span class="item-figure__caption-text">{{item.head}}</span>
       </figcaption>
+      <div class="item-actions">
+        <span v-if="item.stock.name !== 'нет'" class="item-actions__stock">{{`Акция ${item.stock.name}`}}</span>
+        <span v-if="item.discount" class="item-actions__discount">{{`-${item.discount}%`}}</span>
+      </div>
     </figure>
     <div class="item-sale">
       <span class="item-sale__price">{{item.price}}</span>
       <span class="item-sale__symbol">₽</span>
-    </div>
-    <div class="item-actions">
-      <span v-if="item.status" class="item-actions__status">{{item.status.name}}</span>
+      <span v-if="item.status" class="item-sale__status">{{item.status.name}}</span>
     </div>
     <div class="item-info">
-      <span class="item-info__head">{{item.head}}</span>
+      <nuxt-link :to="pageLink" class="item-info__head" prefetch>{{item.head}}</nuxt-link>
     </div>
     <div class="item-btn">
       <div class="item-btn__button">В корзину</div>
     </div>
-  </nuxt-link>
+  </div>
 </template>
 
 <script>
@@ -51,24 +53,22 @@
   @import url('https://fonts.googleapis.com/css?family=PT+Mono&display=swap');
 
   .item {
-    width: 250px;
-    padding: 0;
+    width: 220px;
+    padding: 10px;
     text-decoration: none;
-
     border-radius: 3px;
     overflow: hidden;
     @include flexAlign(center, center, column);
-    box-shadow: $boxShadow;
-
+    border: 1px solid $grey;
 
     &-figure {
-      width: 250px;
-      height: 150px;
+      width: 200px;
+      height: 200px;
       position: relative;
 
-      &:hover .item-figure__caption {
-        opacity: 1;
-      }
+      /*&:hover .item-figure__caption {*/
+      /*  opacity: 1;*/
+      /*}*/
 
       &__image {
         width: 100%;
@@ -78,12 +78,9 @@
 
       &__caption {
         position: absolute;
-        width: 100%;
-        height: 100%;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.4);
         opacity: 0;
         transition: opacity .2s;
 
@@ -99,30 +96,39 @@
     }
 
     &-info {
-      width: 90%;
+      width: 100%;
       height: 50px;
       @include flexAlign(center, center, column);
-      margin: 10px 0;
       position: relative;
 
       &__head {
-        @include fontExo($darkBlue, 1em);
+        @include fontPlay($darkGrey, .9em);
+        text-decoration: none;
         padding: 0 5px;
         width: 100%;
-        font-family: 'PT Mono', monospace;
+        &:hover{
+          color: $blue;
+        }
       }
-
     }
 
     &-sale {
-      width: 90%;
+      width: 100%;
       @include flexAlign(center, flex-start);
       padding: 5px;
       margin: 10px 0 0 0;
 
+      &__status {
+        padding: 5px;
+        background: $blue;
+        border-radius: 3px;
+        @include fontPlay($white, .9em);
+        margin: 0 10px;
+      }
+
       &__price {
         @include fontExo($darkBlue, 1.4em);
-        font-weight: 700;
+        font-weight: 400;
       }
 
       &__symbol {
@@ -133,8 +139,8 @@
     }
 
     &-btn {
-      margin: 20px 0;
-      width: 90%;
+      margin: 10px 0;
+      width: 100%;
       padding: 5px;
 
       &__button {
@@ -157,18 +163,25 @@
     }
 
     &-actions {
-      position: relative;
+      @include flexAlign(center, flex-start);
       width: 90%;
       height: 36px;
+      position: absolute;
+      bottom: 0;
 
-      &__status {
-        position: absolute;
-        bottom: 5px;
-        left: 5px;
+      &__stock {
         padding: 5px;
-        background: $blue;
+        background: $green;
         border-radius: 3px;
-        @include fontExo($white, .9em)
+        @include fontPlay($white, .9em);
+        margin-right: 10px;
+      }
+
+      &__discount {
+        padding: 5px;
+        background: $red;
+        border-radius: 3px;
+        @include fontPlay($white, .9em)
       }
     }
   }

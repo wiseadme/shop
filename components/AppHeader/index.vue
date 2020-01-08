@@ -72,8 +72,10 @@
 
 <style lang='scss' scoped>
   .header {
+    position: relative;
     width: 100%;
     height: 120px;
+    border-bottom: 1px solid $grey;
 
     &__inner {
       width: 100%;
@@ -91,7 +93,6 @@
     &__bottom {
       display: flex;
       justify-content: center;
-      background: $darkBlue;
     }
 
     &__basket {

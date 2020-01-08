@@ -8,6 +8,7 @@ const config = require('../nuxt.config.js')
 const permit = require('./middleware/permission.js')
 
 config.dev = !(process.env.NODE_ENV === 'production')
+
 const protectedApi = [
   '/api/category/create',
   '/api/category/delete',
