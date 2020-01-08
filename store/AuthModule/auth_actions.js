@@ -1,5 +1,6 @@
 import Cookie from 'cookie'
 import Cookies from 'js-cookie'
+import jwtDecoder from 'jwt-decode'
 import { setOrRemoveFromLS, isJWTValid } from '@/utils'
 import * as api from '@/api'
 import * as action from '../ActionsType'
@@ -9,7 +10,7 @@ const actions = {
   async [action.LOGIN_USER]({ commit, dispatch }, user) {
     try {
       let { data } = await api.login(user.data)
-      setOrRemoveFromLS('user', {login: data.login, id: data.userId})
+      setOrRemoveFromLS('user', { login: data.login, id: data.userId, role: data.role })
       dispatch(action.SET_USER, data)
       commit(mutation.CHANGE_LOGIN_STATE, true)
       return data
@@ -59,8 +60,10 @@ const actions = {
     const cookies = Cookie.parse(cookieStr || '') || {}
     const token = cookies['jwt-token']
     if (isJWTValid(token)) {
+      const user = jwtDecoder(token)
       dispatch(action.SET_TOKEN, token)
       commit(mutation.CHANGE_LOGIN_STATE, true)
+      commit(mutation.SET_USER, user)
     } else {
       dispatch(action.LOG_OUT_USER)
       commit(mutation.CHANGE_LOGIN_STATE, false)

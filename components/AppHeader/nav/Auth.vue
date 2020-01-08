@@ -1,9 +1,9 @@
 <template>
   <div class='auth-block'>
     <div class="auth-block__inner">
-      <i class='material-icons auth-block__icon'>{{!isLogin ? 'person' : 'verified_user'}}</i>
+      <i class='material-icons auth-block__icon'>{{!isUser ? 'person' : 'verified_user'}}</i>
       <router-link
-        v-if="isLogin"
+        v-if="isUser"
         to='/profile'
         class='auth-block__login'
       >
@@ -14,7 +14,7 @@
         class='auth-block__action'
         @click.native.prevent="checkBeforeOut"
       >
-        {{!isLogin ? 'Войти' : 'Выйти'}}
+        {{!isUser ? 'Войти' : 'Выйти'}}
       </router-link>
     </div>
   </div>
@@ -24,7 +24,6 @@
   export default {
     computed: {
       ...mapState({
-        isLogin: state => state.AuthModule.token,
         isUser: state => state.AuthModule.user
       }),
 
@@ -42,7 +41,7 @@
       }),
 
       checkBeforeOut() {
-        if (this.isLogin) this.logOut()
+        if (this.isUser) this.logOut()
       }
     }
   }
