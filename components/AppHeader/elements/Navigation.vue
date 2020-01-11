@@ -77,7 +77,7 @@
   }
 
   .nav-block__link {
-    @include fontPlay($darkBlue, .8em);
+    @include fontPlay($white, .8em);
     display: flex;
     min-width: 120px;
     align-items: center;
@@ -89,7 +89,7 @@
     height: 60px;
 
     &:hover {
-      color: $blue;
+      color: $orange;
     }
   }
 

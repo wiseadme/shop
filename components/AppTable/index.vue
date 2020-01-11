@@ -383,8 +383,7 @@
       },
 
       copyWithoutLink(obj) {
-        const newObj = JSON.stringify(obj)
-        return JSON.parse(newObj)
+        return JSON.parse(JSON.stringify(obj))
       },
 
       checkStringify(val1, val2) {

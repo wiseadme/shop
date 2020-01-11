@@ -1,33 +1,33 @@
 <template>
   <header class='header'>
-    <div class='header__inner'>
-      <div class='header__top'>
-        <div class="inner-top">
-          <div class='header__contact'>
-            <app-contacts/>
-          </div>
-          <div class='header__address'>
-            <app-address/>
-          </div>
-          <div class='header__search'>
-            <app-search/>
-          </div>
-          <div class='header__basket'>
-            <app-basket/>
-          </div>
-          <div class='header__auth'>
-            <app-auth/>
-          </div>
+    <!--    <div class='header__inner'>-->
+    <div class='header__top'>
+      <div class="header__top-inner">
+        <div class='header__contact'>
+          <app-contacts/>
         </div>
-      </div>
-      <div class='header__bottom'>
-        <div class="inner-bottom">
-          <div class='nav-wrap'>
-            <app-navigation :menu-items="categories"/>
-          </div>
+        <div class='header__address'>
+          <app-address/>
+        </div>
+        <div class='header__search'>
+          <app-search/>
+        </div>
+        <div class='header__basket'>
+          <app-basket/>
+        </div>
+        <div class='header__auth'>
+          <app-auth/>
         </div>
       </div>
     </div>
+    <div class='header__bottom'>
+      <div class="header__bottom-inner">
+        <div class='nav-wrap'>
+          <app-navigation :menu-items="categories"/>
+        </div>
+      </div>
+    </div>
+    <!--    </div>-->
   </header>
 </template>
 
@@ -52,9 +52,7 @@
     },
 
     data() {
-      return {
-
-      }
+      return {}
     },
 
     created() {
@@ -76,6 +74,7 @@
     width: 100%;
     height: 120px;
     border-bottom: 1px solid $grey;
+    box-shadow: $boxShadow;
 
     &__inner {
       max-width: 1440px;
@@ -89,11 +88,30 @@
       display: flex;
       justify-content: center;
       background: $white;
+
+      &-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1440px;
+        height: 60px;
+      }
     }
 
     &__bottom {
       display: flex;
       justify-content: center;
+      background: $black;
+
+      &-inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 1440px;
+        height: 60px;
+      }
     }
 
     &__basket {
@@ -130,23 +148,4 @@
     }
   }
 
-  .inner-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1600px;
-    height: 60px;
-  }
-
-  .inner-bottom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 1600px;
-    height: 60px;
-
-
-  }
 </style>

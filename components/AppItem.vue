@@ -4,15 +4,17 @@
       class="item-figure"
     >
       <img class="item-figure__image" :src="`/api/image/${item.slides[0]}`" alt="" title="">
-      <div class="item-actions">
-        <span v-if="item.stock.name !== 'нет'" class="item-actions__stock">{{`Акция ${item.stock.name}`}}</span>
-        <span v-if="item.discount" class="item-actions__discount">{{`-${item.discount}%`}}</span>
-      </div>
     </div>
     <div class="item-sale">
-      <span class="item-sale__price">{{item.price}}</span>
-      <span class="item-sale__symbol">₽</span>
-      <span v-if="item.status" class="item-sale__status">{{item.status.name}}</span>
+      <div class="item-sale__info">
+        <span class="item-sale__price">{{item.price}}</span>
+        <span class="item-sale__symbol">₽</span>
+        <span v-if="item.status" class="item-sale__status">{{item.status.name}}</span>
+      </div>
+      <div class="item-sale__actions">
+        <span v-if="item.stock.name !== 'нет'" class="item-sale__actions-stock">{{`Акция ${item.stock.name}`}}</span>
+        <span v-if="item.discount" class="item-sale__actions-discount">{{`-${item.discount}%`}}</span>
+      </div>
     </div>
     <div class="item-info">
       <nuxt-link :to="pageLink" class="item-info__head" prefetch>{{item.head}}</nuxt-link>
@@ -50,18 +52,24 @@
   @import url('https://fonts.googleapis.com/css?family=PT+Mono&display=swap');
 
   .item {
-    width: 220px;
+    display: inline-block;
+    margin: 0;
+    width: calc(100% / 5);
+    min-width: 220px;
+    height: 440px;
     padding: 10px;
     text-decoration: none;
-    border-radius: 3px;
     overflow: hidden;
-    @include flexAlign(center, center, column);
-    border: 1px solid $grey;
+    vertical-align: top;
+    border: 1px solid transparent;
+
+    &:hover {
+      border: 1px solid $grey;
+    }
 
     &-figure {
-      width: 200px;
+      width: 100%;
       height: 200px;
-      position: relative;
 
       &__image {
         width: 100%;
@@ -89,21 +97,24 @@
 
     &-sale {
       width: 100%;
-      @include flexAlign(center, flex-start);
+      @include flexAlign(center, flex-start, column);
       padding: 5px;
       margin: 10px 0 0 0;
 
+      &__info{
+        width: 100%;
+      }
+
       &__status {
         padding: 5px;
-        background: $blue;
+        border: 1px solid $blue;
         border-radius: 3px;
-        @include fontPlay($white, .9em);
+        @include fontPlay($blue, .9em);
         margin: 0 10px;
-        box-shadow: $boxShadow;
       }
 
       &__price {
-        @include fontExo($darkBlue, 1.4em);
+        @include fontExo($darkBlue, 1.2em);
         font-weight: 400;
       }
 
@@ -111,6 +122,29 @@
         color: $darkBlue;
         padding-top: 2px;
         font-weight: 700;
+      }
+
+      &__actions {
+        @include flexAlign(center, flex-start);
+        width: 100%;
+        height: 36px;
+        top: 100%;
+        margin: 10px 0;
+
+        &-stock {
+          padding: 5px;
+          background: $blue;
+          border-radius: 3px;
+          @include fontPlay($white, .9em);
+          margin-right: 10px;
+        }
+
+        &-discount {
+          padding: 5px;
+          background: $orange;
+          border-radius: 3px;
+          @include fontPlay($white, .9em);
+        }
       }
     }
 
@@ -138,29 +172,5 @@
       }
     }
 
-    &-actions {
-      @include flexAlign(center, flex-start);
-      width: 90%;
-      height: 36px;
-      position: absolute;
-      bottom: 0;
-
-      &__stock {
-        padding: 5px;
-        background: $blue;
-        border-radius: 3px;
-        @include fontPlay($white, .9em);
-        margin-right: 10px;
-        box-shadow: $boxShadow;
-      }
-
-      &__discount {
-        padding: 5px;
-        background: $red;
-        border-radius: 3px;
-        @include fontPlay($white, .9em);
-        box-shadow: $boxShadow;
-      }
-    }
   }
 </style>

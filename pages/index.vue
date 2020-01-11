@@ -4,9 +4,7 @@
       <app-slider/>
     </div>
     <div class="items-wrap">
-      <div class="item-wrap" v-for="it in products" :key="it._id">
-        <app-item :item="it"/>
-      </div>
+      <app-item v-for="it in products" :key="it._id" :item="it"/>
     </div>
   </div>
 </template>
@@ -42,24 +40,28 @@
 </script>
 
 <style lang="scss">
-  .main-page{
-    width: 1600px;
-    max-width: 90%;
+  .main-page {
+    width: 1440px;
     height: 100%;
     margin: 0 auto;
   }
+
   .items-wrap {
     width: 100%;
-    @include flexAlign(center, flex-start);
-    flex-wrap: wrap;
   }
 
-  .slider-wrap{
+  .slider-wrap {
     padding: 10px 0;
   }
 
   .item-wrap {
-    display: block;
-    margin: 8px;
+    display: inline-block;
+    margin: 0;
+    width: calc(100% / 5);
+    min-width: 220px;
+
+    &:nth-child(6n) {
+      border-right: 1px solid $grey;
+    }
   }
 </style>
