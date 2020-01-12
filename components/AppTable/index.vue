@@ -236,6 +236,11 @@
         })
         this.$set(col, 'sorted', !col.sorted)
         this.tableRows.sort((a, b) => {
+          if (Number(a[col.key]) && Number(b[col.key])) {
+            if (col.sorted) {
+              return a[col.key] - b[col.key]
+            }
+          }
           if (a[col.key] > b[col.key] && col.sorted) return 1
           return -1
         })
