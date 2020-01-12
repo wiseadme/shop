@@ -318,7 +318,7 @@
         let diffObj = {}
         let found = this.rows.find(it => it._id === row._id)
         Object.keys(found).forEach(key => {
-          if (!this.checkStringify(row[key], found[key])) {
+          if (!this.compareStringify(row[key], found[key])) {
             diffObj[key] = row[key]
             flag = true
           }
@@ -391,7 +391,7 @@
         return JSON.parse(JSON.stringify(obj))
       },
 
-      checkStringify(val1, val2) {
+      compareStringify(val1, val2) {
         return JSON.stringify(val1) === JSON.stringify(val2)
       },
     },
