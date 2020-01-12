@@ -1,15 +1,15 @@
 [
   {
     "icon": "create_new_folder",
-    "name": "Категории и группы",
+    "name": "Группы и категории",
     "child": [
       {
-        "name": "Категории товаров",
-        "link": "/admin/categories"
+        "name": "Группы",
+        "link": "/admin/groups"
       },
       {
-        "name": "Группы категорий",
-        "link": "/admin/groups"
+        "name": "Категории",
+        "link": "/admin/categories"
       }
     ],
     "show": false

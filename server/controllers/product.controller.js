@@ -41,7 +41,7 @@ async function createProduct(req, res) {
 
 async function getProducts(req, res) {
   try {
-    const products = await Product.find().populate('category', ['name', 'url'])
+    const products = await Product.find().populate('category', ['name', 'url', 'group'])
     res.status(200).json({ products })
   } catch (err) {
     errorHandler(res, err)

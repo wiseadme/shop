@@ -19,7 +19,7 @@
           :class="['material-icons', 'table-header__item-filter', {active: col.sorted}]"
           @click="$emit('sort-column', col)"
         >filter_list</i>
-        <span ref="resize" @mousedown="onMouseDown($event, col)" @mouseup="onMouseUp($event, col)" class="table-header__resize"></span>
+        <span ref="resize" @mousedown="onMouseDown($event, col)" class="table-header__resize"></span>
       </div>
     </template>
   </div>
@@ -49,15 +49,14 @@
     methods: {
       onMouseDown($event, col) {
         document.addEventListener('mousemove', this.resizeCol.bind(this, $event, col))
+        document.addEventListener('mouseup', this.onMouseUp)
       },
 
-      onMouseUp($event, col) {
-        console.log('da mouseup')
-        document.removeEventListener('mousemove', this.resizeCol.bind(this, $event, col))
+      onMouseUp() {
+        document.removeEventListener('mousemove', this.resizeCol)
       },
 
       resizeCol(e, col) {
-        console.log(this.clientX + this.pred < e.clientX)
         this.clientX < e.clientX ? this.pred = -1 : this.pred = 1
         col.width = (parseFloat(col.width) + this.pred) + 'px'
         this.clientX = e.clientX

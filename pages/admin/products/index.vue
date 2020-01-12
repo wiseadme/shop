@@ -48,7 +48,7 @@
     created() {
       this.rows = this.products
       this.createItems.category = this.categories.map(it => {
-        return new Object({ name: it.name, id: it._id, url: it.url })
+        return new Object({ name: it.name, id: it._id, url: it.url, group: it.group })
       })
 
     },
