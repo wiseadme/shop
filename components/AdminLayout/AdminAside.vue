@@ -23,7 +23,7 @@
                 :to="t.link"
                 :data-link="t.link"
                 class="tooltip__item"
-                @click.native="it.show = false"
+                @click.native="clickHandler(it)"
               >
                 <span class="tooltip__name">{{t.name}}</span>
               </nuxt-link>
@@ -52,6 +52,13 @@
       return {
         adminMenu,
         wideMode: false
+      }
+    },
+
+    methods: {
+      clickHandler(it) {
+        it.show = false
+        this.wideMode = false
       }
     }
   }

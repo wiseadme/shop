@@ -194,8 +194,9 @@
       if (process.browser && !this.setGetOrRemoveLS(this.currentTable)) {
         this.table.cols = this.cols
         this.setGetOrRemoveLS(this.currentTable, this.table, true)
+      } else {
+        this.table.cols = this.getCols()
       }
-      this.table.cols = this.getCols()
       this.tableRows = this.copyWithoutLink(this.rows)
     },
 
@@ -261,8 +262,9 @@
         if (row.checked && !this.discardChanges) {
           this.checkedRows.push(row)
         } else {
-          let ind = this.checkedRows.findIndex(it => it._id === row._id)
-          this.checkedRows.splice(ind, 1)
+          this.checkedRows = this.checkedRows.filter(it => it._id !== row._id)
+          // let ind = this.checkedRows.findIndex(it => it._id === row._id)
+          // this.checkedRows.splice(ind, 1)
         }
       },
 

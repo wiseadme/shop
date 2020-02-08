@@ -1,25 +1,27 @@
 <template>
-  <div class="slider-block" ref="sliderBlock">
-    <div class="slide-wrap" v-for="(slide, i) in slides" :key="slide" ref="slides">
-      <img :src="`/img/slider/${slide}`" alt class="slide">
-      <div class="slide-head__wrap">
-        <h1 ref="heads" class="slide-head__text">{{slideHeads[i]}}</h1>
+  <div class="slider" ref="sliderBlock">
+    <div class="slider__line">
+      <div
+        v-for="slide in slides"
+        :key="slide.slide"
+        :class="['slider__slide-wrap', {active: slide.active}]"
+        ref="slides"
+      >
+        <div class="slider__slide">
+          <img
+            :src="`/img/slider/${slide.img}`"
+            alt=""
+            class="slider__slide-img"
+          >
+        </div>
       </div>
     </div>
-    <div class="buttons-block">
-      <div class="buttons-block__prev">
-        <svg class="prev" viewBox="0 0 24 24" ref="prev">
-          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path>
-        </svg>
+    <div class="slider__info">
+      <h1 ref="heads" class="slider__info-head">{{actualInfo.title}}</h1>
+      <span class="slider__info-text">{{actualInfo.text}}</span>
+      <div class="tumbnails">
+        <div v-for="(slide, i) in slides" :key="i" class="tumbnails__item"></div>
       </div>
-      <div class="buttons-block__next" ref="next">
-        <svg class="next" viewBox="0 0 24 24">
-          <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"></path>
-        </svg>
-      </div>
-    </div>
-    <div class="tumbnails">
-      <div v-for="(slide, i) in slides" :key="i" class="tumbnails__item"></div>
     </div>
   </div>
 </template>
@@ -35,126 +37,106 @@
     data() {
       return {
         slides: [
-          'slide-1.jpg',
-          'slide-2.jpg',
-          'slide-3.jpg',
-          'slide-4.jpg',
-          'slide-5.jpg'
-        ],
-        slideHeads: [
-          '',
-          '',
-          '',
-          '',
-          ''
+          { img: 'slide-2.jpg', title: 'center', text: 'something just a simple text', active: true },
+          { img: 'slide-1.jpg', title: 'last', active: false },
+          { img: 'slide-3.jpg', title: 'last', active: false },
+          { img: 'slide-4.jpg', title: 'last', active: false },
+          { img: 'slide-5.jpg', title: 'last', active: false }
         ],
         carousel: true,
-        setTimer: ''
       }
     },
 
     mounted() {
       this.addActive()
-      this.$refs.next.addEventListener('click', this.nextSlide.bind(null, 1))
-      this.$refs.prev.addEventListener('click', this.nextSlide.bind(null, -1))
-      this.setTimer = setInterval(() => {
-        this.nextSlide(1)
-      }, 4000)
+    },
+
+    computed: {
+      actualInfo() {
+        const actual = this.slides.filter(it => it.active)
+        return actual[0]
+      }
     },
 
     methods: {
       addActive() {
         let slides = this.$refs.slides
-        slides[0].classList.add('active')
       },
-
-      nextSlide(n) {
-        let vm = this
-        let slides = vm.$refs.slides
-        let active = slides.findIndex(it => it.classList.contains('active'))
-        if (active + n < 0) {
-          slides[active].classList.remove('active')
-          active = slides.length - 1
-          slides[active].classList.add('active')
-          return
-        }
-        if (active + n > slides.length - 1) {
-          slides[slides.length - 1].classList.remove('active')
-          active -= active
-          slides[active].classList.add('active')
-          return
-        }
-        slides[active].classList.remove('active')
-        slides[active + n].classList.add('active')
-      }
-    },
-
-    beforeDestroy() {
-      this.$refs.next.removeEventListener('click', this.nextSlide.bind(null, 1))
-      this.$refs.prev.removeEventListener('click', this.nextSlide.bind(null, -1))
-      clearInterval(this.setTimer)
     }
   }
 </script>
 
 <style lang="scss">
-  .slider-block {
+  .slider {
     position: relative;
-    display: block;
+    display: inline-block;
     width: 100%;
-    height: 300px;
+    height: 600px;
     top: 0;
     left: 0;
     overflow: hidden;
-  }
 
-  .slide-wrap {
-    position: absolute;
-    width: 100%;
-    height: 300px;
-    transition: opacity 1s ease;
-    overflow: hidden;
-    opacity: 0;
-  }
+    &__line {
+      /*width: 2500px;*/
+      height: 100%;
+    }
 
-  .slide {
-    display: block;
-    width: 100%;
-    min-height: 300px;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    &__slide-wrap {
+      display: inline-block;
+      width: calc(#{$screenWidth} * 70 / 100);
+      height: 100%;
+      transition: opacity 1s ease;
+      overflow: hidden;
+      opacity: 1;
+      position: relative;
+    }
+
+    &__slide {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      &-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .slide:nth-child(1) {
+      z-index: 3;
+    }
+
+    &__info {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 8;
+      width: calc(#{$screenWidth} * 30 / 100);
+      height: 100%;
+      background: #272727;
+      text-align: center;
+
+      &-head {
+        @include fontPlay($white, 3em);
+        opacity: 1;
+      }
+
+      &-text {
+        @include fontPlay($white, 1em);
+        opacity: 1;
+      }
+    }
   }
 
   .active {
-    opacity: 1 !important;
-    z-index: 10;
-    transition: opacity 1s ease;
+
   }
 
-  .slide:nth-child(1) {
-    z-index: 3;
-  }
-
-  .slide-head__wrap {
-    display: block;
-    position: relative;
-    top: calc(50% - 2em);
-    z-index: 8;
-    width: 100%;
-    height: auto;
-    text-align: center;
-  }
-
-  .slide-head__text {
-    color: #fff;
-    z-index: 3;
-    font-size: 3em;
-    opacity: 1;
-  }
 
   .buttons-block {
     display: flex;
@@ -178,24 +160,11 @@
     margin: 0 10px;
   }
 
-  .next,
-  .prev {
-    fill: #fff;
-  }
-
-  .slider-block:hover .buttons-block__prev {
-    opacity: 1;
-  }
-
-  .slider-block:hover .buttons-block__next {
-    opacity: 1;
-  }
-
   .tumbnails {
     display: flex;
     position: absolute;
     bottom: 10px;
-    z-index: 5;
+    z-index: 100;
     width: 100%;
     justify-content: center;
   }
