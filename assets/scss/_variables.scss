@@ -28,6 +28,7 @@ $screenWidth: 1440px;
 $adminHeader: 60px;
 $adminAside: 60px;
 
-@media screen and(max-width: 1500px) {
-  $col: 100% / 6
+@media screen and(max-width: 1440px) {
+  $col: 100% / 6;
+  $screenWidth: 1000px;
 }

@@ -42,6 +42,7 @@
 <style lang="scss">
   .main-page {
     width: 1440px;
+    max-width: 90%;
     height: 100%;
     margin: 0 auto;
   }
