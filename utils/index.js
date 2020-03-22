@@ -9,15 +9,19 @@ export function isJWTValid(token) {
   return (new Date().getTime() / 1000) < expires
 }
 
-export function setOrRemoveFromLS(name, value) {
-  if (value && process.browser) {
-    window.localStorage.setItem(name, JSON.stringify(value))
+export function lStorage(key, value = null, replace = false) {
+  if (!value && !replace) {
+    return JSON.parse(localStorage.getItem(key))
+  } else if (!value && replace) {
+    localStorage.removeItem(key)
+  } else if (value && replace) {
+    localStorage.removeItem(key)
+    localStorage.setItem(key, JSON.stringify(value))
   } else {
-    if (process.browser) {
-      window.localStorage.removeItem(name)
-    }
+    localStorage.setItem(key, JSON.stringify(value))
   }
 }
+
 
 export function debounce(f, ms) {
   let isComedown = false
@@ -40,7 +44,7 @@ export function getCookie(name) {
 
 export default {
   isJWTValid,
-  setOrRemoveFromLS,
+  lStorage,
   debounce,
   getCookie
 }

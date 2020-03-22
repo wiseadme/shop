@@ -18,6 +18,7 @@
   import AppHeader from '@/components/AppHeader'
   import Notify from '@/services/Notifications/Notify'
   import VModal from '@/components/ui/VModal'
+  import { lStorage } from '../utils'
 
   export default {
     components: {
@@ -25,6 +26,7 @@
       Notify,
       VModal
     },
+
     data() {
       return {
         show: false,
@@ -33,6 +35,18 @@
 
     created() {
       setTimeout(() => this.show = !this.show, 100)
+    },
+
+    mounted() {
+      if (this.user) {
+        lStorage('user', this.user)
+      }
+    },
+
+    computed: {
+      ...mapState({
+        user: state => state.AuthModule.user
+      })
     },
   }
 </script>

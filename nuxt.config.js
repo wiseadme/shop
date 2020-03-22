@@ -94,6 +94,5 @@ module.exports = {
         return ['script', 'style', 'font'].includes(type)
       }
     }
-
   },
 }

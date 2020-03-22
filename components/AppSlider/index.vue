@@ -154,7 +154,7 @@
   }
 
   .slides {
-    width: 33%;
+    width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
@@ -163,17 +163,17 @@
 
     &-active {
       z-index: 10;
-      transform: translateX(100%);
+      transform: translateX(0%);
     }
 
     &-next {
-      transform: translateX(200%);
-      z-index: 10;
+      transform: translateX(100%);
+      z-index: 9;
     }
 
     &-prev {
-      transform: translateX(0%);
-      z-index: 10;
+      transform: translateX(-100%);
+      z-index: 9;
     }
 
     &::after {

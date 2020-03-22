@@ -21,6 +21,8 @@
 </template>
 
 <script>
+  import {lStorage} from '@/utils'
+
   export default {
     computed: {
       ...mapState({
@@ -29,7 +31,7 @@
 
       user() {
         if (process.browser) {
-          const user = JSON.parse(localStorage.getItem('user'))
+          const user = lStorage('user')
           return this.isUser ? this.isUser.login : user ? user.login : ''
         }
       }

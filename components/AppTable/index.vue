@@ -144,6 +144,7 @@
   import TableHeader from './TableHeader'
   import TableBody from './TableBody'
   import ToolBar from './ToolBar'
+  import { lStorage } from '@/utils'
 
   export default {
     name: 'DataTable',
@@ -191,9 +192,9 @@
     },
 
     created() {
-      if (process.browser && !this.setGetOrRemoveLS(this.currentTable)) {
+      if (process.browser && !lStorage(this.currentTable)) {
         this.table.cols = this.cols
-        this.setGetOrRemoveLS(this.currentTable, this.table, true)
+        lStorage(this.currentTable, this.table)
       } else {
         this.table.cols = this.getCols()
       }
@@ -212,19 +213,19 @@
           this.table.cols[key].checked = this.checkedCols[key].checked
         })
         this.checkedCols = {}
-        this.setGetOrRemoveLS(this.currentTable, this.table, true)
+        lStorage(this.currentTable, this.table)
       },
 
       showAllCols() {
         Object.keys(this.table.cols).forEach(col => {
           this.table.cols[col].checked = true
         })
-        this.setGetOrRemoveLS(this.currentTable, null)
+        lStorage(this.currentTable, null, true)
       },
 
       getCols() {
-        if (process.browser && this.setGetOrRemoveLS(this.currentTable)) {
-          return this.setGetOrRemoveLS(this.currentTable).cols
+        if (process.browser && lStorage(this.currentTable)) {
+          return lStorage(this.currentTable).cols
         }
         return this.cols
       },
@@ -263,8 +264,6 @@
           this.checkedRows.push(row)
         } else {
           this.checkedRows = this.checkedRows.filter(it => it._id !== row._id)
-          // let ind = this.checkedRows.findIndex(it => it._id === row._id)
-          // this.checkedRows.splice(ind, 1)
         }
       },
 
@@ -346,16 +345,6 @@
         }
       },
 
-      setGetOrRemoveLS(name, item = [], flag = false) {
-        if (flag && item) {
-          return localStorage.setItem(name, JSON.stringify(item))
-        }
-        if (item === null) {
-          localStorage.removeItem(name)
-        }
-        return JSON.parse(localStorage.getItem(name))
-      },
-
       deleteCheckedRows() {
         this.$emit('delete', this.checkedRows)
       },
@@ -414,7 +403,7 @@
       },
 
       currentTable() {
-        return `table-${this.$route.path.slice(7)}`
+        return `table-${ this.$route.path.slice(7) }`
       }
     },
 

@@ -18,7 +18,7 @@ export default {
     if (this.mixIsDiffs) {
       this.mixCheckBeforeLeave = true
     } else {
-      next()
+      next(true)
     }
   },
 

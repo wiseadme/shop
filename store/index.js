@@ -1,11 +1,7 @@
 const state = () => {
-
 }
-
 const getters = {}
-
 const mutations = {}
-
 const actions = {
   async nuxtServerInit({ dispatch }) {
     await Promise.all([

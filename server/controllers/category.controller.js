@@ -3,13 +3,12 @@ const Category = require('../models/Category')
 const errorHandler = require('../utils/errorHandler')
 const transliter = require('../utils/transliter.js')
 
-
 async function createCategory(req, res) {
   const { name, icon, group, position } = req.body
   const ctgUrl = transliter(name)
   const category = new Category({
     _id: new mongoose.Types.ObjectId(),
-    url: `${ctgUrl.toLowerCase()}`,
+    url: ctgUrl.toLowerCase(),
     name,
     icon,
     group,
@@ -43,9 +42,11 @@ async function updateCategories(req, res) {
         $set[t] = it[t]
       }
     })
-    Category.findOneAndUpdate({
-      _id: it._id
-    }, { $set }, { new: true })
+    Category.findOneAndUpdate(
+      { _id: it._id },
+      { $set },
+      { new: true }
+      )
       .then(ctg => updates.push(ctg))
   })
   try {
