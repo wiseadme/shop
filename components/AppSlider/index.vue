@@ -8,7 +8,7 @@
         v-for="slide in slides"
         :key="slide.img"
         ref="slides"
-        class="slides"
+        :class="['slides', {'slides-prev': slide.prev, 'slides-next': slide.next, 'slides-active': slide.active}]"
       >
         <img
           :src="`/img/slider/${slide.img}`"
@@ -41,31 +41,46 @@
             img: 'slide-2.jpg',
             title: 'center',
             text: 'something just a simple text',
-            active: true
+            active: true,
+            next: false,
+            prev: false,
+            move: false
           },
           {
             img: 'slide-1.jpg',
             title: 'center',
             text: 'something just a simple text',
-            active: false
+            active: false,
+            next: true,
+            prev: false,
+            move: false
           },
           {
             img: 'slide-3.jpg',
             title: 'center',
             text: 'something just a simple text',
-            active: false
+            active: false,
+            next: false,
+            prev: false,
+            move: false
           },
           {
             img: 'slide-4.jpg',
             title: 'center',
             text: 'something just a simple text',
-            active: false
+            active: false,
+            next: false,
+            prev: false,
+            move: false
           },
           {
             img: 'slide-5.jpg',
             title: 'center',
             text: 'something just a simple text',
-            active: false
+            active: false,
+            next: false,
+            prev: true,
+            move: false
           },
         ],
         transitionOn: false,
@@ -80,39 +95,42 @@
     },
 
     mounted() {
-      this.$refs.slides.forEach((it, i) => {
-        this.currentTranslate[i] = -this.slideWidth
-        console.log(this.currentTranslate)
-      })
-      this.$refs.slider.addEventListener('click', () => {
-        this.outerIndex = this.index % this.amount
-        this.index >= (this.slides.length - 1) ? this.index = 0 : this.index += 1
-        this.$refs.slides.forEach((it, i) => {
-          it.style.cssText = `transform: translateX(+${this.currentTranslate[i] - this.slideWidth}px); opacity: 1;`
-          this.currentTranslate[i] = this.currentTranslate[i] - this.slideWidth
-        })
-        const outerSlide = this.$refs.slides[this.outerIndex]
-        outerSlide.style.transform = `translateX(+${this.currentTranslate[this.outerIndex] + (this.slideWidth * this.amount)}px)`
-        outerSlide.style.opacity = '0'
-        this.currentTranslate[this.outerIndex] = this.currentTranslate[this.outerIndex] + this.slideWidth * (this.amount)
-        console.log(this.outerIndex, this.index)
-      })
-      this.$refs.box.style.width = this.slideWidth + 'px'
+      document.addEventListener('click', this.changeSlide.bind(this, 1))
     },
 
     methods: {
-      moveLine(time) {
-        if (!this.startMove) this.startMove = time
-        let progress = time - this.startMove
-        // if ()
+      changeSlide(step) {
+        this.prevSlide()
+        this.indexControl(step)
+        this.nextSlide()
+      },
+
+      indexControl(step) {
+        if (this.index + step > this.slides.length - 1) {
+          this.index = 0
+        } else if (this.index + step < 0) {
+          this.index = this.slides.length - 1
+        } else {
+          this.index += step
+        }
+      },
+
+      nextSlide() {
+        const next = this.index + 1 > this.slides.length - 1 ? 0 : this.index + 1
+        this.slides[this.index].active = true
+        this.slides[this.index].next = false
+        this.slides[next].next = true
+      },
+
+      prevSlide() {
+        const prev = this.index - 1 >= 0 ? this.index - 1 : this.slides.length - 1
+        this.slides[prev].prev = false
+        this.slides[this.index].active = false
+        this.slides[this.index].prev = true
       }
     },
 
-    computed: {
-      slideWidth() {
-        return this.$refs.slides[0].getBoundingClientRect().width
-      }
-    }
+    computed: {}
   }
 </script>
 
@@ -136,27 +154,26 @@
   }
 
   .slides {
-    width: 100%;
+    width: 33%;
     height: 100%;
     position: absolute;
     left: 0;
-    transform: translateX(-100%);
+    z-index: 0;
     transition: transform .4s ease-in-out;
 
-    &:nth-child(2) {
-      left: 100%;
+    &-active {
+      z-index: 10;
+      transform: translateX(100%);
     }
 
-    &:nth-child(3) {
-      left: 200%;
+    &-next {
+      transform: translateX(200%);
+      z-index: 10;
     }
 
-    &:nth-child(4) {
-      left: 300%;
-    }
-
-    &:nth-child(5) {
-      left: 400%;
+    &-prev {
+      transform: translateX(0%);
+      z-index: 10;
     }
 
     &::after {
@@ -175,7 +192,6 @@
       object-fit: cover;
     }
   }
-
 </style>
 
 

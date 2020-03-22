@@ -6,7 +6,7 @@ export default {
   install(Vue) {
     const notify = params => {
       if (!params.type || !params.message) {
-        throw (`Notification params not valid`)
+        throw (`Notification params object is not valid`)
       }
       if (!params.duration) {
         params.duration = 5000
