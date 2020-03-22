@@ -2,7 +2,7 @@
   <nav class='nav-block'>
     <div class="nav-block__menu">
       <ul
-        v-for='it in menuItems'
+        v-for='it in groups'
         :key="it.name"
         class="nav-block__item"
         @mouseover="it.sub = true"
