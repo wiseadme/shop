@@ -8,7 +8,9 @@
         v-for="slide in slides"
         :key="slide.img"
         ref="slides"
-        :class="['slides', {'slides-prev': slide.prev, 'slides-next': slide.next, 'slides-active': slide.active}]"
+        :class="['slides',
+        {'slides-prev': slide.prev, 'slides-next': slide.next, 'slides-active': slide.active, 'slides-move': slide.move}
+        ]"
       >
         <img
           :src="`/img/slider/${slide.img}`"
@@ -27,111 +29,117 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      play: {
-        type: Boolean
-      }
-    },
+  import {debounce} from '@/utils'
 
-    data() {
-      return {
-        slides: [
-          {
-            img: 'slide-2.jpg',
-            title: 'center',
-            text: 'something just a simple text',
-            active: true,
-            next: false,
-            prev: false,
-            move: false
-          },
-          {
-            img: 'slide-1.jpg',
-            title: 'center',
-            text: 'something just a simple text',
-            active: false,
-            next: true,
-            prev: false,
-            move: false
-          },
-          {
-            img: 'slide-3.jpg',
-            title: 'center',
-            text: 'something just a simple text',
-            active: false,
-            next: false,
-            prev: false,
-            move: false
-          },
-          {
-            img: 'slide-4.jpg',
-            title: 'center',
-            text: 'something just a simple text',
-            active: false,
-            next: false,
-            prev: false,
-            move: false
-          },
-          {
-            img: 'slide-5.jpg',
-            title: 'center',
-            text: 'something just a simple text',
-            active: false,
-            next: false,
-            prev: true,
-            move: false
-          },
-        ],
-        transitionOn: false,
-        index: 0,
-        amount: 5,
-        outerIndex: 0,
-        currentTranslate: [],
-        startMove: null,
-        movedLeft: 0,
-        speed: 10,
-      }
-    },
+	export default {
+		props: {
+			play: {
+				type: Boolean
+			}
+		},
 
-    mounted() {
-      document.addEventListener('click', this.changeSlide.bind(this, 1))
-    },
+		data() {
+			return {
+				slides: [
+					{
+						img: 'slide-2.jpg',
+						title: 'center',
+						text: 'something just a simple text',
+						active: true,
+						next: false,
+						prev: false,
+						move: false
+					},
+					{
+						img: 'slide-1.jpg',
+						title: 'center',
+						text: 'something just a simple text',
+						active: false,
+						next: true,
+						prev: false,
+						move: false
+					},
+					{
+						img: 'slide-3.jpg',
+						title: 'center',
+						text: 'something just a simple text',
+						active: false,
+						next: false,
+						prev: false,
+						move: false
+					},
+					{
+						img: 'slide-4.jpg',
+						title: 'center',
+						text: 'something just a simple text',
+						active: false,
+						next: false,
+						prev: false,
+						move: false
+					},
+					{
+						img: 'slide-5.jpg',
+						title: 'center',
+						text: 'something just a simple text',
+						active: false,
+						next: false,
+						prev: true,
+						move: false
+					},
+				],
+				transitionOn: false,
+				index: 0,
+				amount: 5,
+				outerIndex: 0,
+				currentTranslate: [],
+				startMove: null,
+				movedLeft: 0,
+				speed: 10,
+			}
+		},
 
-    methods: {
-      changeSlide(step) {
-        this.prevSlide()
-        this.indexControl(step)
-        this.nextSlide()
-      },
+    created() {
+			this.changeSlide = debounce(this.changeSlide, 300)
+		},
 
-      indexControl(step) {
-        if (this.index + step > this.slides.length - 1) {
-          this.index = 0
-        } else if (this.index + step < 0) {
-          this.index = this.slides.length - 1
-        } else {
-          this.index += step
-        }
-      },
+		mounted() {
+			document.addEventListener('click', this.changeSlide.bind(this, 1))
+		},
 
-      nextSlide() {
-        const next = this.index + 1 > this.slides.length - 1 ? 0 : this.index + 1
-        this.slides[this.index].active = true
-        this.slides[this.index].next = false
-        this.slides[next].next = true
-      },
+		methods: {
+			changeSlide(step) {
+				this.prevSlide()
+				this.indexControl(step)
+				this.nextSlide()
+			},
 
-      prevSlide() {
-        const prev = this.index - 1 >= 0 ? this.index - 1 : this.slides.length - 1
-        this.slides[prev].prev = false
-        this.slides[this.index].active = false
-        this.slides[this.index].prev = true
-      }
-    },
+			indexControl(step) {
+				if (this.index + step > this.slides.length - 1) {
+					this.index = 0
+				} else if (this.index + step < 0) {
+					this.index = this.slides.length - 1
+				} else {
+					this.index += step
+				}
+			},
 
-    computed: {}
-  }
+			nextSlide() {
+				const next = this.index + 1 > this.slides.length - 1 ? 0 : this.index + 1
+				this.slides[this.index].active = true
+				this.slides[this.index].next = false
+				this.slides[next].next = true
+			},
+
+			prevSlide() {
+				const prev = this.index - 1 >= 0 ? this.index - 1 : this.slides.length - 1
+				this.slides[prev].prev = false
+				this.slides[this.index].active = false
+				this.slides[this.index].prev = true
+			}
+		},
+
+		computed: {}
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -159,21 +167,29 @@
     position: absolute;
     left: 0;
     z-index: 0;
-    transition: transform .4s ease-in-out;
+
 
     &-active {
       z-index: 10;
-      transform: translateX(0%);
+      transform: translateX(0);
+      transition: all .3s linear;
     }
 
     &-next {
-      transform: translateX(100%);
       z-index: 9;
+      transform: translateX(100%);
+      transition: all .3s linear;
     }
 
     &-prev {
-      transform: translateX(-100%);
       z-index: 9;
+      transform: translateX(-100%);
+      transition: all .3s linear;
+    }
+
+    &-move {
+      transform: translateX(-100%);
+      transition: transform 3s ease-in-out;
     }
 
     &::after {
