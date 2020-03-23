@@ -99,7 +99,7 @@
 		},
 
     created() {
-			this.changeSlide = debounce(this.changeSlide, 300)
+			this.changeSlide = debounce(this.changeSlide, 500)
 		},
 
 		mounted() {
@@ -172,19 +172,19 @@
     &-active {
       z-index: 10;
       transform: translateX(0);
-      transition: all .3s linear;
+      transition: all .5s ease-in-out;
     }
 
     &-next {
       z-index: 9;
       transform: translateX(100%);
-      transition: all .3s linear;
+      transition: all .5s ease-in-out;
     }
 
     &-prev {
       z-index: 9;
       transform: translateX(-100%);
-      transition: all .3s linear;
+      transition: all .5s ease-in-out;
     }
 
     &-move {
