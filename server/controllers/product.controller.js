@@ -60,22 +60,16 @@ async function getProductItem(req, res) {
 
 async function updateProducts(req, res) {
   const body = req.body
-  const $set = {}
+  let $set = {}
   const updates = []
   body.forEach(it => {
-    Object.keys(it).forEach(t => {
-      if (t !== 'category') {
-        $set[t] = it[t]
-      } else {
-        $set[t] = it[t].id
-      }
-    })
+		$set = it
+		it.category ? $set.category = it.category.id : false
     Product.findOneAndUpdate({
       _id: it._id
     }, { $set }, { new: true })
       .then(pr => {
         updates.push(pr)
-        console.log(updates)
       })
   })
   try {
