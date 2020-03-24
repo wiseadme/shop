@@ -29,117 +29,112 @@
 </template>
 
 <script>
-  import {debounce} from '@/utils'
+  import { debounce } from '@/utils'
 
-	export default {
-		props: {
-			play: {
-				type: Boolean
-			}
-		},
+  export default {
+    props: {
+      play: {
+        type: Boolean
+      }
+    },
 
-		data() {
-			return {
-				slides: [
-					{
-						img: 'slide-2.jpg',
-						title: 'center',
-						text: 'something just a simple text',
-						active: true,
-						next: false,
-						prev: false,
-						move: false
-					},
-					{
-						img: 'slide-1.jpg',
-						title: 'center',
-						text: 'something just a simple text',
-						active: false,
-						next: true,
-						prev: false,
-						move: false
-					},
-					{
-						img: 'slide-3.jpg',
-						title: 'center',
-						text: 'something just a simple text',
-						active: false,
-						next: false,
-						prev: false,
-						move: false
-					},
-					{
-						img: 'slide-4.jpg',
-						title: 'center',
-						text: 'something just a simple text',
-						active: false,
-						next: false,
-						prev: false,
-						move: false
-					},
-					{
-						img: 'slide-5.jpg',
-						title: 'center',
-						text: 'something just a simple text',
-						active: false,
-						next: false,
-						prev: true,
-						move: false
-					},
-				],
-				transitionOn: false,
-				index: 0,
-				amount: 5,
-				outerIndex: 0,
-				currentTranslate: [],
-				startMove: null,
-				movedLeft: 0,
-				speed: 10,
-			}
-		},
+    data() {
+      return {
+        slides: [
+          {
+            img: 'slide-2.jpg',
+            title: 'center',
+            text: 'something just a simple text',
+            active: true,
+            next: false,
+            prev: false,
+          },
+          {
+            img: 'slide-1.jpg',
+            title: 'center',
+            text: 'something just a simple text',
+            active: false,
+            next: true,
+            prev: false,
+          },
+          {
+            img: 'slide-3.jpg',
+            title: 'center',
+            text: 'something just a simple text',
+            active: false,
+            next: false,
+            prev: false,
+          },
+          {
+            img: 'slide-4.jpg',
+            title: 'center',
+            text: 'something just a simple text',
+            active: false,
+            next: false,
+            prev: false
+          },
+          {
+            img: 'slide-5.jpg',
+            title: 'center',
+            text: 'something just a simple text',
+            active: false,
+            next: false,
+            prev: true
+          },
+        ],
+        transitionOn: false,
+        index: 0,
+        amount: 5,
+        outerIndex: 0,
+        currentTranslate: [],
+        startMove: null,
+        movedLeft: 0,
+        speed: 10,
+      }
+    },
 
     created() {
-			this.changeSlide = debounce(this.changeSlide, 500)
-		},
+      this.changeSlide = debounce(this.changeSlide, 500)
+    },
 
-		mounted() {
-			document.addEventListener('click', this.changeSlide.bind(this, 1))
-		},
+    mounted() {
+      document.addEventListener('click', this.changeSlide.bind(this, 1))
+    },
 
-		methods: {
-			changeSlide(step) {
-				this.prevSlide()
-				this.indexControl(step)
-				this.nextSlide()
-			},
+    methods: {
+      changeSlide(step) {
+        this.prevSlide()
+        this.indexControl(step)
+        this.nextSlide()
+      },
 
-			indexControl(step) {
-				if (this.index + step > this.slides.length - 1) {
-					this.index = 0
-				} else if (this.index + step < 0) {
-					this.index = this.slides.length - 1
-				} else {
-					this.index += step
-				}
-			},
+      indexControl(step) {
+        if (this.index + step > this.slides.length - 1) {
+          this.index = 0
+        } else if (this.index + step < 0) {
+          this.index = this.slides.length - 1
+        } else {
+          this.index += step
+        }
+      },
 
-			nextSlide() {
-				const next = this.index + 1 > this.slides.length - 1 ? 0 : this.index + 1
-				this.slides[this.index].active = true
-				this.slides[this.index].next = false
-				this.slides[next].next = true
-			},
+      nextSlide() {
+        const next = this.index + 1 > this.slides.length - 1 ? 0 : this.index + 1
+        this.slides[this.index].active = true
+        this.slides[this.index].next = false
+        this.slides[next].next = true
+      },
 
-			prevSlide() {
-				const prev = this.index - 1 >= 0 ? this.index - 1 : this.slides.length - 1
-				this.slides[prev].prev = false
-				this.slides[this.index].active = false
-				this.slides[this.index].prev = true
-			}
-		},
+      prevSlide() {
+        const prev = this.index - 1 >= 0 ? this.index - 1 : this.slides.length - 1
+        this.slides[prev].prev = false
+        this.slides[this.index].active = false
+        this.slides[this.index].prev = true
+      }
+    },
 
-		computed: {}
-	}
+    computed: {}
+  }
 </script>
 
 <style lang="scss" scoped>

@@ -18,7 +18,7 @@ async function createProduct(req, res) {
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     url: url,
-    slides: parsed.slides.map(f => `${url}/${f}`),
+    slides: parsed.slides.map(f => `${ url }/${ f }`),
     name: parsed.name,
     head: parsed.head,
     quantity: parsed.quantity,
@@ -51,7 +51,6 @@ async function getProducts(req, res) {
 async function getProductItem(req, res) {
   try {
     const item = await Product.findOne({ url: req.body.url })
-    console.log(item)
     res.status(200).json(item)
   } catch (err) {
     errorHandler(res, err)
@@ -63,8 +62,8 @@ async function updateProducts(req, res) {
   let $set = {}
   const updates = []
   body.forEach(it => {
-		$set = it
-		it.category ? $set.category = it.category.id : false
+    $set = it
+    it.category ? $set.category = it.category.id : false
     Product.findOneAndUpdate({
       _id: it._id
     }, { $set }, { new: true })
@@ -77,14 +76,13 @@ async function updateProducts(req, res) {
   } catch (err) {
     errorHandler(res, err)
   }
-
 }
 
 async function deleteProducts(req, res) {
   const products = req.body
   const deleted = []
   products.forEach(pr => {
-    const dir = path.join(__dirname, `../uploads/${pr.url}`)
+    const dir = path.join(__dirname, `../uploads/${ pr.url }`)
     fs.remove(dir)
       .then(() => console.log('directory deleted'))
       .catch(err => console.log(err, 'ne udalil'))
