@@ -73,6 +73,7 @@
     height: calc(100vh - 60px);
     background: $darkBlue;
     transition: .2s all;
+    box-shadow: $boxShadowLite;
 
     &-wide-mode {
       width: 250px;

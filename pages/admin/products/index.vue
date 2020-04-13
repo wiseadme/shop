@@ -55,10 +55,10 @@
 
     methods: {
       ...mapActions({
-        createProduct: `DataModule/${action.CREATE_PRODUCT}`,
-        fetchAllProducts: `DataModule/${action.GET_ALL_PRODUCTS}`,
-        updateProducts: `DataModule/${action.UPDATE_PRODUCTS}`,
-        deleteProducts: `DataModule/${action.DELETE_PRODUCTS}`
+        createProduct: `DataModule/${ action.CREATE_PRODUCT }`,
+        fetchAllProducts: `DataModule/${ action.GET_ALL_PRODUCTS }`,
+        updateProducts: `DataModule/${ action.UPDATE_PRODUCTS }`,
+        deleteProducts: `DataModule/${ action.DELETE_PRODUCTS }`
       }),
 
       updateProductRows(products) {
@@ -75,7 +75,11 @@
       reloadProducts() {
         this.rows = null
         this.fetchAllProducts()
-          .then(rows => setTimeout(() => this.rows = rows, 500))
+          .then(rows => {
+            setTimeout(() => {
+              this.rows = rows
+            }, 500)
+          })
           .then(data => {
             this.$notify({
               type: 'success',

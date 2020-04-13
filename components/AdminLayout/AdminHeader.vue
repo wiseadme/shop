@@ -17,6 +17,7 @@
   .header{
     width: 100%;
     height: 60px;
-    background: $darkBlue;
+    background: $blueHard;
+    box-shadow: $boxShadowLite;
   }
 </style>

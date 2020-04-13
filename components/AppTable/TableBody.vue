@@ -1,12 +1,16 @@
 <template>
   <div class="table-body">
-    <div v-for="(row, i) in rows" :key="row.name + row._id">
+    <template v-for="(row, i) in rows">
       <div
+        :key="row.name + i"
         :class="['table-body__row', {checked: row.checked}]"
         @dblclick="checkRow(row)"
       >
         <div :class="['table-body__row-check', {'edit-mode': row.edit}]">
-          <v-checkbox @checked="$emit('checked', row)" :is-checked="row.checked || checkAll"/>
+          <v-checkbox
+            @checked="$emit('checked', row)"
+            :is-checked="row.checked || checkAll"
+          />
         </div>
         <template v-for="(col, j) of cols">
           <div
@@ -39,6 +43,7 @@
               @focus="focusHandler(row, col)"
               @input="inputHandler($event, row, col)"
             >
+            <span v-else>{{ row[col.key] }}</span>
             <template v-if="row[col.key] && row[col.key].name && row[col.key].sub">
               <div class="selects-wrap">
                 <span
@@ -54,7 +59,7 @@
           </div>
         </template>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
@@ -75,13 +80,11 @@
         type: Object
       }
     },
-
     data() {
       return {
         rowsOnTable: null
       }
     },
-
     filters: {
       extractValue(val) {
         const type = Object.prototype.toString.call(val).slice(8, -1)
@@ -91,18 +94,15 @@
         return val
       }
     },
-
     methods: {
       checkRow(row) {
         this.$emit('check-row', row)
       },
-
       focusHandler(row, col) {
         if (col.fieldType === 'select' && !row[col.key].sub) {
           this.$set(row[col.key], 'sub', true)
         }
       },
-
       blurHandler($event, row, col) {
         if (col.fieldType === 'select') {
           row[col.key].sub = false
@@ -117,32 +117,24 @@
         }
         row.changed = true
       },
-
       inputHandler(ev, row, col) {
         if (col.fieldType === 'select') {
           ev.target.value = row[col.key].name
         }
       },
-
       selectItem(row, key, newValue) {
         this.$set(row, key, newValue)
-      },
-
-      checkType(forCheck) {
-        return Object.prototype.toString.call(forCheck).slice(8, -1)
       }
     },
-
     computed: {}
   }
 </script>
 
 <style lang="scss">
   .table-body {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    width: auto;
+    height: auto;
+    @include flexAlign(flex-start, flex-start, column);
 
     &__row {
       display: inline-flex;
@@ -154,7 +146,7 @@
       cursor: pointer;
 
       &:hover {
-        background: $grey;
+        background: #d5d5d5;
       }
 
       &:hover .table-body__cell {
@@ -169,7 +161,7 @@
         width: 40px;
         height: 100%;
         @include flexAlign(center, center);
-        border-right: 1px solid #ecedf1;
+        border-right: 1px solid #f4f5f9;
       }
     }
 
@@ -177,7 +169,6 @@
       display: inline-flex;
       align-items: center;
       position: relative;
-      padding: 0 5px;
       height: 100%;
       transition: color .2s;
       border-right: 1px solid #ecedf1;
@@ -185,6 +176,7 @@
 
       &-text {
         width: 100%;
+        padding: 5px;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -198,6 +190,7 @@
         width: 100%;
         background: transparent;
         border-bottom: 1px solid $white;
+        padding: 5px;
         @include fontExo($white, 1em);
       }
     }
@@ -206,10 +199,11 @@
   .edit-mode {
     background: $blueLight;
     color: $white;
+    padding: 5px;
   }
 
   .checked {
-    background: $grey;
+    background: #f1f1f1;
   }
 
   .selects-wrap {

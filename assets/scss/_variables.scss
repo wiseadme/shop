@@ -6,6 +6,7 @@ $green: #23a051;
 $greenLight: #00d42b;
 $blue: #1d3fff;
 $blueLight: #00acff;
+$blueHard: #173389;
 $orange: #ff601e;
 $darkBlue: #040424;
 $darkGrey: #848c91;
@@ -13,20 +14,22 @@ $grey: #d8dce6;
 
 //shadows
 $boxShadow: 0 6px 7px -4px rgba(0, 0, 0, .2), 0 11px 15px 1px rgba(0, 0, 0, .14), 0 4px 20px 3px rgba(0, 0, 0, .12);
+$boxShadowLite: 0px 0px 6px 1px rgba(0, 0, 0, .4);
 
-  //border
+//border
 $border: 1px solid red;
 
-  //fonts
+//fonts
 $exo: 'Exo-Regular', sans-serif;
 
-  //sizes
+//sizes
 $col: 100% / 12;
 $colFix: 1300px / 12;
 $screenWidth: 1440px;
 
 $adminHeader: 60px;
-$adminAside: 60px;
+$asideWidth: 60px;
+$headerHeight: 60px;
 
 @media screen and(max-width: 1440px) {
   $col: 100% / 6;

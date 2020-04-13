@@ -6,10 +6,11 @@
         @checked="$emit('check-all')"
       />
     </div>
-    <template v-for="(col, i) of cols">
+    <template v-for="(col, i) in cols">
       <div
         v-if="col.checked"
         :key="col.key + i"
+        :ref="i"
         :style="{width: col.width}"
         :class="['table-header__item']"
       >
@@ -19,7 +20,11 @@
           :class="['material-icons', 'table-header__item-filter', {active: col.sorted}]"
           @click="$emit('sort-column', col)"
         >filter_list</i>
-        <span ref="resize" @mousedown="onMouseDown($event, col)" class="table-header__resize"></span>
+        <span
+          v-if="col.key !== 'number'"
+          @mousedown="onMouseDown($event, col, i)"
+          class="table-header__resize"
+        ></span>
       </div>
     </template>
   </div>
@@ -38,8 +43,11 @@
 
     data() {
       return {
-        clientX: null,
-        clientY: null,
+        resizeTarget: null,
+        resizeCol: null,
+        resizeOffset: 3,
+        minWidth: 50,
+        diff: null,
         pred: 0
       }
     },
@@ -47,19 +55,39 @@
 
     },
     methods: {
-      onMouseDown($event, col) {
-        document.addEventListener('mousemove', this.resizeCol.bind(this, $event, col))
-        document.addEventListener('mouseup', this.onMouseUp)
+      onMouseDown($event, col, i) {
+        this.resizeTarget = i
+        this.resizeCol = col
+        document.addEventListener('mousemove', this.resizeAction)
+        document.addEventListener('mouseup', this.removeListener)
+        document.addEventListener('selectstart', this.disableSelection)
       },
 
-      onMouseUp() {
-        document.removeEventListener('mousemove', this.resizeCol)
+      disableSelection(e) {
+        e.preventDefault()
       },
 
-      resizeCol(e, col) {
-        this.clientX < e.clientX ? this.pred = -1 : this.pred = 1
-        col.width = (parseFloat(col.width) + this.pred) + 'px'
-        this.clientX = e.clientX
+      calculatePosition(e) {
+        const width = this.$refs[this.resizeTarget][0].offsetWidth
+        const offLeft = this.$refs[this.resizeTarget][0].offsetLeft
+        if (!this.diff) {
+          this.diff = e.clientX - (width + offLeft) - this.resizeOffset
+        }
+        return (e.clientX - offLeft) - this.diff
+      },
+
+      resizeAction(e) {
+        const width = this.calculatePosition(e)
+        if (width < this.minWidth) return
+        this.resizeCol.width = width + 'px'
+      },
+
+      removeListener() {
+        this.diff = null
+        document.removeEventListener('mousemove', this.resizeAction)
+        document.removeEventListener('mousemove', this.removeListener)
+        document.removeEventListener('mouseup', this.removeListener)
+        document.removeEventListener('selectstart', this.disableSelection)
       }
     }
   }
@@ -67,14 +95,15 @@
 
 <style lang="scss">
   .table-header {
-    min-width: calc(100vw - 60px);
+    min-width: calc(100vw - #{$asideWidth});
     height: 52px;
     display: inline-flex;
     justify-content: flex-start;
     position: sticky;
-    background: $darkGrey;
+    background: #efefef;
     top: 0;
     z-index: 9;
+    box-shadow: $boxShadowLite;
 
     &__resize {
       display: block;
@@ -85,19 +114,23 @@
       top: 0;
       right: 0;
       z-index: 20;
+      border-radius: 3px;
+      background: #848c91;
+      opacity: .08;
     }
 
     &__item {
       position: relative;
-      border-right: 1px solid $white;
+      border-right: 1px solid #d5d5d5;
       padding: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $darkGrey;
+      background: #efefef;
+      overflow: hidden;
 
       &-name {
-        @include fontExo($white, 15px);
+        @include fontExo($darkBlue, 13px);
         text-align: center;
         width: 180px;
       }
@@ -108,8 +141,8 @@
 
       &-filter {
         position: absolute;
-        right: 5px;
-        color: $white;
+        right: 8px;
+        color: $blue;
         cursor: pointer;
       }
 
@@ -122,7 +155,7 @@
       width: 40px;
       height: 100%;
       @include flexAlign(center, center);
-      border-right: 1px solid #ecedf1;
+      border-right: .5px solid #d5d5d5;
 
       .v-checkbox__icon {
         color: $white;

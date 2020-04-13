@@ -47,7 +47,7 @@
 <style lang="scss">
   .admin-routes {
     position: absolute;
-    left: $adminAside;
+    left: $asideWidth;
     top: $adminHeader;
     height: calc(100vh - 60px);
     width: calc(100% - 60px);

@@ -106,7 +106,7 @@
           </div>
         </div>
       </v-modal>
-      <v-modal v-if="showWarningModal">
+      <v-modal v-if="showWarningModal || showDangerModal">
         <h2 slot="header">Внимание</h2>
         <div slot="body" class="warning-message">
           <div class="msg-wrap">
@@ -116,20 +116,6 @@
         <div slot="footer" class="buttons-wrap">
           <div class="form-btn">
             <v-button @click="discardAllDiffs" text="продолжить" type="success"/>
-          </div>
-          <div class="form-btn">
-            <v-button @click="closeWarningModal" text="отмена" type="warning"/>
-          </div>
-        </div>
-      </v-modal>
-      <v-modal v-if="showDangerModal" type="danger">
-        <h2 slot="header">Внимание</h2>
-        <div slot="body" class="warning-message">
-          <span>Все несохраненные данные будут потеряны. Вы уверены что хотите продолжить?</span>
-        </div>
-        <div slot="footer" class="buttons-wrap">
-          <div class="form-btn">
-            <v-button @click="discardAllDiffs" text="удалить" type="danger"/>
           </div>
           <div class="form-btn">
             <v-button @click="closeWarningModal" text="отмена" type="warning"/>
@@ -311,7 +297,7 @@
         setTimeout(() => {
           this.discardChanges = false
           this.showWarningModal = false
-        }, 0)
+        })
       },
 
       extractDiffKeys(row) {
@@ -422,22 +408,24 @@
 </script>
 
 <style lang="scss">
+  $toolbarHeight: 60px;
+
   .table {
-    margin: 0 auto;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 
     &-inner {
-      width: 100%;
-      height: calc(100% - 60px);
+      width: calc(100vw - #{$asideWidth});
+      height: calc(100vh - (#{$headerHeight + $toolbarHeight}));
       overflow: auto;
     }
   }
 
   .preloader-wrap {
-    width: 100%;
-    height: calc(100% - 60px);
     @include flexAlign(center, center);
+    width: 100%;
+    height: calc(100% - 52px);
     position: sticky;
     left: 0;
   }
