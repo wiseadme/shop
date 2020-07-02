@@ -348,7 +348,8 @@
       createRowItem() {
         this.showAddModal = true
         Object.keys(this.colsOnCreate).forEach(col => {
-          if (col && col.key) {
+          if (col && this.colsOnCreate[col].key) {
+          console.log(col);
             this.$set(this.actualModal.add, col.key, '')
           }
         })

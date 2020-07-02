@@ -20,7 +20,7 @@
 
     head() {
       return {
-        title: this.item.name,
+        title: this.item.name.trim(),
         meta: [
           { hid: 'description', name: 'description', content: this.item.text },
           { hid: 'description', name: 'description', content: 'My custom description' },

@@ -152,9 +152,13 @@
     }
 
     &__check {
+      @include flexAlign(center, center);
+      position: sticky;
+      left: 0;
+      align-self: flex-start;
       width: 40px;
       height: 100%;
-      @include flexAlign(center, center);
+      background: #efefef;
       border-right: .5px solid #d5d5d5;
 
       .v-checkbox__icon {

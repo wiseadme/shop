@@ -5,17 +5,18 @@ const transliter = require('../utils/transliter.js')
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
+    console.log(req.body)
     let dirName = req.body.head.toLowerCase()
     let dir = transliter(dirName)
-    fs.mkdir(`server/uploads/${dir}`, (err) => {
+    fs.mkdir(`server/uploads/${ dir }`, (err) => {
       if (err) {
-        return cb(null, path.resolve() + `/server/uploads/${dir}`)
+        return cb(null, path.resolve() + `/server/uploads/${ dir }`)
       }
-      cb(null, path.resolve() + `/server/uploads/${dir}`)
+      cb(null, path.resolve() + `/server/uploads/${ dir }`)
     })
   },
   filename(req, file, cb) {
-    cb(null, `${file.originalname}`)
+    cb(null, `${ file.originalname }`)
   }
 })
 

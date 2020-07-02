@@ -158,10 +158,14 @@
       }
 
       &-check {
+        @include flexAlign(center, center);
+        position: sticky;
+        left: 0;
+        z-index: 5;
         width: 40px;
         height: 100%;
-        @include flexAlign(center, center);
-        border-right: 1px solid #f4f5f9;
+        background: $white;
+        border-right: 1px solid #ecedf1;
       }
     }
 
