@@ -13,8 +13,7 @@ async function createProduct(req, res) {
     parsed[key] = JSON.parse(req.body[key])
   })
 
-  let url = transliter(parsed.head)
-  url = url.toLowerCase()
+  let url = transliter(parsed.head).toLowerCase()
   const product = new Product({
     _id: new mongoose.Types.ObjectId(),
     url: url,
@@ -59,17 +58,15 @@ async function getProductItem(req, res) {
 
 async function updateProducts(req, res) {
   const body = req.body
+  // let url = transliter(parsed.head).toLowerCase()
   let $set = {}
   const updates = []
   body.forEach(it => {
     $set = it
     it.category ? $set.category = it.category.id : false
-    Product.findOneAndUpdate({
+    updates.push(Product.findOneAndUpdate({
       _id: it._id
-    }, { $set }, { new: true })
-      .then(pr => {
-        updates.push(pr)
-      })
+    }, { $set }, { new: true }))
   })
   try {
     await Promise.all(updates).then(pr => res.status(201).json(pr))
@@ -85,8 +82,8 @@ async function deleteProducts(req, res) {
     const dir = path.join(__dirname, `../uploads/${ pr.url }`)
     fs.remove(dir)
       .then(() => console.log('directory deleted'))
-      .catch(err => console.log(err, 'ne udalil'))
-    deleted.push(Product.deleteOne({ _id: pr._id }))
+      .then(() => deleted.push(Product.deleteOne({ _id: pr._id })))
+      .catch(err => console.log(err, 'sorry, directory cannot be deleted'))
   })
   try {
     await Promise.all(deleted).then(ctg => res.status(201).json({ deleted: true }))

@@ -42,12 +42,11 @@ async function updateCategories(req, res) {
         $set[t] = it[t]
       }
     })
-    Category.findOneAndUpdate(
+    updates.push(Category.findOneAndUpdate(
       { _id: it._id },
       { $set },
       { new: true }
-      )
-      .then(ctg => updates.push(ctg))
+    ))
   })
   try {
     await Promise.all(updates).then(ctg => res.status(201).json(ctg))
